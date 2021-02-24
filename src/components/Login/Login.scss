@@ -1,0 +1,193 @@
+#login{
+    // border: solid blue 2px;
+    box-shadow: 0 0 5px  rgba(0,0,0,0.4);
+    border-bottom-right-radius:3px;
+    border-bottom-left-radius:3px;
+    width: 428px;
+    margin: 0px auto;
+    // height: 450px;
+    background-color: #ECECEC;
+    padding: 2rem;
+    #header{
+        -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+        -ms-user-select: none;      /* IE 10+ */
+        user-select: none;          /* Likely future */    
+        display: flex;
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-bottom: 20px;
+        #logo{
+            height: 60px;
+            margin-top: -10px;
+            object-fit: contain;
+        }
+
+        #text{
+            font-size: 30px;
+            font-weight: 600;
+            padding-left: 10px;
+        }
+    }
+
+    #option{
+        -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+        -ms-user-select: none;      /* IE 10+ */
+        user-select: none;          /* Likely future */    
+        display: flex;
+        border-bottom: solid rgba(177, 170, 170, 0.89) 2px;
+        div{
+            // border: solid red 2px;
+            width: 55px;
+            height: 28px;
+            font-weight: 600;
+            margin-right: 10px;
+            
+            margin-bottom: -2px;
+
+            &#highlight{
+                color: #15C4B2;
+                z-index: 100;
+                border-bottom: solid #15C4B2 2px;
+            }
+        }
+    }
+
+    #content_1{
+        #text{
+            height: 125px;
+            // border: solid red 2px;
+            // padding: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            #input_1{
+                width: 395px;
+            }
+        }
+        #trouble{
+            width: 395px;
+            // border: solid red 2px;
+            margin: 0px auto;
+            text-align: left;
+            font-size: 13px;
+            
+        }
+        #login-button{
+            width: 428px;
+            height: 30px;
+            margin-top: 10px;
+            font-family: 'Baloo 2';
+        }
+        #seperator{
+            display: flex;
+            height: 26px;
+            #or{
+                z-index: 500;
+                width: 20px;
+                margin: 0px auto;
+            }
+            #dash{
+                width: 200px;
+                border-bottom: solid rgba(177, 170, 170, 0.89) 2px;
+                margin-bottom: 12px;
+            } 
+        }
+        #Oauth{
+            // border: solid red 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 430px;
+            height: 30px;
+            margin: 0px auto;
+
+            #google{
+                width: 200px;
+                margin-right: 14px;
+                background-color: #DD4B39;
+                font-family: 'Baloo 2';
+
+            }
+            #fb{
+                width: 200px;
+                margin-left: 14px;
+                background-color: #4064AC;
+                font-family: 'Baloo 2';
+            }
+        }
+    }
+    #content_2{
+        // border: solid red 2px;
+        
+       
+        #text{
+            height: 230px;
+            // border: solid red 2px;
+            // padding: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            #name{
+                // border: solid red 2px;
+                display: flex;
+                justify-content: space-between;
+            }
+            #input_1{
+                width: 395px;
+            }
+        }
+        #terms{
+            padding: 10px 10px;
+            // border: solid red 2px;
+            font-size: 14px;
+        }
+        #signup-button{
+            width: 428px;
+            height: 30px;
+            margin-top: 10px;
+            font-family: 'Baloo 2';
+        }
+        #seperator{
+            display: flex;
+            height: 26px;
+            #or{
+                z-index: 500;
+                width: 20px;
+                margin: 0px auto;
+            }
+            #dash{
+                width: 200px;
+                border-bottom: solid rgba(177, 170, 170, 0.89) 2px;
+                margin-bottom: 12px;
+            } 
+        }
+
+        #Oauth{
+            // border: solid red 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 430px;
+            height: 30px;
+            margin: 0px auto;
+
+            #google{
+                width: 200px;
+                margin-right: 14px;
+                background-color: #DD4B39;
+                font-family: 'Baloo 2';
+
+            }
+            #fb{
+                width: 200px;
+                margin-left: 14px;
+                background-color: #4064AC;
+                font-family: 'Baloo 2';
+            }
+        }
+    }
+}
