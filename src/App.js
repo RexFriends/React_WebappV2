@@ -13,7 +13,8 @@ import Landing from './components/Landing/Landing'
 import Login from './components/Login/Login'
 import NoMatch from './components/NoMatch/NoMatch'
 import Profile from './components/Profile/Profile'
-
+import AllProducts from './components/AllProducts/AllProducts'
+import Setting from './components/Setting/Setting'
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
               <Dashboard>
                 <Switch>
                   <Route exact path="/" children={<Landing/>}/>
+                  <Route path="/closets" children={<AllProducts/>}/>
+                  <Route path="/setting" children={<Setting/>}/>
                   <Route path="/closet/:id" children={<Closet/>}/>
                   <Route path="/user/:id" children={<Profile/>}/>
                   <Route path="*" children={ <NoMatch/>}/>
