@@ -9,7 +9,7 @@ let data = {
             id: 20,
             username: "Gigi_Hadid",
             name: "Yoga Gear",
-            color: "blue",
+            color: "#1F7C9D",
             item_count: 4,
             publish_time: 1614266044395,
             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/Gigi.png"
@@ -18,7 +18,7 @@ let data = {
             id: 21,
             username: "Kylie_Jenner",
             name: "Party Essentials",
-            color: "red",
+            color: "#1EC4B2",
             item_count: 12,
             publish_time: 1614266044395,
             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/Kylie.png"
@@ -27,16 +27,16 @@ let data = {
             id: 22,
             username: "Kanye_West",
             name: "Affordable Sweaters",
-            color: "green",
+            color: "#FECC77",
             item_count: 4,
             publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/Kanye.png"
+            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/Kanye2.png"
         },
         {
             id: 23,
             username: "Rex",
             name: "Curated Favorites",
-            color: "purple",
+            color: "#FD6C73",
             optional_note: "Check out the favorite products this season!",
             item_count: 4,
             publish_time: 1614266044395,

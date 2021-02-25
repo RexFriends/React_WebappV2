@@ -17,7 +17,8 @@
         justify-content: space-between;
         #popular-closets{
         flex-grow: 1;
-        // border: solid red 2px;
+
+        height: 450px;
         display: grid;
         grid-template-columns: 2fr 1fr 1.5fr 0;
         grid-template-rows: repeat(2, 1fr);
@@ -72,6 +73,7 @@
                 display: flex;
                 justify-content: flex-end;
                 #img{
+                
                     max-height: 233px;
                 }
                 #text{
@@ -101,7 +103,8 @@
                 flex-direction: column;
                 justify-content: flex-end;
                 #img{
-                    max-height: 500px;
+                    
+                    // max-height: 500px;
                 }
                 #text{
                     left: 10px;
@@ -139,16 +142,19 @@
                 flex-direction: column;
                 justify-content: center;
                 #img{
-                 
+               
                     max-height: 250px;
-                    padding-left: 200px;
+                    width: 100%;
                 }
                 #text{
                     height: 100%;
                     width: 100%;
                     text-align: center;
                     padding-top: 30px;
-                    padding-left: 30px;
+                    padding-left: 1.5vw;
+                    margin: auto;
+                    
+             
                     #user{
                         // border: solid white 2px;
                         font-size: calc(12px + 2.5vw);
@@ -165,18 +171,16 @@
                         position: relative;
                         font-weight: 700;
                         text-align: left;
-                       
+                        
                         width: 80%;
                         
                     }
                     #optional_note{
-                        margin-top: 150px;
-                        // border: solid white 2px;
+                        padding-top: calc(180px - 2.5vw);
                         font-size: calc(8px + 1.5vw);
                         line-height: calc(8px + 1.5vw);
                         font-weight: 400;
                         text-align: left;
-                        // padding-left: 20px;
                         width: 80%;
                         
                     }
