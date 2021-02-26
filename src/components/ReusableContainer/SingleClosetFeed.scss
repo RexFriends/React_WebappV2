@@ -1,0 +1,67 @@
+#closet{
+    // border: solid red 5px;
+    #text{
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: rgba(0, 0, 0, 0.05);
+        width: 400px;
+        text-align: left;
+        padding: 3px 0px;
+        #name{
+            // border: solid red 5px;
+            padding-left: 10px;
+            display: flex;
+            font-size: 25px;
+            color: rgb(65, 64, 64);
+            font-weight: 600;
+            #user{
+                padding-left: 10px;
+                font-weight: 400;
+            }
+            #closet{
+  
+                background-color: rgb(249, 252, 252);
+                margin-left: 10px;
+                height: 30px;
+                width: 30px;
+                margin: auto 0px auto 15px;
+                font-family: "Baloo 2";
+                box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+
+            }
+        }
+       
+    }
+    #display-case{
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        margin-bottom: 10px;
+        
+        #space{
+            border: solid rgba(255, 255, 255, 0) 2px;
+        }
+        &::-webkit-scrollbar {
+            width: 8px;
+            height: 14px;
+          }
+            &::-webkit-scrollbar-thumb {
+              height: 6px;
+              border: 4px solid rgba(0, 0, 0, 0);
+              background-clip: padding-box;
+              background-color: rgba(0, 0, 0, 0.15);
+          }
+          &::-webkit-scrollbar-button {
+              width: 0;
+              height: 0;
+              display: none;
+          }
+          &::-webkit-scrollbar-corner {
+              background-color: transparent;
+          }
+
+    }
+}

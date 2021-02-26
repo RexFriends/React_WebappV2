@@ -3,7 +3,7 @@ import './Landing.scss'
 import IconButton from '@material-ui/core/IconButton'
 import {BsCaretLeft, BsCaretRight} from 'react-icons/bs'
 import { useHistory } from "react-router-dom";
-import SingleClosetFeed from './SingleClosetFeed'
+import SingleClosetFeed from '../ReusableContainer/SingleClosetFeed'
 let data = {
     
     PopularClosets: [
@@ -48,6 +48,7 @@ let data = {
     RecommendedClosets: [
         {
             id: 24,
+            user_id: 1,
             username: "Rex",
             name: "Cozy Comforts",
             products: [
@@ -84,6 +85,7 @@ let data = {
         },
         {
             id: 25,
+            user_id: 1,
             username: "Rex",
             name: "Cozy Comforts Part 2",
             products: [
@@ -120,6 +122,7 @@ let data = {
         },
         {
             id: 24,
+            user_id: 1,
             username: "Rex",
             name: "Cozy Comforts",
             products: [
@@ -156,6 +159,7 @@ let data = {
         },
         {
             id: 25,
+            user_id: 1,
             username: "Rex",
             name: "Cozy Comforts Part 2",
             products: [
@@ -192,6 +196,7 @@ let data = {
         },
         {
             id: 24,
+            user_id: 1,
             username: "Rex",
             name: "Cozy Comforts",
             products: [
@@ -228,6 +233,7 @@ let data = {
         },
         {
             id: 25,
+            user_id: 1,
             username: "Rex",
             name: "Cozy Comforts Part 2",
             products: [
@@ -296,7 +302,7 @@ function Landing(){
                     {
                         data.PopularClosets.slice(closetIndex, 4).map(
                             (closet, i) => 
-                            <div className={`closet_${i+1} banner`} style={{backgroundColor: closet.color}} onClick={()=>handleGoToClost(closet.id)}>
+                            <div key={i} className={`closet_${i+1} banner`} style={{backgroundColor: closet.color}} onClick={()=>handleGoToClost(closet.id)}>
                                 <div id="text">
                                     <div id="user">{closet.username.replace("_", " ")}'s</div>
                                     <div id="name">{closet.name}</div>

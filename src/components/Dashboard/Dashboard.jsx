@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import './Dashboard.scss'
 import { useLocation, Link }from "react-router-dom"
 import {IoMail} from 'react-icons/io5'
-import {CgArrowTopLeftR} from 'react-icons/cg'
+// import {CgArrowTopLeftR} from 'react-icons/cg'
 import IconButton from '@material-ui/core/IconButton'
 import SearchBar from "material-ui-search-bar";
 import Badge from "@material-ui/core/Badge"
@@ -23,7 +23,7 @@ const StyledBadge = withStyles((theme) => ({
 
 
 function Dashboard({children}){
-    let location = useLocation()
+    // let location = useLocation()
     const [scrolled, scrolledSet] = useState(false)
     const [searchbar, searchbarSet] = useState("")
     const handleScroll = (e) => {

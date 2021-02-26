@@ -2,6 +2,10 @@ import React from 'react'
 import {useHistory} from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
 import {BiCloset} from 'react-icons/bi'
+import './SingleClosetFeed.scss'
+import SingleItemContainer from './SingleItemContainer'
+
+
 function SingleClosetFeed ({closet}){
     let history = useHistory();
     const handleClosetPage = () => {
@@ -21,12 +25,13 @@ function SingleClosetFeed ({closet}){
             <div id="display-case">
                 {closet.products.map(
                     (item, i ) =>
-                    <div key={i} id="product">
-                        <img src={item.url} id="image" alt="product_img" />
-                    </div>
+                    <SingleItemContainer i={i} item={item} key={i}/>
                 )}
-                <div id="product" className="select" onClick={handleClosetPage}>
+                <div id="product" className="select showmore" onClick={handleClosetPage}>
                     <img src="https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/injection-cart-nocheck.png" id="image"/>
+                </div>
+                <div id="space">
+           
                 </div>
             </div>
         </div>
