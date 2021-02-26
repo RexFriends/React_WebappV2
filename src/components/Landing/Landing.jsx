@@ -3,7 +3,9 @@ import './Landing.scss'
 import IconButton from '@material-ui/core/IconButton'
 import {BsCaretLeft, BsCaretRight} from 'react-icons/bs'
 import { useHistory } from "react-router-dom";
+import SingleClosetFeed from './SingleClosetFeed'
 let data = {
+    
     PopularClosets: [
         {
             id: 20,
@@ -51,12 +53,217 @@ let data = {
             products: [
                 {
                     id: 30,
-                    // url: 
-
-                }
+                    url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg"
+                },
+                {
+                    id: 31,
+                    url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
+                },
+                {
+                    id: 32,
+                    url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
+                },
+                {
+                    id: 33,
+                    url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
+                },
+                {
+                    id: 34,
+                    url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
+                },
+                {
+                    id: 35,
+                    url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
+                },
+                {
+                    id: 36,
+                    url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
+                },
+                
+            ],
+        },
+        {
+            id: 25,
+            username: "Rex",
+            name: "Cozy Comforts Part 2",
+            products: [
+                {
+                    id: 30,
+                    url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg"
+                },
+                {
+                    id: 31,
+                    url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
+                },
+                {
+                    id: 32,
+                    url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
+                },
+                {
+                    id: 33,
+                    url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
+                },
+                {
+                    id: 34,
+                    url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
+                },
+                {
+                    id: 35,
+                    url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
+                },
+                {
+                    id: 36,
+                    url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
+                },
+                
+            ],
+        },
+        {
+            id: 24,
+            username: "Rex",
+            name: "Cozy Comforts",
+            products: [
+                {
+                    id: 30,
+                    url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg"
+                },
+                {
+                    id: 31,
+                    url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
+                },
+                {
+                    id: 32,
+                    url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
+                },
+                {
+                    id: 33,
+                    url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
+                },
+                {
+                    id: 34,
+                    url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
+                },
+                {
+                    id: 35,
+                    url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
+                },
+                {
+                    id: 36,
+                    url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
+                },
+                
+            ],
+        },
+        {
+            id: 25,
+            username: "Rex",
+            name: "Cozy Comforts Part 2",
+            products: [
+                {
+                    id: 30,
+                    url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg"
+                },
+                {
+                    id: 31,
+                    url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
+                },
+                {
+                    id: 32,
+                    url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
+                },
+                {
+                    id: 33,
+                    url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
+                },
+                {
+                    id: 34,
+                    url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
+                },
+                {
+                    id: 35,
+                    url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
+                },
+                {
+                    id: 36,
+                    url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
+                },
+                
+            ],
+        },
+        {
+            id: 24,
+            username: "Rex",
+            name: "Cozy Comforts",
+            products: [
+                {
+                    id: 30,
+                    url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg"
+                },
+                {
+                    id: 31,
+                    url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
+                },
+                {
+                    id: 32,
+                    url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
+                },
+                {
+                    id: 33,
+                    url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
+                },
+                {
+                    id: 34,
+                    url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
+                },
+                {
+                    id: 35,
+                    url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
+                },
+                {
+                    id: 36,
+                    url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
+                },
+                
+            ],
+        },
+        {
+            id: 25,
+            username: "Rex",
+            name: "Cozy Comforts Part 2",
+            products: [
+                {
+                    id: 30,
+                    url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg"
+                },
+                {
+                    id: 31,
+                    url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
+                },
+                {
+                    id: 32,
+                    url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
+                },
+                {
+                    id: 33,
+                    url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
+                },
+                {
+                    id: 34,
+                    url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
+                },
+                {
+                    id: 35,
+                    url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
+                },
+                {
+                    id: 36,
+                    url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
+                },
+                
             ],
         }
     ]
+
 }
 
 function Landing(){
@@ -78,7 +285,7 @@ function Landing(){
 
     return(
         <div id="landing">
-            <div id="title">Popular Closets</div>
+            <div id="title">Most Popular Collection</div>
             <div id="top">
                 <div id="prev">
                     <IconButton id="button" onClick={handlePrev} disabled={closetIndex===0}>
@@ -110,15 +317,15 @@ function Landing(){
                 </div>
             </div>
             <div id="title">Recommended Closets</div>
-            <h2>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </h2>
+            <div id="recommended">
+            {
+                data.RecommendedClosets.map(
+                    (closet, i) => 
+                        <SingleClosetFeed closet={closet} key={i} />
+                    
+                )
+            }
+            </div>
         </div>
     )
 }
