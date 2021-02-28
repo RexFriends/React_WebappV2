@@ -8,19 +8,18 @@ import {BsThreeDotsVertical} from 'react-icons/bs'
 
 function ClosetBox ({closet, handleShowCloset, username, handleShowClosetMenu}){
     const [hover, hoverSet] = useState(false)
-    const [showClosetList, showClosetListSet] = useState(false)
 
     return(
         <motion.div id="closet-banner"  
             style={{backgroundColor: closet.color}} 
-            onClick={()=>handleShowCloset(closet.id)}
+          
             onMouseEnter={()=>hoverSet(true)}
             onMouseLeave={()=>hoverSet(false)}
         >
         {closet.closet_png &&
             <img src={closet.closet_png} alt="closet_img" id="img"/>
         }
-        <div id="description">
+        <div id="description"   onClick={()=>handleShowCloset(closet.id)}>
             <div id="user">{username}'s</div>
             <div id="name">{closet.name}</div>
         </div>

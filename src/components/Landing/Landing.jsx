@@ -310,7 +310,7 @@ function Landing(){
                                     <div id="optional_note">{closet.optional_note}</div>
                                     }
                                 </div>
-                                <img src={closet.closet_png} id="img"/>
+                                <img src={closet.closet_png} id="img" alt="closet"/>
                             </div>
                         )
                     }

@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton'
 import {BiCloset} from 'react-icons/bi'
 import './SingleClosetFeed.scss'
 import SingleItemContainer from './SingleItemContainer'
-
+import Scrollbars from "react-custom-scrollbars";
 
 function SingleClosetFeed ({closet}){
     let history = useHistory();
@@ -22,18 +22,21 @@ function SingleClosetFeed ({closet}){
                 </IconButton>
             </div>
             </div>
-            <div id="display-case">
-                {closet.products.map(
-                    (item, i ) =>
-                    <SingleItemContainer i={i} item={item} key={i}/>
-                )}
-                <div id="product" className="select showmore" onClick={handleClosetPage}>
-                    <img src="https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/injection-cart-nocheck.png" id="image"/>
+            <Scrollbars style={{width: "100%", height: "235px"}} id="scrollbar">
+                <div id="display-case">
+                
+                    {closet.products.map(
+                        (item, i ) =>
+                        <SingleItemContainer i={i} item={item} key={i}/>
+                    )}
+                    <div id="product" className="select showmore" onClick={handleClosetPage}>
+                        <img src="https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/injection-cart-nocheck.png" id="image" alt="nocheck"/>
+                    </div>
+                    <div id="space">
+            
+                    </div>
                 </div>
-                <div id="space">
-           
-                </div>
-            </div>
+            </Scrollbars>
         </div>
 
     )

@@ -7,7 +7,7 @@ import {BiArrowBack} from 'react-icons/bi'
 import Button from '@material-ui/core/Button'
 import {RiUserHeartFill, RiUser3Fill} from 'react-icons/ri'
 import ClosetBox from './ClosetBox'
-import {motion} from 'framer-motion'
+
 
 let data = {
     propic: "https://img.etimg.com/thumb/width-1200,height-900,imgsize-95316,resizemode-1,msid-81163729/markets/stocks/news/elon-musk-loses-15-billion-in-a-day-after-bitcoin-warning.jpg",
@@ -21,7 +21,7 @@ let data = {
         {
             id: 37,
             name: "Yoga Gear",
-            color: "blue",
+            color: "#1F7C9D",
             item_count: 4,
             publish_time: 1614266044395,
         
@@ -29,7 +29,7 @@ let data = {
         {
             id: 38,
             name: "Lounge Wear",
-            color: "#33E3FF",
+            color: "#1EC4B2",
             item_count: 6,
             publish_time: 1614266044395,
             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
@@ -37,7 +37,7 @@ let data = {
         {
             id: 39,
             name: "Meme Wear",
-            color: "red",
+            color: "#FECC77",
             item_count: 7,
             publish_time: 1614266044395,
             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
@@ -45,7 +45,7 @@ let data = {
         {
             id: 40,
             name: "PC Build",
-            color: "green",
+            color: "#FD6C73",
             item_count: 8,
             publish_time: 1614266044395,
             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
@@ -53,7 +53,7 @@ let data = {
         {
             id: 41,
             name: "Yummy Yummy Foods",
-            color: "purple",
+            color: "#1F7C9D",
             item_count: 12,
             publish_time: 1614266044395,
         }
@@ -73,7 +73,7 @@ function Profile(){
             user_id: data.user_id,
             new_follow_state: !following
         }
-        console.log("Change follow state to:", !following)
+        console.log("Change follow state to:", payload)
         followingSet(!following)
     }
 

@@ -1,0 +1,146 @@
+#allProducts{
+    border: solid red 2px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0px auto;
+    #title{
+        text-align: left;
+        width: 100%;
+        // border: solid red 2px;
+        color: rgb(114, 114, 114);
+        padding-left: 60px;
+        margin: 0 auto;
+        font-size: calc(16px + 1.2vw);
+        font-weight: 700;
+    }
+    #scrollbar{
+        margin: 0px auto ;
+        border-radius: 5px;
+        // margin-bottom: 20px;
+        box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+        #container{
+            border: solid red 2px;
+        // display: flex;
+        // justify-content: center;
+        // flex-flow: row;
+        // align-content: stretch;
+        // flex-wrap: wrap;
+        // overflow: visible;
+        grid-gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+            #product{
+                
+                border-radius: 35px;
+                box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+                margin: 15px 15px 15px 15px;
+                cursor: pointer;
+                position: relative;
+                width: 210px;
+                height: 210px;
+    
+                #image{
+                    border-radius: 35px;
+                    height: 200px;
+                    width: 200px;
+                    object-fit: contain;
+                    background-color: white;
+                    padding: 5px;
+                }
+                #overlay{
+                    border: solid rgba(0, 0, 0, 0.171) 1px;
+                    background-color: rgba(0, 0, 0, 0.02);
+                    position:absolute;
+                    bottom: 0;
+                    right:0;
+                    height: 206px;
+                    width: 200px;
+                    padding: 5px;
+                    border-radius: 35px;
+                    display: flex;
+                    flex-direction: column;
+                
+                    justify-content: space-between;
+                    #top{
+                        width: 180px;
+                     
+                        margin-top: 5px;
+                        #info{
+                            margin-left: auto;
+                            background-color: rgba(196, 196, 196, 0.397);
+              
+                         }
+                    }
+                    #bottom{
+                        width: 180px;
+                        height: 55px;
+                        margin: 0px auto -5px auto;
+                        display: flex;
+                        
+                        #select{
+                            margin: auto 0px;
+                            // width: 150px;
+                            font-size: 12px;
+                            
+                        }
+                        #closet{
+                            margin: auto -4px auto 3px;
+                            height: 40px;
+                            width: 40px;
+                            background-color: rgba(19, 173, 158, 0.842) ;
+                            border: solid 2px rgba(19, 173, 158);
+                            font-family: "Baloo 2";
+                        }
+                    }
+                    #item-saved{
+                        border: solid rgb(194, 194, 194) 2px;
+                        background-color: #f7f8f898;
+                        border-radius: 5px;
+                        width: 135px;
+                        margin-bottom: 6px;
+                        margin-left: 10px;
+                        position: relative;
+                        font-weight: 600;
+                        color: rgb(59, 59, 59);
+                        #arrow{
+                            position: absolute;
+                            bottom: 10px;
+                            right: -12px;
+                            width: 0px;
+                            height: 0px;
+                            border-top: 0px solid transparent;
+                            border-bottom: 10px solid transparent;
+                            border-left: 10px solid rgb(194, 194, 194);
+                        }
+                    }
+                }
+                #overlay_saved{
+                    position:absolute; 
+                    bottom: 0;
+                    right:0;
+                    height: 206px;
+                    width: 200px;
+                    padding: 5px;
+                    border-radius: 35px;
+                    text-align: right;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    // border: solid red 2px;
+                    #check{
+                        //  border: solid red 2px;
+                        width: 50px;
+                        height: 50px;
+                        margin-left: auto;
+                        // border: solid red 2px;
+                    }
+                }
+               
+            }
+        }
+    }
+    
+    
+}

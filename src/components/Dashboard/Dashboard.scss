@@ -4,16 +4,15 @@
     display: flex;
     #sidebar{
         background-color: #FFFFFF;
-        width: 150px;
+        // border: solid red 2px;
         z-index: 500;
         box-shadow: 0 0 8px  rgba(0,0,0,0.2);
+        position: relative;
         #top{
-            // border: solid red 2px;
-            height: 180px;
+            height: 15vh;
             display: flex;
             #logo{
-                // border: solid red 2px;
-                width: 100px;
+                cursor: pointer;
                 margin: 0px auto;
                 user-select: none;
                 object-fit: contain;
@@ -32,46 +31,131 @@
             // border: solid red 2px;
             display: flex;
             flex-direction: column;
-            text-align: left;
-            // padding-left: 50px;
-            font-size:calc(12px + 0.5vw);
-            a{
+            text-align: center;
+            margin: 10px 0px 0px 0px;
+            padding: 2px;
+            font-size:calc(14px + 0.5vw);
+            padding-left: 8px;
+            // width: 100px;
+            // max-height: 80%;
+            // overflow: hidden;
+            #link{
                 // border: solid red 2px;
-                width: 100px;
-                margin: 0px auto;
+                cursor: pointer;
+                z-index: 500;
+                padding-left: 10px;
+                margin: 10px 0px 2px 5px;
+                text-align: left;
+                color: rgba(80, 80, 80, 0.856);
+                font-weight: 500;
+                transition: color 0.1s;
+                user-select: none;
+                &:hover{
+                    color: black;
+                }
+                &.highlight{
+                    color: black;
+                    font-weight: 600;
+                }
+            }
+            #closetList{
+                z-index: 400;
+                // border: solid red 2px;
+                margin-left: 25px;
+                overflow: auto;
+                padding: 5px 0px 5px 5px;
+                #closet{
+                    font-size:calc(12px + 0.5vw);
+                    // border: solid red 2px;
+                    color: rgba(80, 80, 80, 0.856);
+                    
+                    cursor: pointer;
+                    text-align: left;
+                    transition: color 0.01s, padding 0.5s;
+                    &:hover{
+                        color: black;
+                    }
+                    
+                }
+                #closet.highlight{
+                    // border: solid red 2px;
+                    font-weight: 600;
+                    border-top-left-radius: 5px;
+                    color: black;
+                    padding-left: 10px;
+                    overflow-y: hidden;
+                    border-bottom-left-radius: 5px;
+                }
+            }
+            
+        }
+        #bottom{
+            bottom: 10px;
+            // right: 10px;
+            position: absolute;
+
+            width: 100%;
+            // border: solid red 2px;
+            #setting{
+                border: solid rgba(70, 69, 69, 0.377) 2px;
+               
             }
         }
     }
     #body{
-        width: calc(100% - 150px);
-   
+        // border: solid red 2px;
+        transition: width 2s;
         display: flex;
         flex-direction: column;
 
         #header{
             // border: solid red 2px;
             padding: 10px 20px;
-            // height: 150px;
+            margin-left: -150px;
+            padding-left: 150px;
             background-color: #F7F8F8;
             z-index: 400;
             transition: z-index 0.01s,  background-color 0.2s, box-shadow 0.2s;
             &.shadow{
                 background-color: #FFFFFF;
                 // background-color: #f6f8f8;
-                z-index: 500;
+                // margin-left: 0px;
+                // padding-left: 0px;
+                // z-index: 500;
                 box-shadow: 0 4px 2px -2px rgba(0,0,0,0.2);
             }
             #current-user{
-                
+                // border: solid red 2px;
                 display: flex;
                 justify-content: space-between;
-                
                 height: 90px;
+                position: relative;
                 align-items: stretch;
-                #notif{
-                    // border: solid red 2px;
-                    margin: auto;
+                #expand{
+                    // border: solid rgb(151, 151, 151) 2px;
+                    // background-color: #9c9c9c3f;
+                    position: absolute;
+                    border-radius: 5px;
+                    width: 20px;
+                    margin-left: 10px;
+                    height: 90px;
+                    padding: 0px;
                     
+                    font-size: 30px;
+                    #icon{
+                        color: #909493;
+                
+                        margin: 0px;
+                        width: 40px;
+                    }
+                }
+
+                #notif{
+                    padding-left: 20px;
+                    margin: auto;
+                    // border: solid red 2px;
+                    
+                   
                    
                 }
                 #searchbar{
@@ -79,7 +163,7 @@
                     margin: auto;
                     min-width: 200px;
                     width: 80%;
-                    max-width: 1400px;
+                    // max-width: 1400px;
                     padding: 0px 10px;
                 }
                 #profile{
@@ -108,10 +192,10 @@
         }
         
         #responsive-insert{
-            // border: solid blue 2px;
+            border: solid blue 2px;
+            
             flex-grow: 1;
-            overflow-y: auto;
-
+        
             &::-webkit-scrollbar {
                 width: 14px;
                 height: 18px;
