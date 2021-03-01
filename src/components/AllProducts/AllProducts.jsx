@@ -254,23 +254,18 @@ let data = {
 function AllProducts(){
     return(
         <div id="allProducts">
-           
             <div id="title">All Saved</div>
-            <Scrollbars style={{width: "calc(100vw - 250px)", height: "calc(100vh - 220px)"}} id="scrollbar" autoHide>
-                <div id="container" >
-                    
-                    {
-                        data.products.slice(0, 15).map(
-                            (product, i) => 
-                                <div key={i} id="product">
-                                    <img src={product.url} alt="product" id="image"/>
-                                </div>
-                        )
-                    }
-                    
-                </div>
-            </Scrollbars>
-           
+            <div id="container" >
+                {
+                data.products.map(
+                    (product, i) => 
+                        <div key={i} id="product">
+                            <img src={product.url} alt="product" id="image"/>
+                            <div id="overlay">overlay</div>
+                        </div>
+                )
+            }
+            </div>
         </div>
     )
 }

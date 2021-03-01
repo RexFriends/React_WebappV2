@@ -353,8 +353,10 @@ function Dashboard({children}){
                     </div>
                 </div>
                 
-                <div id="responsive-insert" style={{width: "100%" }}>
-                    <Scrollbars onScroll={handleScroll}>
+                <div id="responsive-insert" style={{width: `100%` }}>
+                    <Scrollbars onScroll={handleScroll}
+                    // renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}
+                    >
                         {children}
                     </Scrollbars>
                 </div>
