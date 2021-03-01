@@ -10,7 +10,6 @@ import Scrollbars from "react-custom-scrollbars";
 import Check from '../../assets/img/Check.png'
 
 
-
 function SingleItemContainer ({i, item}){
     const [itemSaved, itemSavedSet] = useState(false)
     const [hover, hoverSet] = useState(false)
