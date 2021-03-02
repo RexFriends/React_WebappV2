@@ -5,6 +5,21 @@ import TextField from '@material-ui/core/TextField'
 import logo from '../../assets/img/128.png'
 import {FaGoogle, FaFacebookF} from 'react-icons/fa'
 
+import firebase from 'firebase';
+require('firebase/auth')
+
+const googleProvider = new firebase.auth.GoogleAuthProvider()
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+// facebookProvider.addScope('user_birthday');
+// [END auth_facebook_provider_scopes]
+// [START auth_facebook_provider_params]
+facebookProvider.setCustomParameters({
+'display': 'popup'
+});
+
+const Prod_URL = "http://rexfriendsserver-env.eba-xpijkhn3.us-east-1.elasticbeanstalk.com";
+const dev_URL = "http://127.0.0.1:5000";
+
 function Login(){
     const [signUp, signUpSet] = useState(true)
     const [email, emailSet] = useState("")
@@ -30,6 +45,27 @@ function Login(){
             "phone": phone
         }
         console.log("Signup call:", payload)
+
+        firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+            .then((user) => {
+                payload.uid = user.user.uid
+                fetch(dev_URL + '/api/signupweb' + user.uid, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .catch((error) => {
+                    console.log(error.message)
+                })
+            }).catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorMessage)
+                // ..
+            });
     }
 
     const handleLogin = () => {
@@ -38,6 +74,13 @@ function Login(){
             "password": password
         }
         console.log("Login call:", payload)
+        firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+                .then(user => {
+                    console.log(`logged in user ${user}`);
+                    // updateState('uid', user.uid)
+                }).catch(e => {
+                    console.log(e);
+                });
     }
 
     const handleFacebook = () => {
@@ -46,6 +89,30 @@ function Login(){
 
     const handleGoogle = () => {
         console.log("GoogleAuth call")
+        firebase.auth().signInWithPopup(googleProvider).then((res) => {
+            const data = {
+                "firstname": res.additionalUserInfo.profile.given_name,
+                "lastname": res.additionalUserInfo.profile.family_name,
+                "email": res.user.email,
+                "phone": null,
+                "uid": res.user.uid
+                }
+            console.log(data)
+            fetch(dev_URL + "/api/signupweb", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .catch((error) => {
+                console.log(error.message)
+            })
+          }).catch((error) => {
+            console.log(error.message)
+          })
+
     }
 
     return(
