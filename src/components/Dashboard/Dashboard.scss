@@ -4,7 +4,7 @@
     display: flex;
     #sidebar {
         background-color: #FFFFFF;
-        // border: solid red 2px;
+
         z-index: 500;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
         position: relative;
@@ -143,13 +143,9 @@
                 #notif {
                     padding-left: 20px;
                     margin: auto;
-<<<<<<< HEAD
                     
                 
                    
-=======
-                    // border: solid red 2px;
->>>>>>> 195fcd5457a8481ba73b87c29b6a564b6dbd9ea0
                 }
                 #searchbar {
                     // border: solid red 2px;
@@ -183,7 +179,6 @@
             // display: flex;
             // justify-content: space-around;
         }
-<<<<<<< HEAD
         #notification-bar-container{
             // border: solid red 2px;
             overflow: hidden;
@@ -194,9 +189,6 @@
         }
         
         #responsive-insert{
-=======
-        #responsive-insert {
->>>>>>> 195fcd5457a8481ba73b87c29b6a564b6dbd9ea0
             // background-color: aqua;
             flex-grow: 1;
             &::-webkit-scrollbar {
