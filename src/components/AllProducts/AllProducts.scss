@@ -1,6 +1,6 @@
     #allProducts{
-
-    width: 90%;
+    // border: solid red 2px;
+    width: 95%;
     margin: 0px auto;
     #title{
         text-align: left;
@@ -14,10 +14,15 @@
     }
 
     #container{
+     
+   
+        margin: 0px 10px;
+        overflow: hidden;
         grid-gap: 16px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
         #product{
+         
             border-radius: 35px;
             box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
             cursor: pointer;
@@ -34,11 +39,10 @@
             }
             #overlay{
                 border: solid rgba(0, 0, 0, 0.171) 1px;
-                background-color: rgba(0, 0, 0, 0.02);
                 position:absolute;
                 bottom: 0;
                 right:0;
-                height: 206px;
+                height: 200px;
                 width: 200px;
                 padding: 5px;
                 border-radius: 35px;
@@ -46,72 +50,18 @@
                 flex-direction: column;
                 justify-content: space-between;
                 #top{
+                    // border: solid red 2px;
                     width: 180px;
-                    margin-top: 5px;
+                    margin: 5px auto 0px auto;
                     #info{
-                        margin-left: auto;
+                        // border: solid red 2px;
+                        margin-left: 130px;
                         background-color: rgba(196, 196, 196, 0.397);
         
                     }
                 }
-                #bottom{
-                    width: 180px;
-                    height: 55px;
-                    margin: 0px auto -5px auto;
-                    display: flex;
-                    #select{
-                        margin: auto 0px;
-                        font-size: 12px;
-                    }
-                    #closet{
-                        margin: auto -4px auto 3px;
-                        height: 40px;
-                        width: 40px;
-                        background-color: rgba(19, 173, 158, 0.842) ;
-                        border: solid 2px rgba(19, 173, 158);
-                        font-family: "Baloo 2";
-                    }
-                }
-                #item-saved{
-                    border: solid rgb(194, 194, 194) 2px;
-                    background-color: #f7f8f898;
-                    border-radius: 5px;
-                    width: 135px;
-                    margin-bottom: 6px;
-                    margin-left: 10px;
-                    position: relative;
-                    font-weight: 600;
-                    color: rgb(59, 59, 59);
-                    #arrow{
-                        position: absolute;
-                        bottom: 10px;
-                        right: -12px;
-                        width: 0px;
-                        height: 0px;
-                        border-top: 0px solid transparent;
-                        border-bottom: 10px solid transparent;
-                        border-left: 10px solid rgb(194, 194, 194);
-                    }
-                }
             }
-            #overlay_saved{
-                position:absolute; 
-                bottom: 0;
-                right:0;
-                height: 206px;
-                width: 200px;
-                padding: 5px;
-                border-radius: 35px;
-                text-align: right;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                #check{
-                    width: 50px;
-                    height: 50px;
-                    margin-left: auto;
-                }
-            }
+            
         }
     }
 }

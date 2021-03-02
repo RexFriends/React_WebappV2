@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton'
 import {BsCaretLeft, BsCaretRight} from 'react-icons/bs'
 import { useHistory } from "react-router-dom";
 import SingleClosetFeed from '../ReusableContainer/SingleClosetFeed'
+import {motion} from 'framer-motion'
 let data = {
     
     PopularClosets: [
@@ -290,49 +291,55 @@ function Landing(){
     }
 
     return(
-        <div id="landing">
-            <div id="title">Most Popular Collection</div>
-            <div id="top">
-                <div id="prev">
-                    <IconButton id="button" onClick={handlePrev} disabled={closetIndex===0}>
-                        <BsCaretLeft/>
-                    </IconButton>
-                </div>
-                <div id="popular-closets">
-                    {
-                        data.PopularClosets.slice(closetIndex, 4).map(
-                            (closet, i) => 
-                            <div key={i} className={`closet_${i+1} banner`} style={{backgroundColor: closet.color}} onClick={()=>handleGoToClost(closet.id)}>
-                                <div id="text">
-                                    <div id="user">{closet.username.replace("_", " ")}'s</div>
-                                    <div id="name">{closet.name}</div>
-                                    {closet.optional_note &&
-                                    <div id="optional_note">{closet.optional_note}</div>
-                                    }
+
+            <motion.div id="landing"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{   opacity: 0 }}
+            >
+                <div id="title">Most Popular Collection</div>
+                <div id="top">
+                    <div id="prev">
+                        <IconButton id="button" onClick={handlePrev} disabled={closetIndex===0}>
+                            <BsCaretLeft/>
+                        </IconButton>
+                    </div>
+                    <div id="popular-closets">
+                        {
+                            data.PopularClosets.slice(closetIndex, 4).map(
+                                (closet, i) => 
+                                <div key={i} className={`closet_${i+1} banner`} style={{backgroundColor: closet.color}} onClick={()=>handleGoToClost(closet.id)}>
+                                    <div id="text">
+                                        <div id="user">{closet.username.replace("_", " ")}'s</div>
+                                        <div id="name">{closet.name}</div>
+                                        {closet.optional_note &&
+                                        <div id="optional_note">{closet.optional_note}</div>
+                                        }
+                                    </div>
+                                    <img src={closet.closet_png} id="img" alt="closet"/>
                                 </div>
-                                <img src={closet.closet_png} id="img" alt="closet"/>
-                            </div>
-                        )
-                    }
-                    
+                            )
+                        }
+                        
+                    </div>
+                    <div id="next">
+                        <IconButton id="button" onClick={handleNext}>
+                            <BsCaretRight/>
+                        </IconButton>
+                    </div>
                 </div>
-                <div id="next">
-                    <IconButton id="button" onClick={handleNext}>
-                        <BsCaretRight/>
-                    </IconButton>
+                <div id="title">Recommended Closets</div>
+                <div id="recommended">
+                {
+                    data.RecommendedClosets.map(
+                        (closet, i) => 
+                            <SingleClosetFeed closet={closet} key={i} />
+                        
+                    )
+                }
                 </div>
-            </div>
-            <div id="title">Recommended Closets</div>
-            <div id="recommended">
-            {
-                data.RecommendedClosets.map(
-                    (closet, i) => 
-                        <SingleClosetFeed closet={closet} key={i} />
-                    
-                )
-            }
-            </div>
-        </div>
+            </motion.div>
+
     )
 }
 

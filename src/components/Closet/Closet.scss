@@ -1,0 +1,116 @@
+#ClosetPage{
+    // border: solid red 5px;
+    // height: 100%;
+    width: 95%;
+    margin: 0px auto;
+   
+
+    #closet-header{
+        
+        height: 200px;
+        width: 95%;
+        margin: 0px auto;
+    
+        border-radius:  20px;
+        // border: solid red 2px;
+        overflow: hidden;
+        display: flex;
+       
+        #text{
+            // border: solid red 5px;
+            height: 80%;
+            margin: auto 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: #ffffff;
+            mix-blend-mode: luminosity;;
+            z-index: 400;
+            #user{
+                // border: solid red 2px;
+                font-size:calc(8px + 1.5vw);
+                font-weight: 600;
+                text-align: left;
+                mix-blend-mode: difference;
+                user-select: none;
+                z-index: 500;
+            }
+            #name{
+                // border: solid red 2px;
+                font-size:calc(28px + 1.5vw);
+                font-weight: 600;
+                line-height: 40px;
+                text-align: left;
+                user-select: none;
+                z-index: 500;
+            }
+  
+        }
+
+
+        #img{
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            // border: solid red 2px;
+            z-index: 450;
+            // top: 0;
+            // left: 250px;
+        }
+
+
+    }
+
+    #item-container{
+        padding: 10px;
+        // border: solid red 2px;
+        margin: 0px 10px;
+        overflow: hidden;
+        grid-gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+
+        #product{
+            border-radius: 35px;
+            box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            position: relative;
+            width: 210px;
+            height: 210px;
+            #image{
+                border-radius: 35px;
+                height: 200px;
+                width: 200px;
+                object-fit: contain;
+                background-color: white;
+                padding: 5px;
+            }
+            #overlay{
+                border: solid rgba(0, 0, 0, 0.171) 1px;
+                position:absolute;
+                bottom: 0;
+                right:0;
+                height: 200px;
+                width: 200px;
+                padding: 5px;
+                border-radius: 35px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                #top{
+                    // border: solid red 2px;
+                    width: 180px;
+                    margin: 5px auto 0px auto;
+                    #info{
+                        // border: solid red 2px;
+                        margin-left: 130px;
+                        background-color: rgba(196, 196, 196, 0.397);
+        
+                    }
+                }
+            }
+        }
+    }
+
+
+}

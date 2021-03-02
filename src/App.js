@@ -14,26 +14,42 @@ import NoMatch from './components/NoMatch/NoMatch'
 import Profile from './components/Profile/Profile'
 import AllProducts from './components/AllProducts/AllProducts'
 import Setting from './components/Setting/Setting'
+import ItemPopup from './components/ItemPopup/ItemPopup'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import {AnimatePresence, motion} from 'framer-motion'
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-          <Switch>
-            <Route path="/login" children={<Login/>}/>
-              <Dashboard>
-                <Switch>
-                  <Route exact path="/" children={<Landing/>}/>
-                  <Route path="/closets" children={<AllProducts/>}/>
-                  <Route path="/setting" children={<Setting/>}/>
-                  <Route path="/closet/:id" children={<Closet/>}/>
-                  <Route path="/user/:id" children={<Profile/>}/>
-                  <Route path="*" children={ <NoMatch/>}/>
-                </Switch>
-              </Dashboard>
-          </Switch>
-      </Router>
-    </div>
+    <QueryClientProvider  client={queryClient}>
+      <div className="App">
+          <Router>
+              <Switch>
+                <Route path="/login" children={<Login/>}/>
+                  <Dashboard>
+                    <ItemPopup/>
+                    <Route
+                      render={({ location }) => (
+                        <AnimatePresence exitBeforeEnter>
+                          
+                            <Switch location={location} key={location.pathname}>
+                              <Route exact path="/" children={<Landing/>}/>
+                              <Route path="/closets" children={<AllProducts/>}/>
+                              <Route path="/setting" children={<Setting/>}/>
+                              <Route path="/closet/:id" children={<Closet/>}/>
+                              <Route path="/user/:id" children={<Profile/>}/>
+                              <Route path="*" children={ <NoMatch/>}/>
+                            </Switch>
+                      
+                        </AnimatePresence>
+                      )}/>
+                  </Dashboard>
+              </Switch>
+          </Router>
+      </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider >
   );
 }
 

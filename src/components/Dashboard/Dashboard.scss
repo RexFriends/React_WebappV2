@@ -110,6 +110,7 @@
 
         #header{
             // border: solid red 2px;
+            // height: 150px;
             padding: 10px 20px;
             margin-left: -150px;
             padding-left: 150px;
@@ -153,9 +154,8 @@
                 #notif{
                     padding-left: 20px;
                     margin: auto;
-                    // border: solid red 2px;
                     
-                   
+                
                    
                 }
                 #searchbar{
@@ -189,6 +189,14 @@
             }
             // display: flex;
             // justify-content: space-around;
+        }
+        #notification-bar-container{
+            // border: solid red 2px;
+            overflow: hidden;
+            #notification-bar{
+                // border: solid red 2px;
+                height: 150px;
+            }
         }
         
         #responsive-insert{

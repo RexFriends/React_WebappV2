@@ -1,6 +1,8 @@
 import React from 'react'
 import './AllProducts.scss'
-import Scrollbars from 'react-custom-scrollbars'
+import AllProductItem from './AllProductItem'
+import {AnimatePresence, motion} from 'framer-motion'
+
 let data = {
     products: [
         {
@@ -253,20 +255,26 @@ let data = {
 
 function AllProducts(){
     return(
-        <div id="allProducts">
+    
+        <motion.div id="allProducts"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{   opacity: 0 }}
+        >
             <div id="title">All Saved</div>
             <div id="container" >
+                <AnimatePresence>
                 {
-                data.products.map(
-                    (product, i) => 
-                        <div key={i} id="product">
-                            <img src={product.url} alt="product" id="image"/>
-                            <div id="overlay">overlay</div>
-                        </div>
-                )
-            }
+                    data.products.map(
+                        (product, i) => 
+                        <AllProductItem item={product} key={i}/>
+
+                    )
+                }
+                </AnimatePresence>
             </div>
-        </div>
+
+        </motion.div>
     )
 }
 

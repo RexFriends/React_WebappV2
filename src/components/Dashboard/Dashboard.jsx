@@ -14,6 +14,8 @@ import Scrollbars from "react-custom-scrollbars";
 // import useWindowSize from '../../Hooks/useWindowSize'
 import { motion, AnimatePresence } from 'framer-motion'
 
+
+
 const StyledBadge = withStyles((theme) => ({
     badge: {
       right: 2,
@@ -196,17 +198,18 @@ let data = {
     notification_count: 5
 }
 
+
+
+
 function Dashboard({children}){
     let location = useLocation()
     let history = useHistory()
-    // const size = useWindowSize();
-
-
     const [scrolled, scrolledSet] = useState(false)
     const [searchbar, searchbarSet] = useState("")
     const [showSidebar, showSidebarSet] = useState(true)
     const [showClosets, showClosetsSet] = useState(false)
     const [currentCloset, currentClosetSet] = useState(undefined)
+    const [showNotification, showNotificationSet] = useState(false)
 
     useEffect(() => {
         let currentPage = location.pathname.split("/")
@@ -225,6 +228,9 @@ function Dashboard({children}){
         return () => {
         }
     }, [location.pathname])
+
+ 
+
 
     const handleScroll = (e) => {
         if(e.target.scrollTop > 0){
@@ -273,12 +279,9 @@ function Dashboard({children}){
                 > 
                         <div id="top">
                             <img src={logo} alt="logo" id="logo" onClick={handleHomeClick}/>
-                            {/* <IconButton id="collapse">
-                                <CgArrowTopLeftR id="collapse"/>
-                            </IconButton> */}
                         </div>
                         <motion.div id="links"
-                        >
+                        >   
                             <div id="link" className={location.pathname === "/" ? "highlight" : ""} onClick={handleHomeClick}>Home</div>
                             <div id="link" className={location.pathname === "/closets" ? "highlight" : ""} onClick={handleClosetClick} >My Closets</div>
                             <AnimatePresence>
@@ -289,13 +292,12 @@ function Dashboard({children}){
                                         initial={{y: 0, height: 0, opacity: 0}}
                                         animate={{ y: 0, height: "calc(60vh - 100px)", opacity: 1}}
                                         exit={{y: 0, height: 0, opacity: 0}}
-                                        // transition={{  delay: 0.3 }}
                                     >
                                          <Scrollbars autoHide>
                                         {
                                             data.closets.map(
-                                                closet => 
-                                                <div id="closet" className={currentCloset === closet.id ? "highlight" : ""}
+                                                (closet, i) => 
+                                                <div id="closet" key={i}className={currentCloset === closet.id ? "highlight" : ""}
                                                 onClick={()=>handleGotoCloset(closet.id)}>
                                                     {closet.name}
                                                 </div>
@@ -331,7 +333,7 @@ function Dashboard({children}){
                             <AiOutlineMenuFold id="icon"/>}
                         </IconButton>
                         <div  id="notif">
-                            <IconButton style={{height: "65px", width: "65px"}} >
+                            <IconButton style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
                                 <StyledBadge badgeContent={data.notification_count} color="secondary" max={99} >
                                     <IoMail style={{fontSize:"35px"}}/>
                                 </StyledBadge>
@@ -351,8 +353,22 @@ function Dashboard({children}){
                             <img src={data.propic} alt="userpropic" id="propic" />
                         </div>
                     </div>
+                    <div id="notification-bar-container">
+                    <AnimatePresence>
+                    {
+                    showNotification &&
+                    <motion.div id="notification-bar"
+                        initial={{height: 0, opacity: 0, y: -150}}
+                        animate={{height: "150px", opacity: 1, y: 0}}
+                        exit={{   height: 0, opacity: 0, y: -150 }}
+                    >
+                        This is the notification
+                    </motion.div>
+                    }
+                    </AnimatePresence>
+                    </div>
                 </div>
-                
+            
                 <div id="responsive-insert" style={{width: `100%` }}>
                     <Scrollbars onScroll={handleScroll}
                     // renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}

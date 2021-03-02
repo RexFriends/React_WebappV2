@@ -8,6 +8,7 @@ import {FaSave} from 'react-icons/fa'
 import Select from 'react-select';
 import Scrollbars from "react-custom-scrollbars";
 import Check from '../../assets/img/Check.png'
+import {useQueryClient} from 'react-query'
 
 
 
@@ -16,7 +17,7 @@ function SingleItemContainer ({i, item}){
     const [hover, hoverSet] = useState(false)
     const [selectedClosetId, selectedClosetIdSet] = useState("1")
     const [selectedClosetName, selectedClosetNameSet] = useState("Save For Later")
-
+    const queryClient = useQueryClient()
     const customStyles = (width = 50, height = 20) => {
         return {
             container: (base) => ({
@@ -77,7 +78,8 @@ function SingleItemContainer ({i, item}){
 
 
     const handleShowInfo = () => {
-        console.log("Show Item:", item)
+        let payload = { display: true, itemId: item.id}
+        queryClient.setQueryData(['ItemDetails'], payload) 
     }
 
     const handleSaveToCloset = () => {
