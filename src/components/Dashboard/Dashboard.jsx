@@ -9,10 +9,14 @@ import SearchBar from "material-ui-search-bar";
 import Badge from "@material-ui/core/Badge"
 import { withStyles } from '@material-ui/core/styles';
 import logo from '../../assets/img/Asset 1.png'
+import env from "react-dotenv";
+import Button from '@material-ui/core/Button'
+import {useQueryClient} from 'react-query'
 // import Button from '@material-ui/core/Button'
 import Scrollbars from "react-custom-scrollbars";
 // import useWindowSize from '../../Hooks/useWindowSize'
 import { motion, AnimatePresence } from 'framer-motion'
+
 
 
 
@@ -202,14 +206,52 @@ let data = {
 
 
 function Dashboard({children}){
+    const queryClient = useQueryClient()
     let location = useLocation()
     let history = useHistory()
+   
     const [scrolled, scrolledSet] = useState(false)
     const [searchbar, searchbarSet] = useState("")
     const [showSidebar, showSidebarSet] = useState(true)
     const [showClosets, showClosetsSet] = useState(false)
     const [currentCloset, currentClosetSet] = useState(undefined)
     const [showNotification, showNotificationSet] = useState(false)
+    const [userAuth, userAuthSet] = useState(undefined)
+    const [userData, userDataSet] = useState(undefined)
+    const [closetData, closetDataSet] = useState(undefined)
+
+    useEffect(() => {
+        console.log("This is the initial application load")
+        let rexUID = localStorage.getItem("rexUID")
+        console.log("checking if user is logged in...", rexUID)
+        
+        if(rexUID !== null){
+          fetch(env.API_URL + "/api/webdashboard?uid=" + rexUID,{
+            method: "POST",
+            headers:{   
+                'Content-Type': 'application/json'
+            }
+        }).then(
+            res => res.json()
+        ).then(
+            json =>{
+               console.log(json)
+               if(json.user){
+                    userAuthSet(true)
+                    userDataSet(json.user)
+                    closetDataSet(json.closets)
+               }else{
+                    userAuthSet(false)
+               }
+            }
+        )
+        }else{
+            userAuthSet(false)
+        }
+        return () => {
+            
+        }
+    }, [])
 
     useEffect(() => {
         let currentPage = location.pathname.split("/")
@@ -233,6 +275,7 @@ function Dashboard({children}){
 
 
     const handleScroll = (e) => {
+        showNotificationSet(false)
         if(e.target.scrollTop > 0){
             scrolledSet(true)
         }
@@ -251,12 +294,30 @@ function Dashboard({children}){
         showClosetsSet(false)
     }
 
+    const handleExploreClick = () => {
+        history.push("/explore")
+    }
+
+    const handleStoresClick = () => {
+        history.push("/stores")
+    }
     const handleClosetClick = () => {
         currentClosetSet(undefined)
         showClosetsSet(true)
         history.push("/closets")
     }
+
+    // const handleFriendsClick = () => {
+    //     history.push("/friends")
+    // }
+    const handleLikedClosetClick = () => {
+        history.push("/liked")
+    }
     
+    const handleSavedClick = () => {
+        history.push("/saved")
+    }
+
     const handleSettingClick = () => {
         history.push("/setting")
     }
@@ -264,12 +325,20 @@ function Dashboard({children}){
         history.push(`/closet/${id}`)
     }
 
+    const redirectLogin = () => {
+        history.push("/login")
+    }
+
+    const handleSignupClick = () => {
+        alert("show login popup")
+    }
+
     return(
         <div id="dashboard">
             
             <AnimatePresence initial={false}>
             {
-                showSidebar &&
+                typeof userAuth !== "undefined" && showSidebar &&
                 <motion.div id="sidebar"
                     initial={{x:-500, width: 0}}
                     animate={{ x: 0, width: showClosets ? 250 : 150 }}
@@ -280,22 +349,43 @@ function Dashboard({children}){
                         <div id="top">
                             <img src={logo} alt="logo" id="logo" onClick={handleHomeClick}/>
                         </div>
-                        <motion.div id="links"
+                        <motion.div id="links" className={userAuth === false ? "no-auth" : "auth"}
                         >   
                             <div id="link" className={location.pathname === "/" ? "highlight" : ""} onClick={handleHomeClick}>Home</div>
+                            {/* <div id="link" className={location.pathname === "/stores" ? "highlight" : ""} onClick={handleStoresClick}>Stores</div> */}
+                            <div id="link" className={location.pathname === "/explore" ? "highlight" : ""} onClick={handleExploreClick}>Explore</div>
+                            
+                            {
+                                userAuth === true ?
+                            <>
+                            {/* <div id="link" className={location.pathname === "/friends" ? "highlight" : ""} onClick={handleFriendsClick} >Friends</div> */}
+                            <div id="link" className={location.pathname === "/saved" ? "highlight" : ""} onClick={handleSavedClick}>Saved Products</div>
+                            <div id="link" className={location.pathname === "/liked" ? "highlight" : ""} onClick={handleLikedClosetClick} >Liked Closets</div>
                             <div id="link" className={location.pathname === "/closets" ? "highlight" : ""} onClick={handleClosetClick} >My Closets</div>
+                            </>
+                            :
+                            <>
+                            {/* <div id="link" className={location.pathname === "/friends" ? "highlight" : ""} onClick={handleFriendsClick} >Friends</div> */}
+                            <div id="link" onClick={handleSignupClick}>Saved Products</div>
+                            <div id="link" onClick={handleSignupClick} >Liked Closets</div>
+                            <div id="link" onClick={handleSignupClick} >My Closets</div>
+                            </>
+                            }
+                        
                             <AnimatePresence>
                             {
                                 showClosets &&
+                     
                                
                                     <motion.div id="closetList"
                                         initial={{y: 0, height: 0, opacity: 0}}
-                                        animate={{ y: 0, height: "calc(60vh - 100px)", opacity: 1}}
+                                        animate={{ y: 0, height: "calc(60vh - 200px)", opacity: 1}}
                                         exit={{y: 0, height: 0, opacity: 0}}
                                     >
                                          <Scrollbars autoHide>
                                         {
-                                            data.closets.map(
+                                            closetData &&
+                                            closetData.map(
                                                 (closet, i) => 
                                                 <div id="closet" key={i}className={currentCloset === closet.id ? "highlight" : ""}
                                                 onClick={()=>handleGotoCloset(closet.id)}>
@@ -313,18 +403,26 @@ function Dashboard({children}){
                             <div> {location.pathname} </div> */}
                         </motion.div>
                         <div id="bottom">
-                        <IconButton id="setting" className={location.pathname === "/setting" ?
-                         "highlight" : ""}  onClick={handleSettingClick}>
-                            <RiSettings3Line/>
-                        </IconButton>
+                        {
+                            userAuth === true &&
+                            <IconButton id="setting" className={location.pathname === "/setting" ?
+                            "highlight" : ""}  onClick={handleSettingClick}>
+                                <RiSettings3Line/>
+                            </IconButton>
+                        }
                         </div>
                 </motion.div>
             }
+
             </AnimatePresence>
-
-
-            {/* <div id="body" style={{width: showSidebar ? "calc(100% - 150px)" : "100%" }}> */}
-            <div id="body" style={{width:  "100%" }}>
+            <AnimatePresence initial={false}>
+            {
+                typeof userAuth !== "undefined" &&
+                <motion.div id="body" style={{width:  "100%" }}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+          
+                >
                 <div id="header" className={scrolled ? "shadow" : ""}>
                     <div id="current-user">
                         <IconButton  id="expand" onClick={()=>showSidebarSet(!showSidebar)}>
@@ -332,6 +430,16 @@ function Dashboard({children}){
                             <AiOutlineMenuUnfold id="icon"/> :
                             <AiOutlineMenuFold id="icon"/>}
                         </IconButton>
+                        {
+                         typeof userAuth === "undefined"  ?
+                        <div id="notif">
+
+                        </div> :
+                        userAuth === false ?
+                        <div id="notif">
+
+                        </div>
+                        :
                         <div  id="notif">
                             <IconButton style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
                                 <StyledBadge badgeContent={data.notification_count} color="secondary" max={99} >
@@ -340,18 +448,31 @@ function Dashboard({children}){
                             </IconButton>
                             
                         </div>
+                        }
                         <div id="searchbar">
                             <SearchBar
+                                placeholder="Search People or Closets"
                                 value={searchbar} 
                                 onChange={(val) => searchbarSet(val)}
                                 onRequestSearch={handleSearch}
                                 style={{backgroundColor: scrolled && "#f6f8f8" }}
                             />
                         </div>
-                        <div id="profile">
-                            <div id="username">{data.username}</div>
-                            <img src={data.propic} alt="userpropic" id="propic" />
-                        </div>
+                        {
+                            typeof userAuth === "undefined" ?
+                            <div id="profile">
+
+                            </div>:
+                            !userAuth ?
+                            <div id="profile">
+                                <Button id="login-signup" onClick={redirectLogin}>Login / Signup</Button>
+                            </div>:
+                        
+                            <div id="profile">
+                                <div id="username">{ userData && `${userData.first_name} ${userData.last_name}`}</div>
+                                <img src={data.propic} alt="userpropic" id="propic" />
+                            </div>
+                        }
                     </div>
                     <div id="notification-bar-container">
                     <AnimatePresence>
@@ -376,8 +497,8 @@ function Dashboard({children}){
                         {children}
                     </Scrollbars>
                 </div>
-            </div>
-            
+            </motion.div>}
+            </AnimatePresence>
             
         </div>
     )

@@ -4,8 +4,9 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import logo from '../../assets/img/128.png'
 import {FaGoogle, FaFacebookF} from 'react-icons/fa'
-
+import { useHistory } from "react-router-dom";
 import firebase from 'firebase';
+import env from 'react-dotenv'
 require('firebase/auth')
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
@@ -17,17 +18,16 @@ facebookProvider.setCustomParameters({
 'display': 'popup'
 });
 
-const Prod_URL = "http://rexfriendsserver-env.eba-xpijkhn3.us-east-1.elasticbeanstalk.com";
-const dev_URL = "http://127.0.0.1:5000";
 
 function Login(){
-    const [signUp, signUpSet] = useState(true)
+    let history = useHistory();
+    const [signUp, signUpSet] = useState(false)
     const [email, emailSet] = useState("")
     const [password, passwordSet] = useState("")
     const [firstname, firstnameSet] = useState("")
     const [lastname, lastnameSet] = useState("")
     const [phone, phoneSet] = useState("")
-
+    
     const clearFields = () => {
         emailSet("")
         passwordSet("")
@@ -49,7 +49,7 @@ function Login(){
         firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
             .then((user) => {
                 payload.uid = user.user.uid
-                fetch(dev_URL + '/api/signupweb' + user.uid, {
+                fetch(env.API_URL + '/api/signupweb' + user.uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -61,10 +61,8 @@ function Login(){
                     console.log(error.message)
                 })
             }).catch((error) => {
-                var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorMessage)
-                // ..
             });
     }
 
@@ -97,8 +95,7 @@ function Login(){
                 "phone": null,
                 "uid": res.user.uid
                 }
-            console.log(data)
-            fetch(dev_URL + "/api/signupweb", {
+            fetch(env.API_URL + "/api/signupweb", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -106,6 +103,14 @@ function Login(){
                 body: JSON.stringify(data)
             })
             .then(response => response.json())
+            .then(json => {
+                console.log("This is the json return from api", json)
+                if(json.success === true ){
+                    redirectToLandingPage(data.uid)
+                }else{
+                    console.log(json.error)
+                }
+            })
             .catch((error) => {
                 console.log(error.message)
             })
@@ -114,6 +119,12 @@ function Login(){
           })
 
     }
+
+    const redirectToLandingPage = (uid) => {
+        localStorage.setItem("rexUID", uid)
+        // need to first check if user was on a rex page before, if not, we send them to the landing page
+        history.push("/")
+    }   
 
     return(
         <div id="login" style={{height: signUp ? "475px" : "320px" }}>

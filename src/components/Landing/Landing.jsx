@@ -277,6 +277,8 @@ function Landing(){
     let history = useHistory();
     const [closetIndex, closetIndexSet] = useState(0)
 
+
+    
     const handlePrev = () => {
         closetIndexSet(closetIndex - 4)
     }
@@ -297,6 +299,9 @@ function Landing(){
                 animate={{ opacity: 1 }}
                 exit={{   opacity: 0 }}
             >
+                <div id="title">Download Extension</div>
+                <div id="title">How to use Rex</div>
+                <div>How to use rex content here</div>
                 <div id="title">Most Popular Collection</div>
                 <div id="top">
                     <div id="prev">
@@ -338,6 +343,7 @@ function Landing(){
                     )
                 }
                 </div>
+                <div id="title">Explore</div>
             </motion.div>
 
     )

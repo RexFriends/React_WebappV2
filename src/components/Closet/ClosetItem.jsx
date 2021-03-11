@@ -24,7 +24,7 @@ function ClosetItem({item}){
                 // type: "tween",
                 // delay: 0.3}}
             >
-                <img src={item.url} id="image"/>
+                <img src={item.url} id="image" alt="item"/>
                 {hover && 
                     <motion.div id="overlay"
                     initial={{ opacity: 0 }}

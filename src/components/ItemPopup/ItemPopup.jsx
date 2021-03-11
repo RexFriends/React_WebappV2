@@ -61,7 +61,7 @@ function ItemPopup (){
                             itemDetail &&
                             <>
                             <div id="name">{itemDetail.itemName}</div>
-                            <a href={itemDetail.itemURL} target="_"></a>
+                            <a href={itemDetail.itemURL} target="_">url</a>
                             </>
                         }
                     </div>

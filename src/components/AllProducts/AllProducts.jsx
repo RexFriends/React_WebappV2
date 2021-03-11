@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './AllProducts.scss'
 import AllProductItem from './AllProductItem'
 import {AnimatePresence, motion} from 'framer-motion'
-
+import env from "react-dotenv";
 let data = {
     products: [
         {
@@ -254,6 +254,22 @@ let data = {
 }
 
 function AllProducts(){
+
+    useEffect(() => {
+        let rexUID = localStorage.getItem("rexUID")
+
+        fetch(env.API_URL + "/api/all_listings?uid=" + rexUID)
+        .then(
+            res => res.json()
+        ).then(
+            json => console.log(json)
+        )
+
+        return () => {
+            
+        }
+    }, [])
+
     return(
     
         <motion.div id="allProducts"

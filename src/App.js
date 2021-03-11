@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,18 +18,25 @@ import Setting from './components/Setting/Setting'
 import ItemPopup from './components/ItemPopup/ItemPopup'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import {AnimatePresence, motion} from 'framer-motion'
+import {AnimatePresence} from 'framer-motion'
+
+
+
 const queryClient = new QueryClient()
 
 function App() {
+
+
+
+
   return (
     <QueryClientProvider  client={queryClient}>
       <div className="App">
           <Router>
               <Switch>
                 <Route path="/login" children={<Login/>}/>
-                  <Dashboard>
-                    <ItemPopup/>
+                <Dashboard >
+                  <ItemPopup/>
                     <Route
                       render={({ location }) => (
                         <AnimatePresence exitBeforeEnter>
@@ -44,7 +52,7 @@ function App() {
                       
                         </AnimatePresence>
                       )}/>
-                  </Dashboard>
+                </Dashboard>
               </Switch>
           </Router>
       </div>

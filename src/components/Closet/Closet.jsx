@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Closet.scss'
 import {useParams} from 'react-router-dom'
-import {motion, AnimatePresence} from 'framer-motion'
+import {motion} from 'framer-motion'
 import ClosetItem from './ClosetItem'
+import env from "react-dotenv";
+
 let data = {
     id: 20,
     username: "Gigi_Hadid",
@@ -47,6 +49,35 @@ let data = {
 function Closet(){
     // use the id to fetch the closet data
     let {id} = useParams()
+    useEffect(() => {
+        let rexUID = localStorage.getItem("rexUID")
+        let url;
+        let payload = {
+            'closet_id': id
+        }
+
+        if(rexUID !== null){
+            url = env.API_URL + "/api/closet?uid=" + rexUID
+        }else{
+            url = env.API_URL + "/api/closet"
+        }
+        fetch(url,{
+            method: "POST",
+            header:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(
+            res => res.json()
+        ).then(
+            json => console.log("closet fetch", json)
+        )
+
+        return () => {
+            
+        }
+    }, [id])
+
     return(
         <motion.div id="ClosetPage"
         initial={{ opacity: 0 }}
