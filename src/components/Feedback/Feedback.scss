@@ -31,17 +31,10 @@
             }
         }
         #carousel-single{
-            max-width: 500px;
+            max-width: calc(350px + 25vw);
             max-height: 500px;
             align-self: center;
-            padding: 10px;
-            object-fit: contain;
-            // #img{
-            //     // border: solid red 2px;
-            //     width: 400px;
-            //     height: 400px;
-             
-            // }
+         
         }
         #text{
             align-self: center;
