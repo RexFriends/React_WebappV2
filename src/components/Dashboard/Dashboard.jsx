@@ -11,10 +11,9 @@ import { withStyles } from '@material-ui/core/styles';
 import logo from '../../assets/img/Asset 1.png'
 import env from "react-dotenv";
 import Button from '@material-ui/core/Button'
-import {useQueryClient} from 'react-query'
-// import Button from '@material-ui/core/Button'
+// import {useQueryClient} from 'react-query'
+
 import Scrollbars from "react-custom-scrollbars";
-// import useWindowSize from '../../Hooks/useWindowSize'
 import { motion, AnimatePresence } from 'framer-motion'
 
 
@@ -206,7 +205,7 @@ let data = {
 
 
 function Dashboard({children}){
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
     let location = useLocation()
     let history = useHistory()
    
@@ -298,9 +297,9 @@ function Dashboard({children}){
         history.push("/explore")
     }
 
-    const handleStoresClick = () => {
-        history.push("/stores")
-    }
+    // const handleStoresClick = () => {
+    //     history.push("/stores")
+    // }
     const handleClosetClick = () => {
         currentClosetSet(undefined)
         showClosetsSet(true)
@@ -330,7 +329,7 @@ function Dashboard({children}){
     }
 
     const handleSignupClick = () => {
-        alert("show login popup")
+        history.push("login")
     }
 
     return(

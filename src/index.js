@@ -29,11 +29,11 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
 
-      <App />
+      <App />,
 
-  </React.StrictMode>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

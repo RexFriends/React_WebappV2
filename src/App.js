@@ -16,8 +16,9 @@ import Profile from './components/Profile/Profile'
 import AllProducts from './components/AllProducts/AllProducts'
 import Setting from './components/Setting/Setting'
 import ItemPopup from './components/ItemPopup/ItemPopup'
+import Feedback from './components/Feedback/Feedback'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+// import { ReactQueryDevtools } from 'react-query/devtools'
 import {AnimatePresence} from 'framer-motion'
 
 
@@ -35,6 +36,7 @@ function App() {
           <Router>
               <Switch>
                 <Route path="/login" children={<Login/>}/>
+                <Route path="/feedback/:id" children={<Feedback/>}/>
                 <Dashboard >
                   <ItemPopup/>
                     <Route
@@ -56,7 +58,7 @@ function App() {
               </Switch>
           </Router>
       </div>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider >
   );
 }
