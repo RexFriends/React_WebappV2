@@ -20,13 +20,13 @@
         }
         #carousel{
             // border: solid red 2px;
-            max-width: 500px;
-            max-height: 500px;
+            max-width: calc(350px + 25vw);
+            max-height: calc(300px + 15vh);
             align-self: center;
             #img{
                 // border: solid red 2px;
-                width: 400px;
-                height: 400px;
+                max-width: calc(250px + 25vw);
+                max-height: calc(250px + 15vh);
                 object-fit: contain;
             }
         }
