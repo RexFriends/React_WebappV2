@@ -1,0 +1,72 @@
+#AllClosetsPage{
+    // border: solid red 2px;
+    // height: 100%;
+    width: 95%;
+    margin: 0px auto;
+
+    #closet-container{
+        padding: 10px;
+        // border: solid red 2px;
+        margin: 0px 10px;
+        overflow: hidden;
+        grid-gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+        #closet{
+            border-radius: 10px;
+            box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 40px;
+            #closet-name{
+                position: absolute;
+                width:200px;
+                margin-left: 10px;
+                top: 220px;
+                // border: solid red 2px;
+                font-size:20px;
+                font-weight: 600;
+            }
+            #img{
+                border: solid red 2px;
+                width: 90px;
+                height: 90px;
+                object-fit: contain;
+                margin: 5px;
+            }
+        }
+        #overlay{
+            border: solid rgba(0, 0, 0, 0.171) 1px;
+            position:absolute;
+            bottom: 0;
+            right:0;
+            height: 200px;
+            width: 200px;
+            padding: 5px;
+            border-radius: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            #top{
+                // border: solid red 2px;
+                width: 180px;
+                margin: 5px auto 0px auto;
+                #info{
+                    // border: solid red 2px;
+                    margin-left: 130px;
+                    background-color: rgba(196, 196, 196, 0.397);
+    
+                }
+            }
+        }
+    }
+
+
+
+}

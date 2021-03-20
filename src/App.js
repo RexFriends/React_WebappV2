@@ -17,8 +17,9 @@ import AllProducts from './components/AllProducts/AllProducts'
 import Setting from './components/Setting/Setting'
 import ItemPopup from './components/ItemPopup/ItemPopup'
 import Feedback from './components/Feedback/Feedback'
+import AllClosets from './components/AllClosets/AllClosets'
 import { QueryClient, QueryClientProvider } from 'react-query'
-// import { ReactQueryDevtools } from 'react-query/devtools'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import {AnimatePresence} from 'framer-motion'
 
 
@@ -45,11 +46,13 @@ function App() {
                           
                             <Switch location={location} key={location.pathname}>
                               <Route exact path="/" children={<Landing/>}/>
-                              <Route path="/closets" children={<AllProducts/>}/>
+                              <Route path="/saved" children={<AllProducts/>}/>
                               <Route path="/setting" children={<Setting/>}/>
+                              <Route path="/closets" children={<AllClosets/>}/>
                               <Route path="/closet/:id" children={<Closet/>}/>
                               <Route path="/user/:id" children={<Profile/>}/>
                               <Route path="*" children={ <NoMatch/>}/>
+                              
                             </Switch>
                       
                         </AnimatePresence>
@@ -58,7 +61,7 @@ function App() {
               </Switch>
           </Router>
       </div>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider >
   );
 }

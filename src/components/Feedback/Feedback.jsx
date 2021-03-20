@@ -12,7 +12,7 @@ import {FiSend} from 'react-icons/fi'
 import '@brainhubeu/react-carousel/lib/style.css';
 import './Feedback.scss'
 import { AnimatePresence, motion } from 'framer-motion';
-
+import Asset from "../../assets/img/Asset 1.png"
 function Feedback(){
     let {id} = useParams()
     const { width } = useWindowDimensions();
@@ -118,7 +118,13 @@ function Feedback(){
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
-        })
+            }
+            ).then(
+                res => res.text()
+            ).then(json =>
+                console.log("response after send", json)).catch(err => console.log("err response after send", err))
+            // completePageSet(true)
+            
         }
     }
     const handleCarousel = (e) => {
@@ -127,19 +133,39 @@ function Feedback(){
 
     return(
         <div id="feedback_page">
-
+            <AnimatePresence >
             {completePage ?
-            <div>Completed</div>
+                <motion.div id="complete"
+                    initial={{opacity: 0,  x:0}}
+                    animate={{opacity: 1,  x:0}}
+                    exit={{opacity: 0}}
+                    transition={{ delay: 1 }} 
+                >
+                    <img src={Asset} alt="logo" id="logo"/>
+                    <div id="text">
+                        Sent!
+                    </div>
+                    {  uid === null ?
+                    <a id="link" href="/login">
+                        Sign up!
+                    </a>
+                    :
+                    <a id="link" href="/">
+                    Return to Dashboard
+                    </a>
+                    }
+                </motion.div>
             :
             formData  &&
                 formData.url ?
-                <>
-
-                <div id="content" className={width > 1000 ? "large" : "small"}>
+                <motion.div id="content" className={width > 1000 ? "large" : "small"}
+                    initial={{opacity: 0, x: 100}}
+                    transition={{ delay: 1 }} 
+                    animate={{opacity: 1, x: 0}}
+                    exit={{opacity: 0, x: 100}}
+                >
                 {images.length > 1 ?
-                <div id="carousel">
-                   
-           
+                    <div id="carousel">
                             <Carousel
                                 value={imageIndex}
                                 slides={images}
@@ -150,14 +176,10 @@ function Feedback(){
                                 onChange={handleCarousel}
                                 number={images.length}
                             /> 
-              
-                        
                     </div>
-                          :
-                          images[0]
-                        
-
-}
+                    :
+                    images[0]
+                }
                     <div id="text">
                         <div id="user">
                             <div id="name">
@@ -200,14 +222,13 @@ function Feedback(){
                         </div>
                     </div>
                 
-                    </div>
-                
-                </> 
+                    </motion.div>
                 :
-                <div>
-                    Loading
+                <div id="loading screen">
+                   
                 </div>
             }
+            </AnimatePresence>
         </div>
     )
 }

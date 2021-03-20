@@ -3,6 +3,7 @@
     height: 100vh;
     width: 100vw;
     font-family: "Baloo 2";
+    overflow: hidden;
     #content{
         overflow-x: hidden;
         display: flex;
@@ -125,6 +126,43 @@
         }
         
        
+    }
+    #complete{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        // border: solid red 2px;
+        justify-content: center;
+        #logo{
+            margin-top: -50px;
+            align-self: center;
+            width: 150px;
+        }
+        #text{
+            // border: solid red 2px;
+            margin-top:-30px;
+            font-size: 50px;
+            font-weight: 800;
+            color: rgb(88, 87, 87);
+        }
+        #link{
+            background-color: #77D1C8;
+            margin: 0px auto;
+            border: solid rgba(0, 0, 0, 0.199) 2px;
+            border-radius: 5px 5px;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 5px 10px;
+            font-weight: 800;
+            color: rgb(241, 241, 241);
+            text-shadow: 1px 1px 1px #000;
+            white-space: nowrap;
+        }
+
+    }
+    #loading{
+   
     }
    
 }

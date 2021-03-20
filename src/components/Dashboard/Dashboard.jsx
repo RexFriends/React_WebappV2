@@ -439,7 +439,7 @@ function Dashboard({children}){
 
                         </div>
                         :
-                        <div  id="notif">
+                        <div  id="notif"> 
                             <IconButton style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
                                 <StyledBadge badgeContent={data.notification_count} color="secondary" max={99} >
                                     <IoMail style={{fontSize:"35px"}}/>
