@@ -24,6 +24,25 @@
         height: 80%;
         min-height: 375px;
         max-height: 800px;
+        #carousel{
+            border: solid red 2px;
+            max-width: calc(350px + 25vw);
+            max-height: calc(300px + 15vh);
+            align-self: center;
+            #img{
+                // border: solid red 2px;
+                max-width: calc(250px + 25vw);
+                max-height: calc(250px + 15vh);
+                object-fit: contain;
+            }
+        }
+        #carousel-single{
+            border: solid red 2px;
+            max-width: 95%;
+            max-height: 500px;
+            align-self: center;
+         
+        }
     }
 
 }

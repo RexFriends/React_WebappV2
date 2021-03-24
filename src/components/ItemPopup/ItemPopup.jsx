@@ -3,6 +3,9 @@ import {useQuery, useQueryClient} from 'react-query'
 import './ItemPopup.scss'
 import {AnimatePresence, motion} from 'framer-motion'
 import env from 'react-dotenv'
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
+
 const ItemDetails = () => {
     // console.log("querying")
     return(
@@ -16,6 +19,8 @@ const ItemDetails = () => {
 function ItemPopup (){
     // const query = useQuery('ItemDetails', ItemDetails)
     const [itemDetail, itemDetailSet] = useState(undefined)
+    const [imageData, imagesDataSet] = useState([])
+    const [imageIndex, imageIndexSet] = useState(0);
     const queryClient = useQueryClient()
     const query = useQuery('ItemDetails', ItemDetails)
 
@@ -23,31 +28,64 @@ function ItemPopup (){
         // console.log("Show Item Popup", query.data)
         if( query.status === "success" && query.data.display === true){
             // make fetch call here with provided item id to fill data
-            console.log("Show current item, ID:", query.data.itemId)
-            // fetch()
-            let payload={
-                "closets": [
-                    44
-                ],
-                "feedbacks": [],
-                "id": 30,
-                "imgURL": "https://product-images-rex.s3.amazonaws.com/users/TIarE2P8bXMPASMb04ShfO7GCJ7f/items/30",
-                "itemName": "PS5 Controller Charger Station Compatible with Upgraded Playstation 5 Dualsense Controller, DinoFire USB Type-C Fast PS5 Controller Dual Charging Dock Station with 2 Type-C Connectors & LED Indicators",
-                "itemNotes": "Charge 2 PS5 ControllersCharge up to 2 wireless ps5 controllers at the same time without having to connect them to your ps5 console, space saving and storage the two charger station dock for dualsense wireless controller. Fast PS5 Charging DockThis ps5 controller charging dock can fully charge 2 controllers at the same time 2-3 hours, and the type-c charge cable is included; please use the 5V/2A adapter to power the controller for playstation 5 LED Indicator Light & Intelligent ProtectionThe led indicator light of ps5 controller charger station show each controller's charge status. Green light - Full charged, Red light  Charging. The controller charger built in intelligent chip. You can safely charge the controller without worrying about overcharging Included 2 Charge Ports to Charge Quickly and Protect Controllers' InterfaceUse Type c ports for charging, making it easier to plug and unplug the controller, and effectively protect the controllers' charging interface from wear What You GetThe PS5 accessoreis package include a ps5 controller charger, 2 type-c connector & 1 type-c charger cable, also the ps5 controller charger has product support. Contact seller if any questions about ps5 controller charger, we will reply in 24 hours                 Read more               Read more               Read more                              PS5 Charger Station    PS5 Charger Station    PS5 Cooling Stand          DinoFire PS5 Controller Charger Station  Features:  Dual Charging Station This PS5 charging dock conveniently charges 2 controllers simultaneously.   Save Place This PS5 Charger Station provides an easy and quick way to charge and store your PS5 controllers.   Anti-Slip Base Anti-skid rubber pad keeps the charger in place, which protects your charging dock from shifting and falling.   Charge Time Full charge can be completed within 2.5 hours when charging one controller. Full charge 2 controllers simultaneously within 3 hours.  Packing List 1 x PS5 Controller Charger 1 x Charging Cable 2 x Dongles (Connector) 1 x User Manual ",
-                "itemURL": "https://www.amazon.com/Controller-Compatible-Playstation-DinoFire-Connectors/dp/B08JG6R3RF/ref=sr_1_1_sspa?dchild=1&keywords=ps5+controller&qid=1614374616&s=videogames&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExVDBHWUtYV0hDQlhaJmVuY3J5cHRlZElkPUEwNzE1MDczMUdIVkJVTzBWTlRMNiZlbmNyeXB0ZWRBZElkPUEwMjgzMzIzMVBOUk5VQVFHRThGVyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU="
-            }
+
             let rexUID = localStorage.getItem("rexUID")
             let url = env.API_URL + "/api/product?uid=" + rexUID + "&product_id=" + query.data.itemId
-            fetch(url).then(res => res.json()).then(json => console.log(json))
-            itemDetailSet(payload)
-        }
+
+            fetch(url).then(res => res.json()).then(json => {
+                itemDetailSet(json.product)
+                let tempImages = []
+                let screenshot = json.product.screenshot
+                console.log(json.product)
+                if(json.product.images !== null){
+                    fetch(json.product.images)
+                    .then((res) => res.json())
+                    .then((json) => {
+                    //! need to transform the weird base64 code to an img html object
+                        for (const key in json) {
+                            let base64 = json[key];
+                            if (
+                            base64.substring(0, 2) === "b'" &&
+                            base64[base64.length - 1]
+                            ) {
+                            base64 = base64.slice(2);
+                            base64 = base64.slice(0, -1);
+                            }
+                            tempImages.push(
+                            <img  src={'data:image/jpeg;base64,' + base64} id="img" alt={`webscraper ${key}`}/>
+                            );
+                        }
+                        fetch(screenshot)
+                        .then((res) => res.json())
+                        .then((json) => {
+                            tempImages.push(<img src={json.uri} id="img" alt="screenshot" />)
+                            imagesDataSet(tempImages);
+                        });
+                })
+            }else{
+           
+                let tempImages = []
+            
+                fetch(json.product.screenshot)
+                .then((res) => res.json())
+                .then((json) => {
+  
+                    tempImages.push(<img src={json.uri} id="carousel-single" alt="screenshot" />)
+                    imagesDataSet(tempImages);
+                });
+            }
+            
+       
+            })}
     }, [query.data, query.status])
 
 
     const handleClosetPopup = () => {
         queryClient.setQueryData(['ItemDetails'], { display: false})    
     }
-
+    const handleCarousel = (e) => {
+        imageIndexSet(e);
+      };
 
     if(query.data && query.data.display){
 
@@ -64,8 +102,25 @@ function ItemPopup (){
                         {
                             itemDetail &&
                             <>
-                            <div id="name">{itemDetail.itemName}</div>
-                            <a href={itemDetail.itemURL} target="_">url</a>
+                                <a href={itemDetail.url} target="_">url</a>
+                                {imageData.length > 1 ?
+                                    <div id="carousel">
+                                            <Carousel
+                                                value={imageIndex}
+                                                slides={imageData}
+                                                onChange={handleCarousel}
+                                            />
+                                            <Dots
+                                                value={imageIndex}
+                                                onChange={handleCarousel}
+                                                number={imageData.length}
+                                            /> 
+                                    </div>
+                                    :
+                                    imageData[0]
+                                }
+
+
                             </>
                         }
                     </div>

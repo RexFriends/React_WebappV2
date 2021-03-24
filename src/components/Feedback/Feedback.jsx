@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import env from 'react-dotenv'
 import IconButton from '@material-ui/core/IconButton'
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
@@ -25,7 +24,7 @@ function Feedback(){
     const [errorMessage, errorMessageSet] = useState(undefined)
     const [uid, uidSet] = useState(undefined)
     const [tempName, tempNameSet] = useState("")
-    const tempUrl = `http://Rexserverprod-env.eba-mesnqfs2.us-east-1.elasticbeanstalk.com`
+    const tempUrl = `https://server.rexfriends.com`
     const [feedbackRowId, feedbackRowIdSet] = useState(null)
     const [completePageContent, completePageContentSet] = useState(undefined)
     useEffect(() => {
@@ -88,7 +87,7 @@ function Feedback(){
         return () => {
             
         }
-    }, [id,  uid])
+    }, [id,  uid, tempUrl])
 
 
 

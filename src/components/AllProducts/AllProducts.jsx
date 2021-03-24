@@ -15,7 +15,7 @@ function AllProducts(){
             res => res.json()
         ).then(
             json => {
-                console.log("Saved Product Fetch:", json)
+                // console.log("Saved Product Fetch:", json)
                 productDataSet(json.products)}
         )
 

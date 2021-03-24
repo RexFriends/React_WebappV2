@@ -161,7 +161,7 @@ function Login(){
     const redirectToLandingPage = (uid) => {
         localStorage.setItem("rexUID", uid)
         // need to first check if user was on a rex page before, if not, we send them to the landing page
-        history.push("/")
+        history.push("/closets")
     }   
 
     return(
