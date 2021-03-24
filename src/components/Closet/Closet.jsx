@@ -68,7 +68,7 @@ function Closet(){
                 closet_image_uri: fileUpload
         }
         }
-        console.log(payload)
+   
         fetch(env.API_URL + "/api/update-closet?uid=" + rexUID, {
            method: "PATCH",
            headers:{
