@@ -47,6 +47,12 @@
   
         }
 
+        #edit-form-button{
+            position: absolute;
+            right: 60px;
+            top: 20px;
+        }
+
 
         #img{
             width: 200px;
@@ -63,7 +69,7 @@
 
     #item-container{
         padding: 10px;
-        border: solid red 2px;
+        // border: solid red 2px;
         margin: 0px 10px;
         overflow: hidden;
         grid-gap: 16px;
@@ -112,12 +118,61 @@
         }
     }
     #editForm{
-        border: solid red 2px;
+        // border: solid red 2px;
         margin: 0px 10px;
         padding: 10px;
-        // position: absolute;
-        height: 500px;
+        display: flex;
+        flex-direction:column;
+        height: 550px;
+        #top-row{
+            font-size: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        #row{
+            display:flex;
+            // border: solid red 2px;
+            margin: 10px;
+            padding: 5px;
+            .MuiTypography-body1{
+                font-size: 20px;
+                font-family: "Baloo 2";
+            }
+            #label{
+                font-size: 20px;
+                margin-left: 15px;
+            }
+
+            #field{
+                margin-left: 20px;
+            }
+        }
+        #upload{
+            margin: 10px;
+            #upload-button{
+                box-shadow: 0 0 3px  rgba(0, 0, 0, 0.4);
+                font-family: "Baloo 2";
+            }
+        }
+        #currentImage{
+            height: 250px;
+            margin: 10px;
+            #image{
+                margin: 0px auto;
+                width: 250px;
+                height: 250px;
+             
+                #closet-img{
+                    box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+                    border-radius: 10px;;
+                    width: 250px;
+                    height: 250px;
+                    object-fit: contain;
+                }
+            }
+            
+        }
     }
-
-
 }

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {BsInfo} from 'react-icons/bs'
 import IconButton from '@material-ui/core/IconButton'
 import {useQueryClient} from 'react-query'
-import {AnimatePresence, motion} from 'framer-motion'
+import { motion} from 'framer-motion'
 
 function ClosetItem({item}){
     const [hover, hoverSet] = useState(false)

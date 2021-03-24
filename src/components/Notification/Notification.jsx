@@ -3,12 +3,12 @@ import './Notification.scss'
 import env from 'react-dotenv'
 
 function Notification(){
-
+    const [NotifData, NotifDataSet] = useState(undefined)
     useEffect(() => {
         let rexUID = localStorage.getItem("rexUID")
         fetch(env.API_URL + "/api/get_notif?uid=" + rexUID)
         .then(res => res.json())
-        .then(json => console.log(json))
+        .then(json => NotifDataSet(json.notifications))
 
 
         return () => {

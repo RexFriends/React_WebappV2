@@ -37,170 +37,170 @@ const spring = {
   
 }
 
-let data = {
-    username: "Wesley1479",
-    user_id: "1479",
-    propic: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    closets: [
-        {
-            id: 37,
-            name: "Yoga Gear",
-            color: "#1F7C9D",
-            item_count: 4,
-            publish_time: 1614266044395,
+// let data = {
+//     username: "Wesley1479",
+//     user_id: "1479",
+//     propic: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+//     closets: [
+//         {
+//             id: 37,
+//             name: "Yoga Gear",
+//             color: "#1F7C9D",
+//             item_count: 4,
+//             publish_time: 1614266044395,
         
-        },
-        {
-            id: 38,
-            name: "Lounge Wear",
-            color: "#1EC4B2",
-            item_count: 6,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
-        },
-        {
-            id: 39,
-            name: "Meme Wear",
-            color: "#FECC77",
-            item_count: 7,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
-        },
-        {
-            id: 40,
-            name: "PC Build",
-            color: "#FD6C73",
-            item_count: 8,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
-        },
-        {
-            id: 41,
-            name: "Yummy Yummy Foods",
-            color: "#1F7C9D",
-            item_count: 12,
-            publish_time: 1614266044395,
-        },
-        {
-            id: 327,
-            name: "Yoga Gear",
-            color: "#1F7C9D",
-            item_count: 4,
-            publish_time: 1614266044395,
+//         },
+//         {
+//             id: 38,
+//             name: "Lounge Wear",
+//             color: "#1EC4B2",
+//             item_count: 6,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
+//         },
+//         {
+//             id: 39,
+//             name: "Meme Wear",
+//             color: "#FECC77",
+//             item_count: 7,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
+//         },
+//         {
+//             id: 40,
+//             name: "PC Build",
+//             color: "#FD6C73",
+//             item_count: 8,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
+//         },
+//         {
+//             id: 41,
+//             name: "Yummy Yummy Foods",
+//             color: "#1F7C9D",
+//             item_count: 12,
+//             publish_time: 1614266044395,
+//         },
+//         {
+//             id: 327,
+//             name: "Yoga Gear",
+//             color: "#1F7C9D",
+//             item_count: 4,
+//             publish_time: 1614266044395,
         
-        },
-        {
-            id: 381,
-            name: "Lounge Wear",
-            color: "#1EC4B2",
-            item_count: 6,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
-        },
-        {
-            id: 319,
-            name: "Meme Wear",
-            color: "#FECC77",
-            item_count: 7,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
-        },
-        {
-            id: 401,
-            name: "PC Build",
-            color: "#FD6C73",
-            item_count: 8,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
-        },
-        {
-            id: 411,
-            name: "Yummy Yummy Foods",
-            color: "#1F7C9D",
-            item_count: 12,
-            publish_time: 1614266044395,
-        },
-        {
-            id: 37,
-            name: "Yoga Gear",
-            color: "#1F7C9D",
-            item_count: 4,
-            publish_time: 1614266044395,
+//         },
+//         {
+//             id: 381,
+//             name: "Lounge Wear",
+//             color: "#1EC4B2",
+//             item_count: 6,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
+//         },
+//         {
+//             id: 319,
+//             name: "Meme Wear",
+//             color: "#FECC77",
+//             item_count: 7,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
+//         },
+//         {
+//             id: 401,
+//             name: "PC Build",
+//             color: "#FD6C73",
+//             item_count: 8,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
+//         },
+//         {
+//             id: 411,
+//             name: "Yummy Yummy Foods",
+//             color: "#1F7C9D",
+//             item_count: 12,
+//             publish_time: 1614266044395,
+//         },
+//         {
+//             id: 37,
+//             name: "Yoga Gear",
+//             color: "#1F7C9D",
+//             item_count: 4,
+//             publish_time: 1614266044395,
         
-        },
-        {
-            id: 38,
-            name: "Lounge Wear",
-            color: "#1EC4B2",
-            item_count: 6,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
-        },
-        {
-            id: 39,
-            name: "Meme Wear",
-            color: "#FECC77",
-            item_count: 7,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
-        },
-        {
-            id: 40,
-            name: "PC Build",
-            color: "#FD6C73",
-            item_count: 8,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
-        },
-        {
-            id: 41,
-            name: "Yummy Yummy Foods",
-            color: "#1F7C9D",
-            item_count: 12,
-            publish_time: 1614266044395,
-        },
-        {
-            id: 327,
-            name: "Yoga Gear",
-            color: "#1F7C9D",
-            item_count: 4,
-            publish_time: 1614266044395,
+//         },
+//         {
+//             id: 38,
+//             name: "Lounge Wear",
+//             color: "#1EC4B2",
+//             item_count: 6,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
+//         },
+//         {
+//             id: 39,
+//             name: "Meme Wear",
+//             color: "#FECC77",
+//             item_count: 7,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
+//         },
+//         {
+//             id: 40,
+//             name: "PC Build",
+//             color: "#FD6C73",
+//             item_count: 8,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
+//         },
+//         {
+//             id: 41,
+//             name: "Yummy Yummy Foods",
+//             color: "#1F7C9D",
+//             item_count: 12,
+//             publish_time: 1614266044395,
+//         },
+//         {
+//             id: 327,
+//             name: "Yoga Gear",
+//             color: "#1F7C9D",
+//             item_count: 4,
+//             publish_time: 1614266044395,
         
-        },
-        {
-            id: 381,
-            name: "Lounge Wear",
-            color: "#1EC4B2",
-            item_count: 6,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
-        },
-        {
-            id: 319,
-            name: "Meme Wear",
-            color: "#FECC77",
-            item_count: 7,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
-        },
-        {
-            id: 401,
-            name: "PC Build",
-            color: "#FD6C73",
-            item_count: 8,
-            publish_time: 1614266044395,
-            closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
-        },
-        {
-            id: 411,
-            name: "Yummy Yummy Foods",
-            color: "#1F7C9D",
-            item_count: 12,
-            publish_time: 1614266044395,
-        }
-    ],
-    notification_count: 5
-}
+//         },
+//         {
+//             id: 381,
+//             name: "Lounge Wear",
+//             color: "#1EC4B2",
+//             item_count: 6,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-tesla-motors-solarcity-sticker-standing-clipart-a00fc67697ba6b61ff76c89fdf0d10dd.png"
+//         },
+//         {
+//             id: 319,
+//             name: "Meme Wear",
+//             color: "#FECC77",
+//             item_count: 7,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/elon-musk-businessperson-sticker-spacex-telegram-elon-2aa7adc8295259c3f852b76e4b8e8905.png"
+//         },
+//         {
+//             id: 401,
+//             name: "PC Build",
+//             color: "#FD6C73",
+//             item_count: 8,
+//             publish_time: 1614266044395,
+//             closet_png: "https://extension-static-image-hosting-rexfriends.s3.amazonaws.com/HardCodeData/lmj9q9qd7cn7k9ubl896jdjaak.png"
+//         },
+//         {
+//             id: 411,
+//             name: "Yummy Yummy Foods",
+//             color: "#1F7C9D",
+//             item_count: 12,
+//             publish_time: 1614266044395,
+//         }
+//     ],
+//     notification_count: 5
+// }
 
 
 
@@ -352,7 +352,7 @@ function Dashboard({children}){
                         </div>
                         <motion.div id="links" className={userAuth === false ? "no-auth" : "auth"}
                         >   
-                            <div id="link" className={location.pathname === "/" ? "highlight" : ""} onClick={handleHomeClick}>Home</div>
+                            {/* <div id="link" className={location.pathname === "/" ? "highlight" : ""} onClick={handleHomeClick}>Home</div> */}
                             {/* <div id="link" className={location.pathname === "/stores" ? "highlight" : ""} onClick={handleStoresClick}>Stores</div> */}
                             {/* <div id="link" className={location.pathname === "/explore" ? "highlight" : ""} onClick={handleExploreClick}>Explore</div> */}
                             
@@ -442,7 +442,9 @@ function Dashboard({children}){
                         </div>
                         :
                         <div  id="notif"> 
-                            <IconButton style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
+                            <IconButton 
+                            disabled={NotifCount === 0}
+                            style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
                                 <StyledBadge badgeContent={NotifCount} color="secondary" max={99} >
                                     <IoMail style={{fontSize:"35px"}}/>
                                 </StyledBadge>
@@ -471,7 +473,7 @@ function Dashboard({children}){
                         
                             <div id="profile">
                                 <div id="username">{ userData && `${userData.first_name} ${userData.last_name}`}</div>
-                                <img src={data.propic} alt="userpropic" id="propic" />
+                                {/* <img src={data.propic} alt="userpropic" id="propic" /> */}
                             </div>
                         }
                     </div>
