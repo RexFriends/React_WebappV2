@@ -367,9 +367,9 @@ function Dashboard({children}){
                             :
                             <>
                             {/* <div id="link" className={location.pathname === "/friends" ? "highlight" : ""} onClick={handleFriendsClick} >Friends</div> */}
-                            <div id="link" onClick={handleSignupClick}>My Products</div>
+                            <div id="link" onClick={handleSignupClick}>Login</div>
                             {/* <div id="link" onClick={handleSignupClick} >Liked Closets</div> */}
-                            <div id="link" onClick={handleSignupClick} >My Closets</div>
+                            {/* <div id="link" onClick={handleSignupClick} >My Closets</div> */}
                             </>
                             }
                         

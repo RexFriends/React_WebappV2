@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import './Closet.scss'
 import {useParams} from 'react-router-dom'
-import {motion} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 import ClosetItem from './ClosetItem'
 import IconButton from '@material-ui/core/IconButton'
-import {FiEdit2} from 'react-icons/fi'
+import Button from "@material-ui/core/Button"
+import {FiEdit2, FiSave} from 'react-icons/fi'
+import Checkbox from '@material-ui/core/Checkbox'
 import env from "react-dotenv";
+import TextField from '@material-ui/core/TextField'
 
 let data = {
     id: 20,
@@ -52,7 +55,11 @@ function Closet(){
     // use the id to fetch the closet data
     const [closetData, closetDataSet] = useState(undefined)
     const [showClosetForm, showClosetFormSet] = useState(false)
+    const [publicValue, publicValueSet] = useState(undefined)
+    const [closetImageURI, closetImageURISet] = useState(undefined)
+    const [closetName, closetNameSet] = useState(undefined)
     let {id} = useParams()
+
     useEffect(() => {
         let rexUID = localStorage.getItem("rexUID")
         let url;
@@ -70,6 +77,10 @@ function Closet(){
             json => {
             console.log("closet fetch results", json)
             closetDataSet(json)
+            if(json.isOwned){
+                publicValueSet(json.user.isPublic)
+                closetNameSet(json.name)
+            }
         }
         ).catch(err => console.log(err))
  
@@ -80,8 +91,22 @@ function Closet(){
 
 
     const showEditForm = () => {
-        showClosetFormSet(true)
+        showClosetFormSet(!showClosetForm)
     }
+
+    const handleUpdateCloset = () => {
+        let payload = {
+            closet_name: closetName,
+            is_public: publicValue,
+            closet_image_uri: "www.newclosetimage.com"
+        }
+        console.log(payload)
+    }
+
+    const handleUpload = (e) => {
+        console.log(e.target.value)
+    }
+ 
 
     return(
         <motion.div id="ClosetPage"
@@ -123,28 +148,49 @@ function Closet(){
                     Loading
                 </div>
             }
-           <div id="item-container">
-                {closetData ?
-                    closetData.listings.map(
-                        (product, i) => 
-                        <ClosetItem item={product} key={i}/>
-                    )            
-                    :
-                    <div>
-                        Loading
-                    </div>    
-                }
-           </div>
-           {  
-            showEditForm && 
-            <motion.div id="EditForm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{   opacity: 0 }}
-            >
-                <div>Edit Form</div>
-            </motion.div>
-           }
+            <AnimatePresence>
+            {showClosetForm ?
+                <motion.div id="editForm"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{duration: 0.3, delay: 0.1}}
+                    >
+                    <div>Edit Form</div>
+                    <Checkbox value={publicValue} onChange={()=>publicValueSet(!publicValue)} />
+                    <TextField id="standard-basic" label="Standard" value={closetName} onChange={(e)=>{closetNameSet(e.target.value)} }/>
+                    <input
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="raised-button-file"
+                    multiple
+                    type="file"
+                    onChange={handleUpload}
+                    />
+                    <label htmlFor="raised-button-file" >
+                    <Button variant="raised" component="span" >
+                        Upload
+                    </Button>
+                    </label> 
+                    <Button startIcon={<FiSave/>} onClick={handleUpdateCloset}>Save Closet Settings</Button>
+                </motion.div>
+                :
+                <motion.div id="item-container"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{duration: 0.3, delay: 0.1}}
+                >
+                        {closetData ?
+                            closetData.listings.map(
+                                (product, i) => 
+                                <ClosetItem item={product} key={i}/>
+                            )            
+                            :
+                            <div>
+                                Loading
+                            </div>    
+                        }
+                </motion.div>}
+            </AnimatePresence>
         </motion.div>
     )
 }

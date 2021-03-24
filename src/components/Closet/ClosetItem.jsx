@@ -11,7 +11,7 @@ function ClosetItem({item}){
 
     useEffect(() => {
         
-        console.log(item)
+        // console.log(item)
         if(item.images !== null){
             fetch(item.images).then(
                 res => res.json()
@@ -47,11 +47,8 @@ function ClosetItem({item}){
     }
 
     return(
-        <AnimatePresence>
-            <motion.div id="product"  onMouseEnter={()=>hoverSet(true)} onMouseLeave={()=>hoverSet(false)}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{duration: 0.3, delay: 0.1}}
+        <div id="product"  onMouseEnter={()=>hoverSet(true)} onMouseLeave={()=>hoverSet(false)}
+             
                 // transition={{
                 // type: "tween",
                 // delay: 0.3}}
@@ -70,8 +67,8 @@ function ClosetItem({item}){
                         </div>
                     </motion.div>
                 }
-            </motion.div>
-        </AnimatePresence>
+            </div>
+   
     )
 }
 
