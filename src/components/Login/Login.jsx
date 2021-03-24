@@ -91,11 +91,40 @@ function Login(){
     }
 
     const handleFacebook = () => {
-        console.log("FBAuth call")
+        firebase.auth().signInWithPopup(facebookProvider).then((res) => {
+            const data = {
+                "firstname": res.additionalUserInfo.profile.given_name,
+                "lastname": res.additionalUserInfo.profile.family_name,
+                "email": res.user.email,
+                "phone": null,
+                "uid": res.user.uid
+                }
+            fetch(env.API_URL + "/api/signupweb", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log("This is the json return from api", json)
+                if(json.success === true ){
+                    redirectToLandingPage(data.uid)
+                }else{
+                    console.log(json.error)
+                }
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+          }).catch((error) => {
+            console.log(error.message)
+          })
     }
 
     const handleGoogle = () => {
-        console.log("GoogleAuth call")
+        // console.log("GoogleAuth call")
         firebase.auth().signInWithPopup(googleProvider).then((res) => {
             const data = {
                 "firstname": res.additionalUserInfo.profile.given_name,

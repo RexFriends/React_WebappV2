@@ -360,14 +360,14 @@ function Dashboard({children}){
                                 userAuth === true ?
                             <>
                             {/* <div id="link" className={location.pathname === "/friends" ? "highlight" : ""} onClick={handleFriendsClick} >Friends</div> */}
-                            <div id="link" className={location.pathname === "/saved" ? "highlight" : ""} onClick={handleSavedClick}>Saved Products</div>
+                            <div id="link" className={location.pathname === "/saved" ? "highlight" : ""} onClick={handleSavedClick}>My Products</div>
                             {/* <div id="link" className={location.pathname === "/liked" ? "highlight" : ""} onClick={handleLikedClosetClick} >Liked Closets</div> */}
                             <div id="link" className={location.pathname === "/closets" ? "highlight" : ""} onClick={handleClosetClick} >My Closets</div>
                             </>
                             :
                             <>
                             {/* <div id="link" className={location.pathname === "/friends" ? "highlight" : ""} onClick={handleFriendsClick} >Friends</div> */}
-                            <div id="link" onClick={handleSignupClick}>Saved Products</div>
+                            <div id="link" onClick={handleSignupClick}>My Products</div>
                             {/* <div id="link" onClick={handleSignupClick} >Liked Closets</div> */}
                             <div id="link" onClick={handleSignupClick} >My Closets</div>
                             </>
