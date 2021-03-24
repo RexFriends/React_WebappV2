@@ -1,8 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import './Closet.scss'
 import {useParams} from 'react-router-dom'
 import {motion} from 'framer-motion'
 import ClosetItem from './ClosetItem'
+import IconButton from '@material-ui/core/IconButton'
+import {FiEdit2} from 'react-icons/fi'
 import env from "react-dotenv";
 
 let data = {
@@ -48,35 +50,38 @@ let data = {
 
 function Closet(){
     // use the id to fetch the closet data
+    const [closetData, closetDataSet] = useState(undefined)
+    const [showClosetForm, showClosetFormSet] = useState(false)
     let {id} = useParams()
     useEffect(() => {
         let rexUID = localStorage.getItem("rexUID")
         let url;
-        let payload = {
-            'closet_id': id
-        }
 
         if(rexUID !== null){
-            url = env.API_URL + "/api/closet?uid=" + rexUID
+            url = env.API_URL + "/api/closet?uid=" + rexUID + "&id=" + id
         }else{
             url = env.API_URL + "/api/closet"
         }
-        fetch(url,{
-            method: "POST",
-            header:{
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        }).then(
+        console.log(url)
+        fetch(url
+        ).then(
             res => res.json()
         ).then(
-            json => console.log("closet fetch", json)
-        )
-
+            json => {
+            console.log("closet fetch results", json)
+            closetDataSet(json)
+        }
+        ).catch(err => console.log(err))
+ 
         return () => {
             
         }
     }, [id])
+
+
+    const showEditForm = () => {
+        showClosetFormSet(true)
+    }
 
     return(
         <motion.div id="ClosetPage"
@@ -84,27 +89,62 @@ function Closet(){
         animate={{ opacity: 1 }}
         exit={{   opacity: 0 }}
         >
-           <motion.div id="closet-header" style={{backgroundColor: data.color}}
+            {
+                closetData ?
+                closetData.isOwned ?
+
+                <motion.div id="closet-header" style={{backgroundColor: data.color}}
+                initial={{ x:200, opacity: 0 }}
+                animate={{ x:0, opacity: 1 }}
+                transition={{duration: 0.3}}
+                >
+                    {/* <img src={data.closet_png} id="img" alt="closet"/> */}
+                    <div id="text">
+                        <div id="name">{closetData.name}</div>
+                    </div>
+                    <IconButton onClick={showEditForm}>
+                        <FiEdit2/>
+                    </IconButton>
+                </motion.div>
+               :
+                <motion.div id="closet-header" style={{backgroundColor: data.color}}
                  initial={{ x:200, opacity: 0 }}
                  animate={{ x:0, opacity: 1 }}
                  transition={{duration: 0.3}}
-           >
-                <img src={data.closet_png} id="img" alt="closet"/>
-                <div id="text">
-                    <div id="user">{data.username.replace("_", " ")}'s</div>
-                    <div id="name">{data.name}</div>
+                >
+                    {/* <img src={data.closet_png} id="img" alt="closet"/> */}
+                    <div id="text">
+                        <div id="user">{closetData.user.first_name + " " + closetData.user.last_name}'s</div>
+                        <div id="name">{closetData.name}</div>
+                    </div>
+                </motion.div>
+                :
+                <div>
+                    Loading
                 </div>
-           </motion.div>
+            }
            <div id="item-container">
-            
-                {
-                    data.products.map(
+                {closetData ?
+                    closetData.listings.map(
                         (product, i) => 
                         <ClosetItem item={product} key={i}/>
-                    )                
+                    )            
+                    :
+                    <div>
+                        Loading
+                    </div>    
                 }
-       
            </div>
+           {  
+            showEditForm && 
+            <motion.div id="EditForm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{   opacity: 0 }}
+            >
+                <div>Edit Form</div>
+            </motion.div>
+           }
         </motion.div>
     )
 }

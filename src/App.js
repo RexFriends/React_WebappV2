@@ -3,7 +3,8 @@ import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 
 // Componenets
@@ -11,7 +12,7 @@ import Closet from './components/Closet/Closet'
 import Dashboard from './components/Dashboard/Dashboard'
 import Landing from './components/Landing/Landing'
 import Login from './components/Login/Login'
-import NoMatch from './components/NoMatch/NoMatch'
+// import NoMatch from './components/NoMatch/NoMatch'
 import Profile from './components/Profile/Profile'
 import AllProducts from './components/AllProducts/AllProducts'
 import Setting from './components/Setting/Setting'
@@ -43,7 +44,6 @@ function App() {
                     <Route
                       render={({ location }) => (
                         <AnimatePresence exitBeforeEnter>
-                          
                             <Switch location={location} key={location.pathname}>
                               <Route exact path="/" children={<Landing/>}/>
                               <Route path="/saved" children={<AllProducts/>}/>
@@ -51,10 +51,10 @@ function App() {
                               <Route path="/closets" children={<AllClosets/>}/>
                               <Route path="/closet/:id" children={<Closet/>}/>
                               <Route path="/user/:id" children={<Profile/>}/>
-                              <Route path="*" children={ <NoMatch/>}/>
-                              
+                              <Route path="*">
+                                 <Redirect to="/"/>
+                              </Route>
                             </Switch>
-                      
                         </AnimatePresence>
                       )}/>
                 </Dashboard>

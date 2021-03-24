@@ -1,260 +1,12 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import './AllProducts.scss'
 import AllProductItem from './AllProductItem'
 import {AnimatePresence, motion} from 'framer-motion'
 import env from "react-dotenv";
-let data = {
-    products: [
-        {
-            id: 30,
-            url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg",
-            closet: [20, 21]
-        },
-        {
-            id: 31,
-            url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 32,
-            url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 33,
-            url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
-            ,closet: []
-        },
-        {
-            id: 34,
-            url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 35,
-            url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 36,
-            url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 30,
-            url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg",
-            closet: [20, 21]
-        },
-        {
-            id: 31,
-            url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 32,
-            url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 33,
-            url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
-            ,closet: []
-        },
-        {
-            id: 34,
-            url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 35,
-            url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 36,
-            url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 30,
-            url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg",
-            closet: [20, 21]
-        },
-        {
-            id: 31,
-            url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 32,
-            url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 33,
-            url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
-            ,closet: []
-        },
-        {
-            id: 34,
-            url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 35,
-            url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 36,
-            url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 30,
-            url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg",
-            closet: [20, 21]
-        },
-        {
-            id: 31,
-            url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 32,
-            url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 33,
-            url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
-            ,closet: []
-        },
-        {
-            id: 34,
-            url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 35,
-            url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 36,
-            url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 30,
-            url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg",
-            closet: [20, 21]
-        },
-        {
-            id: 31,
-            url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 32,
-            url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 33,
-            url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
-            ,closet: []
-        },
-        {
-            id: 34,
-            url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 35,
-            url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 36,
-            url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 30,
-            url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg",
-            closet: [20, 21]
-        },
-        {
-            id: 31,
-            url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 32,
-            url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 33,
-            url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
-            ,closet: []
-        },
-        {
-            id: 34,
-            url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 35,
-            url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 36,
-            url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 30,
-            url: "https://m.media-amazon.com/images/I/91QvbQrZ4eL._AC_UL320_.jpg",
-            closet: [20, 21]
-        },
-        {
-            id: 31,
-            url: "https://m.media-amazon.com/images/I/81Sv3Z2suBL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 32,
-            url: "https://m.media-amazon.com/images/I/81eBUIBfJpL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 33,
-            url: "https://m.media-amazon.com/images/I/91YHIgoKb4L._AC_UL320_.jpg"
-            ,closet: []
-        },
-        {
-            id: 34,
-            url: "https://m.media-amazon.com/images/I/A1T0ERFxCkL._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 35,
-            url: "https://m.media-amazon.com/images/I/810hQ8n009L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-        {
-            id: 36,
-            url: "https://m.media-amazon.com/images/I/810sqe8XJ+L._AC_UL320_.jpg"
-            ,closet: [20, 21]
-        },
-    ]
-}
+
 
 function AllProducts(){
-
+    const [productData, productDataSet] = useState([])
     useEffect(() => {
         let rexUID = localStorage.getItem("rexUID")
 
@@ -262,7 +14,9 @@ function AllProducts(){
         .then(
             res => res.json()
         ).then(
-            json => console.log(json)
+            json => {
+                console.log("Saved Product Fetch:", json)
+                productDataSet(json.products)}
         )
 
         return () => {
@@ -281,7 +35,7 @@ function AllProducts(){
             <div id="container" >
                 <AnimatePresence>
                 {
-                    data.products.map(
+                    productData.map(
                         (product, i) => 
                         <AllProductItem item={product} key={i}/>
 

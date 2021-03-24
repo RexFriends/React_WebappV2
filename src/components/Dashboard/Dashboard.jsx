@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import logo from '../../assets/img/Asset 1.png'
 import env from "react-dotenv";
 import Button from '@material-ui/core/Button'
+import Notification from "../Notification/Notification"
 // import {useQueryClient} from 'react-query'
 
 import Scrollbars from "react-custom-scrollbars";
@@ -218,7 +219,7 @@ function Dashboard({children}){
     const [userAuth, userAuthSet] = useState(undefined)
     const [userData, userDataSet] = useState(undefined)
     const [closetData, closetDataSet] = useState(undefined)
-
+    const [NotifCount, NotifCountSet] = useState(undefined)
     useEffect(() => {
         console.log("This is the initial application load")
         let rexUID = localStorage.getItem("rexUID")
@@ -234,11 +235,12 @@ function Dashboard({children}){
             res => res.json()
         ).then(
             json =>{
-               console.log(json)
+               console.log("Dashboard", json)
                if(json.user){
                     userAuthSet(true)
                     userDataSet(json.user)
                     closetDataSet(json.closets)
+                    NotifCountSet(json.notif_count)
                }else{
                     userAuthSet(false)
                }
@@ -293,9 +295,9 @@ function Dashboard({children}){
         showClosetsSet(false)
     }
 
-    const handleExploreClick = () => {
-        history.push("/explore")
-    }
+    // const handleExploreClick = () => {
+    //     history.push("/explore")
+    // }
 
     // const handleStoresClick = () => {
     //     history.push("/stores")
@@ -309,9 +311,9 @@ function Dashboard({children}){
     // const handleFriendsClick = () => {
     //     history.push("/friends")
     // }
-    const handleLikedClosetClick = () => {
-        history.push("/liked")
-    }
+    // const handleLikedClosetClick = () => {
+    //     history.push("/liked")
+    // }
     
     const handleSavedClick = () => {
         history.push("/saved")
@@ -352,21 +354,21 @@ function Dashboard({children}){
                         >   
                             <div id="link" className={location.pathname === "/" ? "highlight" : ""} onClick={handleHomeClick}>Home</div>
                             {/* <div id="link" className={location.pathname === "/stores" ? "highlight" : ""} onClick={handleStoresClick}>Stores</div> */}
-                            <div id="link" className={location.pathname === "/explore" ? "highlight" : ""} onClick={handleExploreClick}>Explore</div>
+                            {/* <div id="link" className={location.pathname === "/explore" ? "highlight" : ""} onClick={handleExploreClick}>Explore</div> */}
                             
                             {
                                 userAuth === true ?
                             <>
                             {/* <div id="link" className={location.pathname === "/friends" ? "highlight" : ""} onClick={handleFriendsClick} >Friends</div> */}
                             <div id="link" className={location.pathname === "/saved" ? "highlight" : ""} onClick={handleSavedClick}>Saved Products</div>
-                            <div id="link" className={location.pathname === "/liked" ? "highlight" : ""} onClick={handleLikedClosetClick} >Liked Closets</div>
+                            {/* <div id="link" className={location.pathname === "/liked" ? "highlight" : ""} onClick={handleLikedClosetClick} >Liked Closets</div> */}
                             <div id="link" className={location.pathname === "/closets" ? "highlight" : ""} onClick={handleClosetClick} >My Closets</div>
                             </>
                             :
                             <>
                             {/* <div id="link" className={location.pathname === "/friends" ? "highlight" : ""} onClick={handleFriendsClick} >Friends</div> */}
                             <div id="link" onClick={handleSignupClick}>Saved Products</div>
-                            <div id="link" onClick={handleSignupClick} >Liked Closets</div>
+                            {/* <div id="link" onClick={handleSignupClick} >Liked Closets</div> */}
                             <div id="link" onClick={handleSignupClick} >My Closets</div>
                             </>
                             }
@@ -441,7 +443,7 @@ function Dashboard({children}){
                         :
                         <div  id="notif"> 
                             <IconButton style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
-                                <StyledBadge badgeContent={data.notification_count} color="secondary" max={99} >
+                                <StyledBadge badgeContent={NotifCount} color="secondary" max={99} >
                                     <IoMail style={{fontSize:"35px"}}/>
                                 </StyledBadge>
                             </IconButton>
@@ -482,7 +484,7 @@ function Dashboard({children}){
                         animate={{height: "150px", opacity: 1, y: 0}}
                         exit={{   height: 0, opacity: 0, y: -150 }}
                     >
-                        This is the notification
+                        <Notification/>
                     </motion.div>
                     }
                     </AnimatePresence>

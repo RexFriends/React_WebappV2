@@ -48,8 +48,10 @@ function Login(){
 
         firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
             .then((user) => {
+                console.log(user)
                 payload.uid = user.user.uid
-                fetch(env.API_URL + '/api/signupweb' + user.uid, {
+                
+                fetch(env.API_URL + '/api/signupweb?uid=' + payload.uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -57,6 +59,13 @@ function Login(){
                     body: JSON.stringify(payload)
                 })
                 .then(response => response.json())
+                .then(
+                    json => {
+                        if (json.success === true){
+                            redirectToLandingPage(payload.uid)
+                        }
+                    }
+                )
                 .catch((error) => {
                     console.log(error.message)
                 })
@@ -73,9 +82,9 @@ function Login(){
         }
         console.log("Login call:", payload)
         firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-                .then(user => {
-                    console.log(`logged in user ${user}`);
-                    // updateState('uid', user.uid)
+                .then(res => {
+                    // console.log(res)
+                    redirectToLandingPage(res.user.uid)
                 }).catch(e => {
                     console.log(e);
                 });

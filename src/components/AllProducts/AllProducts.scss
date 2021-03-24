@@ -14,25 +14,32 @@
     }
 
     #container{
-     
-   
+        padding: 10px;
+        // border: solid red 2px;
         margin: 0px 10px;
         overflow: hidden;
         grid-gap: 16px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
         #product{
-         
-            border-radius: 35px;
+            // border: solid red 2px;
+            // padding:
+            background-color: white;
+            border-radius: 10px;
             box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
             cursor: pointer;
             position: relative;
             width: 210px;
             height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+           
             #image{
-                border-radius: 35px;
-                height: 200px;
-                width: 200px;
+                // border: solid red 2px;
+                margin: auto;
+                height: 170px;
+                width: 170px;
                 object-fit: contain;
                 background-color: white;
                 padding: 5px;
@@ -45,7 +52,7 @@
                 height: 200px;
                 width: 200px;
                 padding: 5px;
-                border-radius: 35px;
+                border-radius: 10px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;

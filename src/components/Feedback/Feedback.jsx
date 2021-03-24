@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-// import env from 'react-dotenv'
+import env from 'react-dotenv'
 import IconButton from '@material-ui/core/IconButton'
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
@@ -26,18 +26,19 @@ function Feedback(){
     const [uid, uidSet] = useState(undefined)
     const [tempName, tempNameSet] = useState("")
     const tempUrl = `http://Rexserverprod-env.eba-mesnqfs2.us-east-1.elasticbeanstalk.com`
-
+    const [feedbackRowId, feedbackRowIdSet] = useState(null)
+    const [completePageContent, completePageContentSet] = useState(undefined)
     useEffect(() => {
         let rexUID = localStorage.getItem("rexUID")
-        const tempUrl1 = `http://Rexserverprod-env.eba-mesnqfs2.us-east-1.elasticbeanstalk.com`
+     
         uidSet(rexUID)
 
-        fetch(tempUrl1 +  `/feedback?uid=${uid ? uid : ""}&rex_feedback_link=${id}`)
+        fetch(tempUrl +  `/feedback?uid=${uid ? uid : ""}&rex_feedback_link=${id}`)
             .then(res => res.json())
             .then(json =>{ 
-
+                console.log(json)
                 let data = json
-                console.log("response from aws", data)
+                feedbackRowIdSet(json.feedback_row_id)
                 formDataSet(data)
                     let tempImages = []
                     let screenshot = json.screenshot
@@ -77,7 +78,7 @@ function Feedback(){
                     fetch(screenshot)
                     .then((res) => res.json())
                     .then((json) => {
-                        console.log(json)
+      
                         tempImages.push(<img src={json.uri} id="carousel-single" alt="screenshot" />)
                         imagesSet(tempImages);
                     });
@@ -89,10 +90,7 @@ function Feedback(){
         }
     }, [id,  uid])
 
-    useEffect(() => {
-        console.log(images)
 
-    }, [images])
 
     const  handleSendFeedback = () => {
         if(thumbs === undefined){
@@ -104,15 +102,14 @@ function Feedback(){
         }else{
             let payload = {
                 additionalFeedback: additionalFeedback,
-                thumbs: thumbs,
-                feedback_row_id: formData.feedback_row_id
-
+                review: thumbs,
+                feedback_row_id: feedbackRowId
             }
             if (uid === null){
-                payload.tempName = tempName
+                payload.name = tempName
             } 
-            console.log(payload)
-            fetch(tempUrl +  `/feedback?uid=${uid ? uid : ""}&rex_feedback_link=${id}`,{
+            console.log("Payload for feedback POST", payload, "Link", tempUrl +  `/feedback?uid=${uid ? uid : "null"}&rex_feedback_link=${id}` )
+            fetch(tempUrl +  `/feedback?uid=${uid ? uid : "null"}&rex_feedback_link=${id}`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -120,10 +117,21 @@ function Feedback(){
             body: JSON.stringify(payload)
             }
             ).then(
-                res => res.text()
-            ).then(json =>
-                console.log("response after send", json)).catch(err => console.log("err response after send", err))
-            // completePageSet(true)
+                res => res.json()
+            ).then(json =>{
+                console.log("response after send", json)
+                if(json.success === true){
+                    completePageSet(true)
+                    return
+                }
+                if(json.success === false){
+                    completePageSet(true)
+                    completePageContentSet(json.reason)
+                }
+            }    
+            ).catch(err => console.log("err response after send", err)
+            
+                )
             
         }
     }
@@ -142,6 +150,11 @@ function Feedback(){
                     transition={{ delay: 1 }} 
                 >
                     <img src={Asset} alt="logo" id="logo"/>
+                    {completePageContent &&
+                        <div>
+                            {completePageContent}
+                        </div>
+                    }
                     <div id="text">
                         Sent!
                     </div>
