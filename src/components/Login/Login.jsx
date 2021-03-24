@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import './Login.scss'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -28,6 +28,20 @@ function Login(){
     const [lastname, lastnameSet] = useState("")
     const [phone, phoneSet] = useState("")
     
+    useEffect(() => {
+        let rexUID = localStorage.getItem("rexUID")
+        if(rexUID !== null){
+            history.push("/closets")
+        }
+
+
+        return () => {
+            
+        }
+    }, [])
+
+
+
     const clearFields = () => {
         emailSet("")
         passwordSet("")
