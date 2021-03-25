@@ -16,7 +16,7 @@ function Notification(){
         return () => {
             
         }
-    }, [])
+    }, [NotifData])
     return(
         <div id="notification">
             This is notification component

@@ -86,7 +86,7 @@ function ItemPopup (){
        
             })}
         fetch(APIURL + '/api/getfriends?uid=' + rexUID ).then((res) => res.json()).then((json) => {
-            console.log(json.contacts)
+            // console.log(json.contacts)
             friendsSet(json.contacts)
         })
     }, [query.data, query.status])
@@ -112,7 +112,7 @@ function ItemPopup (){
             },
             body: JSON.stringify(payload),
         }).then(res => res.json())
-        .then(json => console.log(json))
+        // .then(json => console.log(json))
     }
 
     const handleGetCopyLink = () => {
@@ -127,7 +127,7 @@ function ItemPopup (){
           })
             .then((res) => res.text())
             .then((link) => {
-                console.log(link)
+                // console.log(link)
                 var inp = document.createElement('input');
                 document.body.appendChild(inp);
                 inp.value = link;

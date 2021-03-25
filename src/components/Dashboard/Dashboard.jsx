@@ -220,9 +220,9 @@ function Dashboard({children}){
     const [closetData, closetDataSet] = useState(undefined)
     const [NotifCount, NotifCountSet] = useState(undefined)
     useEffect(() => {
-        console.log("This is the initial application load")
+        // console.log("This is the initial application load")
         let rexUID = localStorage.getItem("rexUID")
-        console.log("checking if user is logged in...", rexUID)
+        // console.log("checking if user is logged in...", rexUID)
         
         if(rexUID !== null){
           fetch(URL + "/api/webdashboard?uid=" + rexUID,{
@@ -234,7 +234,7 @@ function Dashboard({children}){
             res => res.json()
         ).then(
             json =>{
-               console.log("Dashboard", json)
+            //    console.log("Dashboard", json)
                if(json.user){
                     userAuthSet(true)
                     userDataSet(json.user)
@@ -442,7 +442,7 @@ function Dashboard({children}){
                         :
                         <div  id="notif"> 
                             <IconButton 
-                            
+                            disabled
                             style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
                                 <StyledBadge badgeContent={NotifCount} color="secondary" max={99} >
                                     <IoMail style={{fontSize:"35px"}}/>

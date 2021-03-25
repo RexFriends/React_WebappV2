@@ -15,8 +15,8 @@ function Setting(){
     }
 
     return(
-        <div>
-            <Button onClick={handleLogout}>LogOut</Button>
+        <div id="SettingPage">
+            <Button id="button" onClick={handleLogout}>LogOut</Button>
         </div>
     )
 }

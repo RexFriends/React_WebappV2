@@ -37,7 +37,7 @@ function Closet(){
             res => res.json()
         ).then(
             json => {
-            console.log("closet fetch results", json)
+            // console.log("closet fetch results", json)
             closetDataSet(json)
             if(json.isOwned === true){
                 imageUploadSet(json.closet_image_uri)
@@ -67,7 +67,7 @@ function Closet(){
                 closet_image_uri: fileUpload ?? null
         }
         }
-        console.log(payload)
+        // console.log(payload)
         fetch(APIURL + "/api/update-closet?uid=" + rexUID, {
            method: "PATCH",
            headers:{
@@ -75,7 +75,7 @@ function Closet(){
            },
         body: JSON.stringify(payload)
         }).then(res => res.json())
-        .then(json => console.log(json))
+        // .then(json => console.log(json))
     }
 
     const handleUpload = (e) => {

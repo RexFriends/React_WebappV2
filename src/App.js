@@ -20,7 +20,7 @@ import ItemPopup from './components/ItemPopup/ItemPopup'
 import Feedback from './components/Feedback/Feedback'
 import AllClosets from './components/AllClosets/AllClosets'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+// import { ReactQueryDevtools } from 'react-query/devtools'
 import {AnimatePresence} from 'framer-motion'
 
 
@@ -64,7 +64,7 @@ function App() {
               </Switch>
           </Router>
       </div>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider >
   );
 }

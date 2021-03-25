@@ -16,7 +16,7 @@ function AllClosets () {
             res => res.json()
         ).then(
             json => {
-            console.log("allcloset render", json)
+            // console.log("allcloset render", json)
             closetDataSet(json.closet_preview)}
         )
 
