@@ -41,8 +41,6 @@ function ClosetPreview({closet}){
             return temp
         }
         fetchImages().then(temp => {
-            // console.log("temp ", temp)
-          
             imageDataSet(temp)
             history.push("/closets")
         }
@@ -55,7 +53,7 @@ function ClosetPreview({closet}){
     setTimeout(()=> changeSet(!change), 50)
 
     const handleClosetView = () => {
-        history.push(`/closet/${closet.id}`)
+        history.push(`/closets/${closet.id}`)
     }
 
     return(
@@ -66,11 +64,20 @@ function ClosetPreview({closet}){
         type: "tween",
         delay: 0.3}}
         onClick={handleClosetView}
-    >
-        {imageData.map(
-            (img, i) => 
-            <img src={img} id="img" key={i}  alt={i} />
-        )}
+    >   
+        {
+            closet.closet_icon ?
+            <img src={closet.closet_icon} id="closet-icon" alt="closet-icon" />
+
+
+            :
+            imageData.map(
+                (img, i) => 
+                <img src={img} id="img" key={i}  alt={i} />
+            )
+
+        }
+        
         <div id="closet-name">{closet.closet_name}</div>
     </motion.div>
     )

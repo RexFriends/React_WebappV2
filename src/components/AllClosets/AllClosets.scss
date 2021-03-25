@@ -25,6 +25,7 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+         
             cursor: pointer;
             position: relative;
             width: 220px;
@@ -49,6 +50,14 @@
                 height: 90px;
                 object-fit: contain;
                 margin: 5px;
+            
+            }
+            #closet-icon{
+                width: 220px;
+                height: 220px;
+                object-fit: contain;
+                // border: solid red 2px;
+
             }
         }
         #overlay{

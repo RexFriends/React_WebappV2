@@ -173,6 +173,7 @@ function Login(){
             <div id="option">
                 <div onClick={()=>{signUpSet(false); clearFields()}} id={signUp ? "" : "highlight"}>Login</div>
                 <div onClick={()=>{signUpSet(true); clearFields()}} id={!signUp ? "" : "highlight"}>Sign Up</div>
+                <a href={"https://chrome.google.com/webstore/detail/rex-social-shopping-assis/hhegepmkgedompkfdccmmajmknnnlele/related?hl=en&authuser=0"} target="blank" rel="noreferrer">Download Extension</a>
             </div>
 
             {!signUp ?
@@ -191,6 +192,7 @@ function Login(){
                     <div id="Oauth">
                         <Button variant="contained" color="primary" onClick={handleGoogle} size="small" id="google" startIcon={<FaGoogle/>}>Sign in with Google</Button>
                         <Button variant="contained" color="primary" onClick={handleFacebook} size="small" id="fb" startIcon={<FaFacebookF/>}>Sign in with Facebook</Button>
+                      
                     </div>
                 </div>
             :

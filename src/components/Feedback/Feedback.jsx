@@ -12,6 +12,8 @@ import '@brainhubeu/react-carousel/lib/style.css';
 import './Feedback.scss'
 import { AnimatePresence, motion } from 'framer-motion';
 import Asset from "../../assets/img/Asset 1.png"
+import URL from '../../assets/URL'
+
 function Feedback(){
     let {id} = useParams()
     const { width } = useWindowDimensions();
@@ -24,7 +26,7 @@ function Feedback(){
     const [errorMessage, errorMessageSet] = useState(undefined)
     const [uid, uidSet] = useState(undefined)
     const [tempName, tempNameSet] = useState("")
-    const tempUrl = `https://server.rexfriends.com`
+
     const [feedbackRowId, feedbackRowIdSet] = useState(null)
     const [completePageContent, completePageContentSet] = useState(undefined)
     useEffect(() => {
@@ -32,7 +34,7 @@ function Feedback(){
      
         uidSet(rexUID)
 
-        fetch(tempUrl +  `/feedback?uid=${uid ? uid : ""}&rex_feedback_link=${id}`)
+        fetch(URL +  `/feedback?uid=${uid ? uid : ""}&rex_feedback_link=${id}`)
             .then(res => res.json())
             .then(json =>{ 
                 console.log(json)
@@ -87,7 +89,7 @@ function Feedback(){
         return () => {
             
         }
-    }, [id,  uid, tempUrl])
+    }, [id,  uid])
 
 
 
@@ -107,8 +109,8 @@ function Feedback(){
             if (uid === null){
                 payload.name = tempName
             } 
-            console.log("Payload for feedback POST", payload, "Link", tempUrl +  `/feedback?uid=${uid ? uid : "null"}&rex_feedback_link=${id}` )
-            fetch(tempUrl +  `/feedback?uid=${uid ? uid : "null"}&rex_feedback_link=${id}`,{
+
+            fetch(URL +  `/feedback?uid=${uid ? uid : "null"}&rex_feedback_link=${id}`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

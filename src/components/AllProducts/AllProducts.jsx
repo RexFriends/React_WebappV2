@@ -2,15 +2,14 @@ import React, {useEffect, useState} from 'react'
 import './AllProducts.scss'
 import AllProductItem from './AllProductItem'
 import {AnimatePresence, motion} from 'framer-motion'
-import env from "react-dotenv";
-
+import URL from '../../assets/URL'
 
 function AllProducts(){
     const [productData, productDataSet] = useState([])
     useEffect(() => {
         let rexUID = localStorage.getItem("rexUID")
 
-        fetch(env.API_URL + "/api/all_listings?uid=" + rexUID)
+        fetch(URL + "/api/all_listings?uid=" + rexUID)
         .then(
             res => res.json()
         ).then(

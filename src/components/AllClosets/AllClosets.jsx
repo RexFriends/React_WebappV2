@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import env from 'react-dotenv';
+import URL from '../../assets/URL'
 import './AllClosets.scss'
 import ClosetPreview from './ClosetPreview'
 import {motion} from 'framer-motion'
+
+
 function AllClosets () {
     let rexUID = localStorage.getItem("rexUID")
     const [closetData, closetDataSet] = useState(undefined)
     useEffect(() => {
         
 
-        fetch(env.API_URL + "/api/closet_preview?uid=" + rexUID)
+        fetch(URL + "/api/closet_preview?uid=" + rexUID)
         .then(
             res => res.json()
         ).then(
             json => {
-            // console.log("allcloset render", json)
+            console.log("allcloset render", json)
             closetDataSet(json.closet_preview)}
         )
 
