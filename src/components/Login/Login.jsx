@@ -6,7 +6,7 @@ import logo from '../../assets/img/128.png'
 import {FaGoogle, FaFacebookF} from 'react-icons/fa'
 import { useHistory } from "react-router-dom";
 import firebase from 'firebase';
-import env from 'react-dotenv'
+import URL from '../../assets/URL'
 require('firebase/auth')
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
@@ -65,7 +65,7 @@ function Login(){
                 console.log(user)
                 payload.uid = user.user.uid
                 
-                fetch(env.API_URL + '/api/signupweb?uid=' + payload.uid, {
+                fetch(URL + '/api/signupweb?uid=' + payload.uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -113,7 +113,7 @@ function Login(){
                 "phone": null,
                 "uid": res.user.uid
                 }
-            fetch(env.API_URL + "/api/signupweb", {
+            fetch(URL + "/api/signupweb", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -147,7 +147,7 @@ function Login(){
                 "phone": null,
                 "uid": res.user.uid
                 }
-            fetch(env.API_URL + "/api/signupweb", {
+            fetch(URL + "/api/signupweb", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
