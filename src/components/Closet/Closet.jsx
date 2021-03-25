@@ -8,10 +8,9 @@ import Button from "@material-ui/core/Button"
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {IoArrowBack} from 'react-icons/io5'
 import Checkbox from '@material-ui/core/Checkbox'
-import env from "react-dotenv";
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-
+import APIURL from '../../assets/URL'
 
 function Closet(){
     // use the id to fetch the closet data
@@ -28,9 +27,9 @@ function Closet(){
         let url;
 
         if(rexUID !== null){
-            url = env.API_URL + "/api/closet?uid=" + rexUID + "&id=" + id
+            url = APIURL + "/api/closet?uid=" + rexUID + "&id=" + id
         }else{
-            url = env.API_URL + "/api/closet"
+            url = APIURL + "/api/closet"
         }
         // console.log(url)
         fetch(url
@@ -41,7 +40,7 @@ function Closet(){
             // console.log("closet fetch results", json)
             closetDataSet(json)
             if(json.isOwned === true){
-       
+                imageUploadSet(json.closet_image_uri)
                 publicValueSet(json.user.isPublic)
                 closetNameSet(json.name)
             }
@@ -65,18 +64,18 @@ function Closet(){
                 id: id,
                 closet_name: closetName,
                 is_public: publicValue,
-                closet_image_uri: fileUpload
+                closet_image_uri: fileUpload ?? null
         }
         }
-   
-        fetch(env.API_URL + "/api/update-closet?uid=" + rexUID, {
+        // console.log(payload)
+        fetch(APIURL + "/api/update-closet?uid=" + rexUID, {
            method: "PATCH",
            headers:{
             'Content-Type': 'application/json'
            },
         body: JSON.stringify(payload)
         }).then(res => res.json())
-        .then(json => console.log(json))
+        // .then(json => console.log(json))
     }
 
     const handleUpload = (e) => {

@@ -20,9 +20,9 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 if (firebaseApp != null) {
-  console.log('firebase app started successfully');
+  // console.log('firebase app started successfully');
 } else {
-  console.log('firebase app failed to start');
+  // console.log('firebase app failed to start');
 }
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);

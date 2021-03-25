@@ -9,10 +9,9 @@ import SearchBar from "material-ui-search-bar";
 import Badge from "@material-ui/core/Badge"
 import { withStyles } from '@material-ui/core/styles';
 import logo from '../../assets/img/Asset 1.png'
-import env from "react-dotenv";
 import Button from '@material-ui/core/Button'
 import Notification from "../Notification/Notification"
-// import {useQueryClient} from 'react-query'
+import URL from '../../assets/URL'
 
 import Scrollbars from "react-custom-scrollbars";
 import { motion, AnimatePresence } from 'framer-motion'
@@ -226,7 +225,7 @@ function Dashboard({children}){
         // console.log("checking if user is logged in...", rexUID)
         
         if(rexUID !== null){
-          fetch(env.API_URL + "/api/webdashboard?uid=" + rexUID,{
+          fetch(URL + "/api/webdashboard?uid=" + rexUID,{
             method: "POST",
             headers:{   
                 'Content-Type': 'application/json'
@@ -323,7 +322,7 @@ function Dashboard({children}){
         history.push("/setting")
     }
     const handleGotoCloset = (id) => {
-        history.push(`/closet/${id}`)
+        history.push(`/closets/${id}`)
     }
 
     const redirectLogin = () => {
@@ -443,7 +442,7 @@ function Dashboard({children}){
                         :
                         <div  id="notif"> 
                             <IconButton 
-                            disabled={NotifCount === 0}
+                            disabled
                             style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
                                 <StyledBadge badgeContent={NotifCount} color="secondary" max={99} >
                                     <IoMail style={{fontSize:"35px"}}/>
@@ -454,7 +453,7 @@ function Dashboard({children}){
                         }
                         <div id="searchbar">
                             <SearchBar
-                                placeholder="Search People or Closets"
+                                placeholder="Search People or Closets / IN DEV"
                                 value={searchbar} 
                                 onChange={(val) => searchbarSet(val)}
                                 onRequestSearch={handleSearch}
@@ -473,7 +472,7 @@ function Dashboard({children}){
                         
                             <div id="profile">
                                 <div id="username">{ userData && `${userData.first_name} ${userData.last_name}`}</div>
-                                {/* <img src={data.propic} alt="userpropic" id="propic" /> */}
+                                <div id="temp-propic" >{ userData && `${userData.first_name.charAt(0)}${userData.last_name.charAt(0)}`}</div>
                             </div>
                         }
                     </div>
@@ -494,9 +493,7 @@ function Dashboard({children}){
                 </div>
             
                 <div id="responsive-insert" style={{width: `100%` }}>
-                    <Scrollbars onScroll={handleScroll}
-                    // renderTrackHorizontal={props => <div {...props} style={{display: 'none'}} className="track-horizontal"/>}
-                    >
+                    <Scrollbars onScroll={handleScroll}>
                         {children}
                     </Scrollbars>
                 </div>
