@@ -6,7 +6,7 @@ import logo from '../../assets/img/128.png'
 import {FaGoogle, FaFacebookF} from 'react-icons/fa'
 import { useHistory } from "react-router-dom";
 import firebase from 'firebase';
-import env from 'react-dotenv'
+import APIURL from '../../assets/URL'
 require('firebase/auth')
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
@@ -58,14 +58,14 @@ function Login(){
             "password": password,
             "phone": phone
         }
-        console.log("Signup call:", payload)
+        // console.log("Signup call:", payload)
 
         firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
             .then((user) => {
                 console.log(user)
                 payload.uid = user.user.uid
                 
-                fetch(env.API_URL + '/api/signupweb?uid=' + payload.uid, {
+                fetch(APIURL + '/api/signupweb?uid=' + payload.uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -113,7 +113,7 @@ function Login(){
                 "phone": null,
                 "uid": res.user.uid
                 }
-            fetch(env.API_URL + "/api/signupweb", {
+            fetch(APIURL + "/api/signupweb", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ function Login(){
             })
             .then(response => response.json())
             .then(json => {
-                console.log("This is the json return from api", json)
+                // console.log("This is the json return from api", json)
                 if(json.success === true ){
                     redirectToLandingPage(data.uid)
                 }else{
@@ -147,7 +147,7 @@ function Login(){
                 "phone": null,
                 "uid": res.user.uid
                 }
-            fetch(env.API_URL + "/api/signupweb", {
+            fetch(APIURL + "/api/signupweb", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
