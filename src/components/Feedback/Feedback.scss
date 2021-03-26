@@ -1,61 +1,69 @@
-#feedback_page{
-
-    height: 100vh;
+#feedback_page {
+    height: 100%;
     width: 100vw;
     font-family: "Baloo 2";
     overflow: hidden;
-    #content{
+    #content {
         overflow-x: hidden;
         display: flex;
         height: 100vh;
         width: 100vw;
-        &.large{
+        &.large {
             flex-direction: row;
             justify-content: center;
         }
-        &.small{
+        &.small {
             height: 100vh;
             width: 100vw;
             flex-direction: column;
             justify-content: center;
         }
-        #carousel{
+        #carousel {
             // border: solid red 2px;
             max-width: calc(350px + 25vw);
             max-height: calc(300px + 15vh);
             align-self: center;
-            #img{
+            #img {
                 // border: solid red 2px;
                 max-width: calc(250px + 25vw);
                 max-height: calc(250px + 15vh);
                 object-fit: contain;
             }
         }
-        #carousel-single{
+        #carousel-single {
             max-width: calc(350px + 25vw);
-            max-height: 500px;
+            max-height: 40vh;
             align-self: center;
-         
         }
-        #text{
+        #text {
             align-self: center;
-            #user{
+            margin-top: 30px;
+            max-width: 90vw;
+            #user {
                 display: flex;
                 // border: solid red 2px;
-                max-width: 500px;
-                height: 50px;
+                max-width: 100%;
+                height: 100px;
                 justify-content: space-between;
-                #name{
-                    white-space: nowrap;
-                    margin: 5px 0px 5px 30px;
+                padding-right: 10px;
+                padding-left: 10px;
+                #name {
+                    display: flex;
+                    margin: 5px 20px 5px 0px;
                     font-size: 25px;
+                    max-width: 50%;
+                    flex-flow: column wrap;
                 }
-                #link{
+                #link {
                     background-color: #77D1C8;
                     border: solid rgba(0, 0, 0, 0.199) 2px;
                     border-radius: 5px 5px;
                     text-decoration: none;
-                    margin: 5px 30px;
+                    margin-right: 0px;
+                    margin-left: auto;
+                    margin-top: 5px;
+                    margin-bottom: auto;
+                    height: 30%;
                     padding: 5px 10px;
                     font-weight: 800;
                     color: rgb(241, 241, 241);
@@ -63,59 +71,63 @@
                     white-space: nowrap;
                 }
             }
-            #form{
+            #form {
                 // border: solid red 2px;
                 max-width: 480px;
                 height: 170px;
                 display: flex;
-                flex-direction: column;      
+                flex-direction: column;
                 padding: 5px 10px;
-                #tempName{
+                #tempName {
                     // border: solid red 2px;
-                   margin-left: 0px;
+                    margin-left: 0px;
                     margin-right: auto;
-                   
                     max-width: 250px;
                 }
-                #submit_box{
+                #submit_box {
                     display: flex;
-                    #submit{
-                        
+                    flex-direction: column;
+                    #submit {
                         max-width: 200px;
+                        min-width: 120px;
                         height: 40px;
                         border: solid rgba(0, 0, 0, 0.185) 2px;
-                        margin: auto auto;
+                        margin-right: 0px;
+                        margin-left: auto;
+                        margin-top: auto;
+                        margin-bottom: auto;
                         background-color: #77D1C8;
                         font-family: "Baloo 2";
                         font-size: 17px;
                     }
-                    #thumbs{
+                    #thumbs {
                         padding: 10px 0px 5px 0px;
                         // border: solid red 2px;
-                        max-width: 200px;
+                        max-width: 100%;
                         display: flex;
                         flex-direction: row;
                         justify-content: space-between;
-                        margin: 0px auto;
-                        .highlight1{
-                            background-color: #37db684d ;
+                        margin-left: 0px;
+                        margin-right: 0px;
+                        .highlight1 {
+                            background-color: #37db684d;
                         }
-                        .highlight2{
-                            background-color: rgb(238, 178, 178) ;
+                        .highlight2 {
+                            background-color: rgb(238, 178, 178);
                         }
-                        #button{
-                            
+                        #button {
                             font-size: 40px;
-                            
                         }
-                     
+                    }
+                    .MuiFormControl-root {
+                        display: flex;
+                        min-width: 100%;
+                        max-width: 100%;
                     }
                 }
-                
-                
-                #error{
+                #error {
                     position: absolute;
-                    margin-top:0px;
+                    margin-top: 0px;
                     margin-left: 230px;
                     color: red;
                     border: solid red 2px;
@@ -124,29 +136,27 @@
                 }
             }
         }
-        
-       
     }
-    #complete{
+    #complete {
         height: 100vh;
         width: 100vw;
         display: flex;
         flex-direction: column;
         // border: solid red 2px;
         justify-content: center;
-        #logo{
+        #logo {
             margin-top: -50px;
             align-self: center;
             width: 150px;
         }
-        #text{
+        #text {
             // border: solid red 2px;
-            margin-top:-30px;
+            margin-top: -30px;
             font-size: 50px;
             font-weight: 800;
             color: rgb(88, 87, 87);
         }
-        #link{
+        #link {
             background-color: #77D1C8;
             margin: 0px auto;
             border: solid rgba(0, 0, 0, 0.199) 2px;
@@ -159,10 +169,6 @@
             text-shadow: 1px 1px 1px #000;
             white-space: nowrap;
         }
-
     }
-    #loading{
-   
-    }
-   
+    #loading {}
 }

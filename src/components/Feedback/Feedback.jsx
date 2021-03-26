@@ -91,7 +91,15 @@ function Feedback(){
         }
     }, [id,  uid])
 
+    const cycle_images_right = () => {
+        console.log('clicked')
+    }
 
+    const cycle_images_left = () => {
+
+        // imageIndexSet((imageIndex - 1) % imagesSet.length());
+        // console.log(imageIndex)
+    }
 
     const  handleSendFeedback = () => {
         if(thumbs === undefined){
@@ -180,6 +188,9 @@ function Feedback(){
                 >
                 {images.length > 1 ?
                     <div id="carousel">
+                            <Button onclick={()=>imageIndexSet((imageIndex - 1) % images.length)} id="left_image"> left </Button>
+                            <Button onclick={()=>imageIndexSet((imageIndex + 1) % images.length)} id="right_image"> right </Button>
+
                             <Carousel
                                 value={imageIndex}
                                 slides={images}
@@ -210,7 +221,6 @@ function Feedback(){
                                 </div>
                             }
                         
-                            <TextField  label="thoughts???" autoComplete="off" value={additionalFeedback} onChange={(e)=> additionalFeedbackSet(e.target.value)}/>
                             <div id="submit_box">
                                 <div id="thumbs">
                                     <IconButton id="button" className={ thumbs === true ? "highlight1" : "" } style={{color: "#37DB69"}} onClick={()=>thumbsSet(true)}>
@@ -219,8 +229,12 @@ function Feedback(){
                                     <IconButton id="button"  className={ thumbs === false ? "highlight2" : "" } style={{color: "#FD6C73"}} onClick={()=>thumbsSet(false)}>
                                         <AiOutlineFrown id="icon"  />
                                     </IconButton>
+                                    <Button onClick={handleSendFeedback} id="submit" endIcon={<FiSend/>}>Submit</Button>
                                 </div>
-                                <Button onClick={handleSendFeedback} id="submit" endIcon={<FiSend/>}>Submit</Button>
+
+                                <div id="feedback_text">
+                                    <TextField id="text_field" label="thoughts???" autoComplete="off" value={additionalFeedback} onChange={(e)=> additionalFeedbackSet(e.target.value)}/>
+                                </div>
                             </div>
                             <AnimatePresence>
                             {errorMessage &&
