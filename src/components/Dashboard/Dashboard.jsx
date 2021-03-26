@@ -4,13 +4,14 @@ import { useLocation, useHistory }from "react-router-dom"
 import {IoMail} from 'react-icons/io5'
 import {AiOutlineMenuUnfold, AiOutlineMenuFold} from 'react-icons/ai'
 import {RiSettings3Line} from 'react-icons/ri'
+import { Popover } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton'
 import SearchBar from "material-ui-search-bar";
 import Badge from "@material-ui/core/Badge"
 import { withStyles } from '@material-ui/core/styles';
 import logo from '../../assets/img/Asset 1.png'
 import Button from '@material-ui/core/Button'
-import Notification from "../Notification/Notification"
+import AllNotifications from '../AllNotifications/AllNotifications';
 import URL from '../../assets/URL'
 
 import Scrollbars from "react-custom-scrollbars";
@@ -441,14 +442,21 @@ function Dashboard({children}){
                         </div>
                         :
                         <div  id="notif"> 
-                            <IconButton 
-                            disabled
+                            <IconButton
+                              id="notif-button"
                             style={{height: "65px", width: "65px", color: showNotification ? "rgba(255, 0, 0, 0.336)" : ""}} onClick={()=>showNotificationSet(!showNotification)} >
                                 <StyledBadge badgeContent={NotifCount} color="secondary" max={99} >
                                     <IoMail style={{fontSize:"35px"}}/>
                                 </StyledBadge>
                             </IconButton>
-                            
+                            <Popover
+                              open={showNotification}
+                              onClose={() => showNotificationSet(!showNotification)}
+                              anchorEl={document.getElementById('notif-button')}
+                              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                            >
+                                <AllNotifications />
+                            </Popover>
                         </div>
                         }
                         <div id="searchbar">
@@ -476,20 +484,20 @@ function Dashboard({children}){
                             </div>
                         }
                     </div>
-                    <div id="notification-bar-container">
-                    <AnimatePresence>
-                    {
-                    showNotification &&
-                    <motion.div id="notification-bar"
-                        initial={{height: 0, opacity: 0, y: -150}}
-                        animate={{height: "150px", opacity: 1, y: 0}}
-                        exit={{   height: 0, opacity: 0, y: -150 }}
-                    >
-                        <Notification/>
-                    </motion.div>
-                    }
-                    </AnimatePresence>
-                    </div>
+                    {/*<div id="notification-bar-container">*/}
+                    {/*<AnimatePresence>*/}
+                    {/*{*/}
+                    {/*showNotification &&*/}
+                    {/*<motion.div id="notification-bar"*/}
+                    {/*    initial={{height: 0, opacity: 0, y: -150}}*/}
+                    {/*    animate={{height: "150px", opacity: 1, y: 0}}*/}
+                    {/*    exit={{   height: 0, opacity: 0, y: -150 }}*/}
+                    {/*>*/}
+                    {/*    <Notification/>*/}
+                    {/*</motion.div>*/}
+                    {/*}*/}
+                    {/*</AnimatePresence>*/}
+                    {/*</div>*/}
                 </div>
             
                 <div id="responsive-insert" style={{width: `100%` }}>
