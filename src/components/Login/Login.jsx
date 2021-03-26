@@ -38,7 +38,7 @@ function Login(){
         return () => {
             
         }
-    }, [])
+    }, [history])
 
 
 

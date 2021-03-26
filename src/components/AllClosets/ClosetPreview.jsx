@@ -42,7 +42,8 @@ function ClosetPreview({closet}){
         }
         fetchImages().then(temp => {
             imageDataSet(temp)
-            history.push("/closets")
+            // !check if needed
+            // history.push("/closets")
         }
         )
         
@@ -66,6 +67,7 @@ function ClosetPreview({closet}){
         onClick={handleClosetView}
     >   
         {
+            // closet.closet_icon !== "FaSave" ?
             closet.closet_icon ?
             <img src={closet.closet_icon} id="closet-icon" alt="closet-icon" />
 
@@ -75,6 +77,10 @@ function ClosetPreview({closet}){
                 (img, i) => 
                 <img src={img} id="img" key={i}  alt={i} />
             )
+            // :
+            // imageData.map(
+            //     (img, i) => 
+                
 
         }
         

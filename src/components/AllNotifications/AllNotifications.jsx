@@ -10,7 +10,6 @@ function AllNotifications() {
         fetch(APIURL + "/api/get_notif?uid=" + rexUID)
             .then(res => res.json())
             .then(json => {
-                console.log("Notification Fetch", json);
                 NotifDataSet(json.notifications);
             });
         
@@ -24,8 +23,9 @@ function AllNotifications() {
             {
                 NotifData && (
                     <List>
-                        {NotifData.asFriend.map((notif, i) => <ListItem><Notification notification={notif} key={i} /></ListItem>)}
-                        {NotifData.asUser.map((notif, i) => <ListItem><Notification notification={notif} key={i} /></ListItem>)}
+                        {/* ! We need to  combine both these lists & sort them by the most recent */}
+                        {NotifData.asFriend.map((notif, i) => <ListItem key={`A${i}`}  ><Notification notification={notif} /></ListItem>)}
+                        {NotifData.asUser.map((notif, i) => <ListItem key={`B${i}`}  ><Notification notification={notif} /></ListItem>)}
                     </List>
                 )
             }

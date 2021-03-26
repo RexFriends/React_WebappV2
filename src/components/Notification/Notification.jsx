@@ -4,7 +4,7 @@ import { AccountCircle } from '@material-ui/icons';
 import { AiOutlineSmile, AiOutlineFrown } from 'react-icons/ai';
 import './Notification.scss'
 import APIURL from '../../assets/URL';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 
 function Notification({ notification}) {
     const [product, setProduct] = useState(undefined);
@@ -12,11 +12,13 @@ function Notification({ notification}) {
     useEffect(() => {
         if (!product) {
             const rexUID = localStorage.getItem('rexUID');
+            // We need to get the product id for the asFriend key also
             fetch(`${APIURL}/api/product?product_id=${notification.product_id}&uid=${rexUID}`)
                 .then(res => res.json())
                 .then(json => {
                     setProduct(json.product);
-                });
+                })
+                // .catch(err => console.log("product err", err, notification))
         }
         
         if (product) {
@@ -38,7 +40,7 @@ function Notification({ notification}) {
                     .catch(err => console.log("err 2"));
             }
         }
-    }, [product]);
+    }, [product, notification.product_id]);
     
     return(
         <Card style={{ width: '100%' }}>
