@@ -63,7 +63,7 @@ function Notification({ notification}) {
                     <Grid style={{ marginLeft: 30, marginRight: 15 }} item>
                         <img style={{ height: 80, width: 80 }} src={image} alt="product" id="image" />
                     </Grid>
-                    <Grid style={{ width: 'auto' }} direction="column" container item>
+                    <Grid style={{ width: '30%' }} direction="column" container item>
                         {
                             product && 
                             <>
@@ -72,12 +72,15 @@ function Notification({ notification}) {
                                 </Grid>
                                 <Grid item>
                                     {
-                                        product.name.length < 30 ?
-                                            product.name
+                                        product.name ?
+                                            product.name.length < 30 ?
+                                                product.name
+                                                :
+                                                <Tooltip title={product.name} disableFocusListener disableTouchListener arrow>
+                                                    <span>{`${product.name.substring(0, 30)}...`}</span>
+                                                </Tooltip>
                                             :
-                                            <Tooltip title={product.name} disableFocusListener disableTouchListener arrow>
-                                                <span>{`${product.name.substring(0, 30)}...`}</span>
-                                            </Tooltip>
+                                            <span>None</span>
                                     }
                                 </Grid>
                             </>
