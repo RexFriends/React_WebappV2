@@ -6,11 +6,7 @@ import logo from '../../assets/img/128.png'
 import {FaGoogle, FaFacebookF} from 'react-icons/fa'
 import { useHistory } from "react-router-dom";
 import firebase from 'firebase';
-<<<<<<< HEAD
 import URL from '../../assets/URL'
-=======
-import APIURL from '../../assets/URL'
->>>>>>> product-view-update
 require('firebase/auth')
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
