@@ -1,74 +1,97 @@
-    #allProducts{
-    // border: solid red 2px;
-    width: 95%;
-    margin: 0px auto;
-    #title{
-        text-align: left;
-        width: 100%;
+    #allProducts {
         // border: solid red 2px;
-        color: rgb(114, 114, 114);
-        padding-left: 25px;
-        margin: 0 auto;
-        font-size: calc(16px + 1.2vw);
-        font-weight: 700;
-    }
-
-    #container{
-        padding: 10px;
-        // border: solid red 2px;
-        margin: 0px 10px;
-        overflow: hidden;
-        grid-gap: 16px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
-        #product{
+        width: 95%;
+        margin: 0px auto;
+        #title {
+            text-align: left;
+            width: 100%;
             // border: solid red 2px;
-            // padding:
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
-            cursor: pointer;
-            position: relative;
-            width: 210px;
-            height: 210px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-           
-            #image{
+            color: rgb(114, 114, 114);
+            padding-left: 25px;
+            margin: 0 auto;
+            font-size: calc(16px + 1.2vw);
+            font-weight: 700;
+        }
+        #container {
+            padding: 10px;
+            // border: solid red 2px;
+            margin: 0px 10px;
+            overflow: hidden;
+            grid-gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+            #product {
                 // border: solid red 2px;
-                margin: auto;
-                height: 170px;
-                width: 170px;
-                object-fit: contain;
+                // padding:
                 background-color: white;
-                padding: 5px;
-            }
-            #overlay{
-                border: solid rgba(0, 0, 0, 0.171) 1px;
-                position:absolute;
-                bottom: 0;
-                right:0;
-                height: 200px;
-                width: 200px;
-                padding: 5px;
                 border-radius: 10px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+                position: relative;
+                width: 210px;
+                height: 240px;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
-                #top{
+                justify-content: flex-start;
+                #image {
                     // border: solid red 2px;
-                    width: 180px;
-                    margin: 5px auto 0px auto;
-                    #info{
+                    margin-top: 0px;
+                    height: 170px;
+                    object-fit: contain;
+                    background-color: white;
+                    border-radius: 10px 10px;
+                    padding: 5px;
+                }
+                #product-info {
+                    width: 210px;
+                    height: 59;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-evenly;
+                    #info-name {
+                        width: 160px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        #brand-name {
+                            font-weight: bold;
+                        }
+                        #product-name {
+                            color: rgb(114, 114, 114);
+                            font-size: 10pt;
+                        }
+                    }
+                    #price {
+                        width: 60px;
+                        #price-text {
+                            font-weight: bold;
+                        }
+                    }
+                }
+                #overlay {
+                    border: solid rgba(0, 0, 0, 0.171) 1px;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    height: 100%;
+                    width: 200px;
+                    padding: 5px;
+                    border-radius: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    #top {
                         // border: solid red 2px;
-                        margin-left: 130px;
-                        background-color: rgba(196, 196, 196, 0.397);
-        
+                        width: 180px;
+                        margin: 5px auto 0px auto;
+                        #info {
+                            // border: solid red 2px;
+                            margin-left: 130px;
+                            background-color: rgba(196, 196, 196, 0.397);
+                        }
                     }
                 }
             }
-            
         }
     }
-}

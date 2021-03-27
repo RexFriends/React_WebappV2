@@ -7,6 +7,9 @@ import {BsInfo} from 'react-icons/bs'
 function AllProductItem({item}){
     const [hover, hoverSet] = useState(false)
     const [image, imageSet] = useState(undefined)
+    const [brand, brandSet] = useState("Brand")
+    const [product_name, product_nameSet] = useState("Product name")
+    const [price, priceSet] = useState("$99.99")
     useEffect(() => {
 
         if(item.images !== null){
@@ -31,6 +34,14 @@ function AllProductItem({item}){
                 imageSet(json.uri)
             ).catch(err => console.log("err 2"))
         }     
+        brandSet(item.brand)
+        // var item_name = item.name
+        // if (item_name) {
+        //     var name = item_name.substring(0, item_name.indexOf(','))
+        //     product_nameSet(name)
+        // }
+        product_nameSet(item.name)
+        priceSet("$" + item.price)
     }, [item])
     const queryClient = useQueryClient()
     // const query = useQuery('ItemDetails', ItemDetails)
@@ -49,6 +60,15 @@ function AllProductItem({item}){
                 delay: 0.3}}
         >
             <img src={image} alt="product" id="image"/>
+            <div id="product-info">
+                <div id="info-name">
+                    <span id="brand-name">{brand}</span>
+                    <span id="product-name">{product_name}</span>
+                </div>
+                <div id="price">
+                    <span id="price-text">{price}</span>
+                </div>
+            </div>
             <AnimatePresence>
             {hover && 
                 <motion.div id="overlay"
