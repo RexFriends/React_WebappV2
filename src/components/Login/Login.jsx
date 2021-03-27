@@ -6,7 +6,11 @@ import logo from '../../assets/img/128.png'
 import {FaGoogle, FaFacebookF} from 'react-icons/fa'
 import { useHistory } from "react-router-dom";
 import firebase from 'firebase';
+<<<<<<< HEAD
 import URL from '../../assets/URL'
+=======
+import APIURL from '../../assets/URL'
+>>>>>>> product-view-update
 require('firebase/auth')
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
@@ -58,7 +62,7 @@ function Login(){
             "password": password,
             "phone": phone
         }
-        console.log("Signup call:", payload)
+        // console.log("Signup call:", payload)
 
         firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
             .then((user) => {
@@ -114,6 +118,7 @@ function Login(){
                 "uid": res.user.uid
                 }
             fetch(URL + "/api/signupweb", {
+
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -122,7 +127,7 @@ function Login(){
             })
             .then(response => response.json())
             .then(json => {
-                console.log("This is the json return from api", json)
+                // console.log("This is the json return from api", json)
                 if(json.success === true ){
                     redirectToLandingPage(data.uid)
                 }else{
@@ -148,6 +153,7 @@ function Login(){
                 "uid": res.user.uid
                 }
             fetch(URL + "/api/signupweb", {
+
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
