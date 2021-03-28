@@ -188,7 +188,9 @@ function Feedback(){
                     animate={{opacity: 1, x: 0}}
                     exit={{opacity: 0, x: 100}}
                 >
+                     <img src={Asset} alt="logo" id="logo"/>
                 {images.length > 1 ?
+                   
                     <div id="carousel">
                             <Button onclick={()=>imageIndexSet((imageIndex - 1) % images.length)} id="left_image"> left </Button>
                             <Button onclick={()=>imageIndexSet((imageIndex + 1) % images.length)} id="right_image"> right </Button>
@@ -215,7 +217,7 @@ function Feedback(){
 
                                 {formData.user_first_name} {formData.user_last_name}
                             </div>
-                            {/* <a href={formData.url} target="_blank" id="link"  rel="noreferrer"> View Product Page </a> */}
+                            <a href={formData.url} target="_blank" id="link"  rel="noreferrer"> View Product </a>
                         </div>
                         <div id="form">
                             {
