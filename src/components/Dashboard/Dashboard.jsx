@@ -450,6 +450,7 @@ function Dashboard({children}){
                                 </StyledBadge>
                             </IconButton>
                             <Popover
+                              style={{ maxHeight: 550 }}
                               open={showNotification}
                               onClose={() => showNotificationSet(!showNotification)}
                               anchorEl={document.getElementById('notif-button')}

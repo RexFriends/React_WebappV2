@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Grid, Tooltip } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import { Card, CardContent, Grid, IconButton, Tooltip } from '@material-ui/core';
+import { AccountCircle, Send } from '@material-ui/icons';
 import { AiOutlineSmile, AiOutlineFrown } from 'react-icons/ai';
 import './Notification.scss'
 import APIURL from '../../assets/URL';
-// import { motion } from 'framer-motion';
 
-function Notification({ notification}) {
+function Notification({ notification }) {
     const [product, setProduct] = useState(undefined);
     const [image, setImage] = useState(undefined);
     useEffect(() => {
@@ -47,7 +46,7 @@ function Notification({ notification}) {
     if (notification.last_name) name += ` ${notification.last_name.trim()}`;
     if (!name) name = 'Someone';
     return(
-        <Card style={{ width: '100%' }}>
+        <Card style={{ width: '100%', backgroundColor: notification.seen ? 'rgb(230, 230, 230)' : '#fff' }}>
             <CardContent>
                 <Grid spacing={2} container wrap="nowrap">
                     <Grid item>
@@ -55,16 +54,16 @@ function Notification({ notification}) {
                     </Grid>
                     {
                         notification &&
-                        <Grid style={{ flexGrow: 2 }} item>
+                        <Grid style={{ flexGrow: 1 }} item>
                             <span style={{ fontWeight: 'bold' }}>{name}</span>
                             <br />
                             {notification.username ? `@${notification.username}` : ''}
                         </Grid>
                     }
                     <Grid item>
-                        <span style={{ fontStyle: 'italic' }}>Sent Feedback</span>
+                        <span style={{ fontStyle: 'italic' }}>{notification.time_sent ? 'Requested feedback' : 'Sent feedback'}</span>
                     </Grid>
-                    <Grid style={{ marginLeft: 30, marginRight: 15 }} item>
+                    <Grid style={{ marginLeft: 15, marginRight: 15 }} item>
                         <img style={{ height: 80, width: 80 }} src={image} alt="product" id="image" />
                     </Grid>
                     <Grid style={{ width: '30%' }} direction="column" container item>
@@ -98,15 +97,23 @@ function Notification({ notification}) {
                     </Grid>
                     <Grid item>
                         {
-                            notification.thumbs_up ? (
+                            notification.time_sent ? (
                                 <div>
-                                    <AiOutlineSmile style={{ color: '#37DB69', height: 64, width: 64 }} />
-                                </div>
-                            ) : (
-                                <div>
-                                    <AiOutlineFrown style={{ color: '#FD6C73', height: 64, width: 64 }} />
+                                    <IconButton> {/* TODO: fix positioning to line up with icons */}
+                                        <Send style={{ color: '#37DB69', height: 64, width: 64 }} />
+                                    </IconButton>
                                 </div>
                             )
+                            :
+                            notification.thumbs_up ? (
+                                    <div>
+                                        <AiOutlineSmile style={{ color: '#37DB69', height: 64, width: 64, margin: '0 12' }} />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <AiOutlineFrown style={{ color: '#FD6C73', height: 64, width: 64, margin: '0 12' }} />
+                                    </div>
+                                )
                         }
                     </Grid>
                 </Grid>
