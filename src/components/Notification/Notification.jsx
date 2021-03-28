@@ -13,7 +13,7 @@ function Notification({ notification}) {
         if (!product) {
             const rexUID = localStorage.getItem('rexUID');
             // We need to get the product id for the asFriend key also
-            fetch(`${APIURL}/api/product?product_id=${notification.product_id}&uid=${rexUID}`)
+            fetch(`${APIURL}/api/product?product_id=${notification.product_info.id}&uid=${rexUID}`)
                 .then(res => res.json())
                 .then(json => {
                     setProduct(json.product);
@@ -42,6 +42,10 @@ function Notification({ notification}) {
         }
     }, [product, notification.product_id]);
     
+    let name = '';
+    if (notification.first_name) name += notification.first_name.trim();
+    if (notification.last_name) name += ` ${notification.last_name.trim()}`;
+    if (!name) name = 'Someone';
     return(
         <Card style={{ width: '100%' }}>
             <CardContent>
@@ -52,9 +56,9 @@ function Notification({ notification}) {
                     {
                         notification &&
                         <Grid style={{ flexGrow: 2 }} item>
-                            <span style={{ fontWeight: 'bold' }}>{notification.name}</span>
+                            <span style={{ fontWeight: 'bold' }}>{name}</span>
                             <br />
-                            @username
+                            {notification.username ? `@${notification.username}` : ''}
                         </Grid>
                     }
                     <Grid item>
@@ -68,7 +72,7 @@ function Notification({ notification}) {
                             product && 
                             <>
                                 <Grid item>
-                                    <span style={{ fontWeight: 'bold' }}>{product.brand}</span>
+                                    <span style={{ fontWeight: 'bold' }}>{product.brand || 'Something'}</span>
                                 </Grid>
                                 <Grid item>
                                     {
@@ -80,7 +84,7 @@ function Notification({ notification}) {
                                                     <span>{`${product.name.substring(0, 30)}...`}</span>
                                                 </Tooltip>
                                             :
-                                            <span>None</span>
+                                            <span>Something</span>
                                     }
                                 </Grid>
                             </>
