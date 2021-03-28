@@ -192,9 +192,9 @@ function Feedback(){
                 {images.length > 1 ?
                    
                     <div id="carousel">
-                            <Button onclick={()=>imageIndexSet((imageIndex - 1) % images.length)} id="left_image"> left </Button>
-                            <Button onclick={()=>imageIndexSet((imageIndex + 1) % images.length)} id="right_image"> right </Button>
-
+                        <div id="sub-carousel">
+                            <Button id="button" onclick={()=>imageIndexSet((imageIndex - 1) % images.length)} id="left_image"> L </Button>
+                           
                             <Carousel
                                 value={imageIndex}
                                 slides={images}
@@ -202,11 +202,14 @@ function Feedback(){
                                 
                             >
                             </Carousel>
+                            <Button id="button" onclick={()=>imageIndexSet((imageIndex + 1) % images.length)} id="right_image"> R </Button>
+                        </div>
                             <Dots
                                 value={imageIndex}
                                 onChange={handleCarousel}
                                 number={images.length}
                             /> 
+                            
                     </div>
                     :
                     images[0]
