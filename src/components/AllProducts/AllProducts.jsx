@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import './AllProducts.scss'
-import AllProductItem from './AllProductItem'
 import {AnimatePresence, motion} from 'framer-motion'
 import URL from '../../assets/URL'
+import ProductItem from '../ProductItem/ProductItem';
+import ItemPopup from '../ItemPopup/ItemPopup';
 
 function AllProducts(){
     const [productData, productDataSet] = useState([])
@@ -33,13 +34,16 @@ function AllProducts(){
             <div id="title">All Saved</div>
             <div id="container" >
                 <AnimatePresence>
-                {
-                    productData.map(
-                        (product, i) => 
-                        <AllProductItem item={product} key={i}/>
-
-                    )
-                }
+                    <>
+                        {
+                            productData.map(
+                                (product, i) =>
+                                    <ProductItem item={product} key={i}/>
+    
+                            )
+                        }
+                        <ItemPopup />
+                    </>
                 </AnimatePresence>
             </div>
 
