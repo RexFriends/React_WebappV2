@@ -7,43 +7,44 @@
         overflow-x: hidden;
         display: flex;
         height: 100vh;
-        width: 100vw;
-        &.large {
-            flex-direction: row;
-            justify-content: center;
-        }
-        &.small {
-            height: 100vh;
-            width: 100vw;
-            flex-direction: column;
-            justify-content: center;
-        }
+        flex-direction: column;
+        justify-content: fex-start;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: calc(300px + 25vw);
         #carousel {
             // border: solid red 2px;
-            max-width: calc(350px + 25vw);
-            max-height: calc(300px + 15vh);
+            max-width: 100%;
+            max-height: 350px;
             align-self: center;
+            position: relative;
             #img {
                 // border: solid red 2px;
-                max-width: calc(250px + 25vw);
-                max-height: calc(250px + 15vh);
+                max-width: 100%;
+                max-height: 350px;
                 object-fit: contain;
+            }
+            #link-button {
+                position: relative;
+                width: 50px;
+                height: 50px;
             }
         }
         #carousel-single {
-            max-width: calc(350px + 25vw);
-            max-height: 40vh;
+            max-width: 100%;
+            max-height: 35vh;
             align-self: center;
         }
         #text {
-            align-self: center;
-            margin-top: 30px;
-            max-width: 90vw;
+            align-items: flex-start;
+            flex-direction: column;
+            margin-top: 60px;
+            max-width: 100%;
             #user {
                 display: flex;
                 // border: solid red 2px;
                 max-width: 100%;
-                height: 100px;
+                height: 40px;
                 justify-content: space-between;
                 padding-right: 10px;
                 padding-left: 10px;
@@ -51,29 +52,13 @@
                     display: flex;
                     margin: 5px 20px 5px 0px;
                     font-size: 25px;
-                    max-width: 50%;
+                    max-width: 100%;
                     flex-flow: column wrap;
-                }
-                #link {
-                    background-color: #77D1C8;
-                    border: solid rgba(0, 0, 0, 0.199) 2px;
-                    border-radius: 5px 5px;
-                    text-decoration: none;
-                    margin-right: 0px;
-                    margin-left: auto;
-                    margin-top: 5px;
-                    margin-bottom: auto;
-                    height: 30%;
-                    padding: 5px 10px;
-                    font-weight: 800;
-                    color: rgb(241, 241, 241);
-                    text-shadow: 1px 1px 1px #000;
-                    white-space: nowrap;
                 }
             }
             #form {
                 // border: solid red 2px;
-                max-width: 480px;
+                max-width: 100%;
                 height: 170px;
                 display: flex;
                 flex-direction: column;
@@ -84,9 +69,20 @@
                     margin-right: auto;
                     max-width: 250px;
                 }
+                #tempName {
+                    min-width: 100%;
+                    margin-right: auto;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .MuiFormControl-root {
+                    display: flex;
+                    min-width: 100%;
+                }
                 #submit_box {
                     display: flex;
                     flex-direction: column;
+                    justify-content: flex-start;
                     #submit {
                         max-width: 200px;
                         min-width: 120px;
@@ -118,11 +114,6 @@
                         #button {
                             font-size: 40px;
                         }
-                    }
-                    .MuiFormControl-root {
-                        display: flex;
-                        min-width: 100%;
-                        max-width: 100%;
                     }
                 }
                 #error {

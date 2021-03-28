@@ -25,7 +25,8 @@ function Feedback(){
     const [completePage, completePageSet] = useState(false)
     const [errorMessage, errorMessageSet] = useState(undefined)
     const [uid, uidSet] = useState(undefined)
-    const [tempName, tempNameSet] = useState("")
+    const [tempFirstName, tempFirstNameSet] = useState("")
+    const [tempLastName, tempLastNameSet] = useState("")
 
     const [feedbackRowId, feedbackRowIdSet] = useState(null)
     const [completePageContent, completePageContentSet] = useState(undefined)
@@ -39,6 +40,7 @@ function Feedback(){
             .then(json =>{ 
                 console.log(json)
                 let data = json
+                console.log(data)
                 feedbackRowIdSet(json.feedback_row_id)
                 formDataSet(data)
                     let tempImages = []
@@ -105,7 +107,7 @@ function Feedback(){
         if(thumbs === undefined){
             errorMessageSet("Give a rating!")
             setTimeout(()=>errorMessageSet(undefined), 2000 )
-        }else if(uid === null && tempName === ""){
+        }else if(uid === null && tempFirstName === ""){
             errorMessageSet("Add a Name!")
             setTimeout(()=>errorMessageSet(undefined), 2000 )
         }else{
@@ -115,7 +117,7 @@ function Feedback(){
                 feedback_row_id: feedbackRowId
             }
             if (uid === null){
-                payload.name = tempName
+                payload.name = tempFirstName.concat(" ", tempLastName)
             } 
 
             fetch(URL +  `/feedback?uid=${uid ? uid : "null"}&rex_feedback_link=${id}`,{
@@ -195,7 +197,9 @@ function Feedback(){
                                 value={imageIndex}
                                 slides={images}
                                 onChange={handleCarousel}
-                            />
+                                
+                            >
+                            </Carousel>
                             <Dots
                                 value={imageIndex}
                                 onChange={handleCarousel}
@@ -208,16 +212,17 @@ function Feedback(){
                     <div id="text">
                         <div id="user">
                             <div id="name">
-                    
+
                                 {formData.user_first_name} {formData.user_last_name}
                             </div>
-                            <a href={formData.url} target="_blank" id="link"  rel="noreferrer"> View Product Page </a>
+                            {/* <a href={formData.url} target="_blank" id="link"  rel="noreferrer"> View Product Page </a> */}
                         </div>
                         <div id="form">
                             {
                                 uid === null &&   
                                 <div id="tempName">
-                                    <TextField  label="Your Name" autoComplete="off" value={tempName} onChange={(e)=> tempNameSet(e.target.value)}/>
+                                    <TextField  label="First Name" autoComplete="off" value={tempFirstName} onChange={(e)=> tempFirstNameSet(e.target.value)}/>
+                                    <TextField  label="Last Name" autoComplete="off" value={tempLastName} onChange={(e)=> tempLastNameSet(e.target.value)}/>
                                 </div>
                             }
                         
@@ -229,13 +234,13 @@ function Feedback(){
                                     <IconButton id="button"  className={ thumbs === false ? "highlight2" : "" } style={{color: "#FD6C73"}} onClick={()=>thumbsSet(false)}>
                                         <AiOutlineFrown id="icon"  />
                                     </IconButton>
-                                    <Button onClick={handleSendFeedback} id="submit" endIcon={<FiSend/>}>Submit</Button>
-                                </div>
-
-                                <div id="feedback_text">
-                                    <TextField id="text_field" label="thoughts???" autoComplete="off" value={additionalFeedback} onChange={(e)=> additionalFeedbackSet(e.target.value)}/>
+                                    <Button onClick={handleSendFeedback} id="submit" endIcon={<FiSend/>}>Submit</Button>                                 
                                 </div>
                             </div>
+                        <div id="feedback_text">
+                                    <TextField multiline id="text_field" label="thoughts???" autoComplete="off" value={additionalFeedback} onChange={(e)=> additionalFeedbackSet(e.target.value)}/>
+                        </div>
+                            
                             <AnimatePresence>
                             {errorMessage &&
                             <motion.div id="error"
@@ -249,7 +254,6 @@ function Feedback(){
                             </AnimatePresence>
                         </div>
                     </div>
-                
                     </motion.div>
                 :
                 <div id="loading screen">
