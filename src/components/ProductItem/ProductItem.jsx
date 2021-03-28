@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQueryClient } from 'react-query';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { BsInfo } from 'react-icons/bs';
 import '../AllProducts/AllProducts.scss';
@@ -37,8 +38,9 @@ function ProductItem({ item }) {
         //     var name = item_name.substring(0, item_name.indexOf(','))
         //     product_nameSet(name)
         // }
-        product_nameSet(item.name)
-        priceSet("$" + item.price)
+        product_nameSet(item.name);
+        const itemPrice = item.price ? `$${item.price}` : '';
+        priceSet(itemPrice);
     }, [item])
     const queryClient = useQueryClient()
     // const query = useQuery('ItemDetails', ItemDetails)
@@ -59,15 +61,17 @@ function ProductItem({ item }) {
                 transition={{ type: "tween", delay: 0.3}}
             >
                 <img src={image} alt="product" id="image" />
-                <div id="product-info">
-                    <div id="info-name">
-                        <span id="brand-name">{brand}</span>
-                        <span id="product-name">{product_name}</span>
-                    </div>
-                    <div id="price">
-                        <span id="price-text">{price}</span>
-                    </div>
-                </div>
+                <Grid style={{ width: 220, padding: '0 10px' }} justify="space-between" container>
+                    <Grid xs={8} direction="column" container item>
+                        <span style={{ fontWeight: 'bold', textAlign: 'left' }}>{brand}</span>
+                        <span style={{ color: 'rgb(114, 114, 114)', fontSize: '10pt', lineHeight: '1em', textAlign: 'left' }}>
+                            {product_name && product_name.split(',')[0]}
+                        </span>
+                    </Grid>
+                    <Grid xs={4} id="price" item>
+                        <span style={{ fontWeight: 'bold' }}>{price}</span>
+                    </Grid>
+                </Grid>
                 <AnimatePresence>
                     {
                         hover &&
