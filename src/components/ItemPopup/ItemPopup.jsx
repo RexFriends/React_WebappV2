@@ -14,6 +14,7 @@ import {FaCopy} from 'react-icons/fa'
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
 import Scrollbars from "react-custom-scrollbars";
 import APIURL from '../../assets/URL'
+import TextOverflow from '../TextOverflow/TextOverflow';
 const ItemDetails = () => {
     // console.log("querying")
     return(
@@ -200,38 +201,26 @@ function ItemPopup () {
                             {
                                 itemDetail &&
                                 <Grid
-                                    style={{ width: 160, marginTop: 15 }}
+                                    style={{ width: 300, marginTop: 15 }}
                                     direction="column"
                                     alignItems="flex-start"
                                     justify="flex-start"
-                                    id="info-name"
                                     container
                                     item
                                 >
                                     <span style={{ fontWeight: 'bold' }}>{itemDetail.brand}</span>
-                                    <span id="product-name">
-                                        {
-                                            itemDetail.name ?
-                                                itemDetail.name.length < 45 ?
-                                                    itemDetail.name
-                                                    :
-                                                    <Tooltip title={itemDetail.name} disableFocusListener disableTouchListener arrow>
-                                                        <span>{`${itemDetail.name.substring(0, 45)}...`}</span>
-                                                    </Tooltip>
-                                                :
-                                                <span />
-                                        }
-                                    </span>
+                                    <TextOverflow id="product-name" text={itemDetail.name ? itemDetail.name.split(',')[0] : ''} />
                                 </Grid>
                             }
                         </Grid>
                     </Grid>
-                    <Grid xs={3} direction="column" container item>
+                    <Grid xs={4} direction="column" container item>
                         <Grid item>
                             <h2 style={{ fontWeight: 'bold' }}>Get Feedback!</h2>
                         </Grid>
                         <Grid item>
                             <TextField
+                                style={{ width: '100%' }}
                                 variant="outlined"
                                 InputProps={{
                                     startAdornment: <InputAdornment><Search /></InputAdornment>,
@@ -255,10 +244,15 @@ function ItemPopup () {
                                         <Grid key={i} style={{ width: '100%' }} item>
                                             <Button className="contact-button">
                                                 <Grid justify="space-between" alignItems="center" container>
-                                                    <span>
-                                                        {f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
-                                                    </span>
-                                                    <Send />
+                                                    <Grid style={{ width: 'auto' }} alignItems="center" container item>
+                                                        <img style={{ height: 40, width: 40, padding: '0 10px' }} src={f.profile_image} alt="Profile" />
+                                                        <span>
+                                                            {f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
+                                                        </span>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Send />
+                                                    </Grid>
                                                 </Grid>
                                             </Button>
                                         </Grid>

@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { BsInfo } from 'react-icons/bs';
 import '../AllProducts/AllProducts.scss';
+import TextOverflow from '../TextOverflow/TextOverflow';
 
 function ProductItem({ item }) {
     const [hover, hoverSet] = useState(false);
@@ -64,9 +65,10 @@ function ProductItem({ item }) {
                 <Grid style={{ width: 220, padding: '0 10px' }} justify="space-between" container>
                     <Grid xs={8} direction="column" container item>
                         <span style={{ fontWeight: 'bold', textAlign: 'left' }}>{brand}</span>
-                        <span style={{ color: 'rgb(114, 114, 114)', fontSize: '10pt', lineHeight: '1em', textAlign: 'left' }}>
-                            {product_name && product_name.split(',')[0]}
-                        </span>
+                        <TextOverflow
+                            style={{ color: 'rgb(114, 114, 114)', fontSize: '10pt', lineHeight: '1em', textAlign: 'left' }}
+                            text={product_name ? product_name.split(',')[0] : ''}
+                        />
                     </Grid>
                     <Grid xs={4} id="price" item>
                         <span style={{ fontWeight: 'bold' }}>{price}</span>
