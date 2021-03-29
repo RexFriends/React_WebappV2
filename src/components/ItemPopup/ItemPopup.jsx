@@ -44,11 +44,13 @@ function ItemPopup (){
                 itemDetailSet(json.product)
                 let tempImages = []
                 let screenshot = json.product.screenshot
+                console.log(json)
                 if(json.product.images !== null){
                     fetch(json.product.images)
                     .then((res) => res.json())
                     .then((json) => {
                     //! need to transform the weird base64 code to an img html object
+                    
                         for (const key in json) {
                             let base64 = json[key];
                             if (
@@ -112,7 +114,7 @@ function ItemPopup (){
             },
             body: JSON.stringify(payload),
         }).then(res => res.json())
-        // .then(json => console.log(json))
+        .then(json => console.log(json))
     }
 
     const handleGetCopyLink = () => {

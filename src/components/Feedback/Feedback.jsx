@@ -34,6 +34,7 @@ function Feedback(){
         let rexUID = localStorage.getItem("rexUID")
      
         uidSet(rexUID)
+        console.log(uid);
 
         fetch(URL +  `/feedback?uid=${uid ? uid : ""}&rex_feedback_link=${id}`)
             .then(res => res.json())
