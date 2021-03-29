@@ -8,10 +8,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { Button, Dialog, DialogContent, CircularProgress, Grid, InputAdornment, TextField, Tooltip } from '@material-ui/core';
 import { AddCircle, Search, Send } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton'
-import {IoArrowBack} from 'react-icons/io5'
-import {FiSend} from 'react-icons/fi'
 import {FaCopy} from 'react-icons/fa'
-import useWindowDimensions from '../../Hooks/useWindowDimensions'
 import Scrollbars from "react-custom-scrollbars";
 import APIURL from '../../assets/URL'
 import TextOverflow from '../TextOverflow/TextOverflow';
@@ -26,8 +23,6 @@ const ItemDetails = () => {
 
 
 function ItemPopup () {
-    const windowWidth = useWindowDimensions().width;
-    // const query = useQuery('ItemDetails', ItemDetails)
     const [itemDetail, itemDetailSet] = useState(undefined)
     const [imageData, imagesDataSet] = useState([])
     const [friends, friendsSet] = useState([]);
@@ -251,18 +246,18 @@ function ItemPopup () {
                         </Grid>
                     </Grid>
                     <Grid style={{ height: '100%' }} xs={5} wrap="nowrap" direction="column" container item>
-                        <Grid item>
+                        <Grid style={{ marginLeft: 12 }} item>
                             <h2 style={{ fontWeight: 'bold' }}>Get Feedback!</h2>
                         </Grid>
                         <Grid justify="space-between" container item>
-                            <Grid xs={9} item>
+                            <Grid style={{ marginLeft: 12 }} xs={9} item>
                                 <TextField
                                     variant="outlined"
                                     InputProps={{
                                         startAdornment: <InputAdornment><Search /></InputAdornment>,
-                                        className: 'friends-search'
+                                        className: 'users-search'
                                     }}
-                                    placeholder="Search Contacts"
+                                    placeholder="Search Users"
                                     onChange={debounceSearch()}
                                 />
                             </Grid>
@@ -287,30 +282,20 @@ function ItemPopup () {
                                         <Grid key={i} style={{ width: '100%' }} item>
                                             <Button className="contact-button" onClick={() => handleSendRequest(f.id)}>
                                                 <Grid justify="space-between" alignItems="center" container>
-                                                    <Grid style={{ width: 'auto' }} alignItems="center" container item>
+                                                    <Grid style={{ width: 'auto' }} wrap="nowrap" alignItems="center" container item>
                                                         <img style={{ height: 40, width: 40, paddingRight: 10 }} src={f.profile_image} alt="Profile" />
-                                                        <span>
-                                                            {f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
-                                                        </span>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Send />
-                                                    </Grid>
-                                                </Grid>
-                                            </Button>
-                                        </Grid>
-                                    ))
-                                }
-                                {
-                                    friends.map((f, i) => (
-                                        <Grid key={i} style={{ width: '100%' }} item>
-                                            <Button className="contact-button">
-                                                <Grid justify="space-between" alignItems="center" container>
-                                                    <Grid style={{ width: 'auto' }} alignItems="center" container item>
-                                                        <img style={{ height: 40, width: 40, paddingRight: 10 }} src={f.profile_image} alt="Profile" />
-                                                        <span>
-                                                            {f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
-                                                        </span>
+                                                        <Grid direction="column" justify="center" alignItems="flex-start" container item>
+                                                            <TextOverflow
+                                                                style={{ fontSize: '9pt', fontWeight: 'bold' }}
+                                                                text={f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
+                                                                overflowLength={26}
+                                                            />
+                                                            {
+                                                                f.is_user ? (
+                                                                    <span style={{ fontSize: '8pt' }}>@{f.username}</span>
+                                                                ) : null
+                                                            }
+                                                        </Grid>
                                                     </Grid>
                                                     <Grid item>
                                                         <Send />
@@ -327,81 +312,5 @@ function ItemPopup () {
             </DialogContent>
         </Dialog>
     );
-
-        // return(
-        //     query.data && query.data.display ?
-        //     <AnimatePresence>
-        //         <motion.div id="ItemPopup"
-        //           initial={{ opacity: 0 }}
-        //           animate={{ opacity: 1 }}
-        //           exit={{ opacity: 0 }}    
-        //         >
-        //
-        //             <div id="itemContainer">
-        //                 <div id="top">
-        //                     <IconButton onClick={handleClosetPopup}><IoArrowBack/></IconButton>
-        //                 </div>
-        //                 <div id="content" style={{flexDirection: windowWidth >= 1200 ? "row" : "column" }}>
-        //                     {
-        //                         itemDetail &&
-        //                         <motion.div id="image-container"
-        //                             initial={{ opacity: 0 }}
-        //                             animate={{ opacity: 1 }}
-        //                             transition={{duration: 1}}
-        //                         >
-        //                            
-        //                             {imageData.length > 1 ?
-        //                                 <div id="carousel">
-        //                                         <Carousel
-        //                                             value={imageIndex}
-        //                                             slides={imageData}
-        //                                             onChange={handleCarousel}
-        //                                             plugins={['centered']}
-        //                                         />
-        //                                 </div>
-        //                                 :
-        //                                 imageData[0]
-        //                             }
-        //
-        //
-        //                         </motion.div>
-        //                     }
-        //                     <div id="content-container">
-        //                         {itemDetail && <div id="webscrape">
-        //                             {itemDetail.brand && <div id="brand">Brand: {itemDetail.brand}</div>}
-        //                             {itemDetail.name && <div id="name">Name: {itemDetail.name}</div>}
-        //                             {itemDetail.price && <div id="price">Price: {itemDetail.price} {itemDetail.currency}</div>}
-        //                             <div id="link"><a href={itemDetail.url} rel="noreferrer" target="_blank">Product Link</a></div>
-        //                         </div>}
-        //                         <div id="feedback">
-        //                             {/* <Scrollbars id="scrollbar" style={{width: "100%", height: "200px"}}> */}
-        //                                 <div id="friend-container">
-        //                                 {
-        //                                     friends.map((friend, i) => 
-        //                                     <>
-        //                                         <div id="friend" key={i}>
-        //                                             <div id="friendicon">{friend.name ?? friend.phonenumber}</div>
-        //                                             <IconButton id="send" onClick={()=>handleSendRequest(friend.id)}><FiSend/></IconButton>
-        //                                         </div>         
-        //                                     </>
-        //                                         )
-        //                                 }
-        //                             </div>
-        //                             {/* </Scrollbars> */}
-        //                             <div>
-        //                                 <IconButton onClick={handleGetCopyLink}><FaCopy/></IconButton>
-        //                             </div>
-        //
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </motion.div>
-        //     </AnimatePresence>
-        //     :
-        //     <div id="none">
-        //  
-        //     </div>
-        // )
 }
 export default ItemPopup;
