@@ -16,7 +16,6 @@ import NoMatch from './components/NoMatch/NoMatch'
 import Profile from './components/Profile/Profile'
 import AllProducts from './components/AllProducts/AllProducts'
 import Setting from './components/Setting/Setting'
-import ItemPopup from './components/ItemPopup/ItemPopup'
 import Feedback from './components/Feedback/Feedback'
 import AllClosets from './components/AllClosets/AllClosets'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -40,7 +39,6 @@ function App() {
                 <Route path="/login" children={<Login/>}/>
                 <Route path="/feedback/:id" children={<Feedback/>}/>
                 <Dashboard >
-                  <ItemPopup/>
                     <Route
                       render={({ location }) => (
                         <AnimatePresence exitBeforeEnter>

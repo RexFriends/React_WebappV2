@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import './Closet.scss'
 import {useParams} from 'react-router-dom'
 import {AnimatePresence, motion} from 'framer-motion'
-import ClosetItem from './ClosetItem'
 import IconButton from '@material-ui/core/IconButton'
 import Button from "@material-ui/core/Button"
 import {FiEdit2, FiSave} from 'react-icons/fi'
@@ -11,6 +10,8 @@ import Checkbox from '@material-ui/core/Checkbox'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import APIURL from '../../assets/URL'
+import ProductItem from '../ProductItem/ProductItem';
+import ItemPopup from '../ItemPopup/ItemPopup';
 
 function Closet(){
     // use the id to fetch the closet data
@@ -213,12 +214,16 @@ function Closet(){
                 animate={{ y: 0, opacity: 1 }}
                 transition={{duration: 0.3, delay: 0.1}}
                 >
-                        {closetData &&
+                    <>
+                        {
+                            closetData &&
                             closetData.listings.map(
-                                (product, i) => 
-                                <ClosetItem item={product} key={i}/>
-                            )               
+                                (product, i) =>
+                                    <ProductItem item={product} key={i}/>
+                            )
                         }
+                        <ItemPopup />
+                    </>
                 </motion.div>}
             </AnimatePresence>
         </motion.div>
