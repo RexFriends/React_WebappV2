@@ -34,14 +34,14 @@ function ItemPopup () {
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(true);
     const queryClient = useQueryClient()
-    const query = useQuery('ItemDetails', ItemDetails)
+    const query = useQuery('ItemDetails', ItemDetails);
+    const [carouselIndex, setCarouselIndex] = useState(0); // used to trigger override styles
     
-    const getFriendsAndContacts = () => {
+    const getFriendsAndContacts = value => {
         let rexUID = localStorage.getItem("rexUID");
-        fetch(`${APIURL}/api/get-users?uid=${rexUID}&text=${text}`)
+        fetch(`${APIURL}/api/get-users?uid=${rexUID}&text=${value}`)
             .then((res) => res.json())
             .then((json) => {
-                console.log(json.users)
                 friendsSet(json.users);
             });
     };
@@ -57,7 +57,6 @@ function ItemPopup () {
                 .then(json => {
                     itemDetailSet(json.product);
                     let tempImages = [];
-                    let screenshot = json.product.screenshot;
                     if (json.product.images !== null) {
                         fetch(json.product.images)
                             .then((res) => res.json())
@@ -73,13 +72,8 @@ function ItemPopup () {
                                         <img className="img" key={key} src={'data:image/jpeg;base64,' + base64} alt={`webscraper ${key}`}/>
                                     );
                                 }
-                                fetch(screenshot)
-                                    .then((res) => res.json())
-                                    .then((json) => {
-                                        tempImages.push(<img className="img" src={json.uri} alt="screenshot" />);
-                                        imagesDataSet(tempImages);
-                                        setLoading(false);
-                                    });
+                                imagesDataSet(tempImages);
+                                setLoading(false);
                             });
                     } else {
                         let tempImages = [];
@@ -87,6 +81,7 @@ function ItemPopup () {
                             .then((res) => res.json())
                             .then((json) => {
                                 tempImages.push(<img src={json.uri} id="carousel-single" alt="screenshot" />);
+                                console.log(tempImages);
                                 imagesDataSet(tempImages);
                                 setLoading(false);
                             });
@@ -94,27 +89,26 @@ function ItemPopup () {
                 });
         }
         
-        getFriendsAndContacts();
+        getFriendsAndContacts(text);
     }, [query.data, query.status]);
     
     
+    
+    const overrideCarouselStyles = () => {
+        const carouselElement = document.querySelector('.carousel');
+        const arrowElements = document.getElementsByClassName('control-arrow');
+        if (!query.data || !query.data.display) return;
+        
+        if (!carouselElement || arrowElements.length === 0) {
+            requestAnimationFrame(overrideCarouselStyles);
+            return;
+        }
 
-    // TODO: fix styling overrides for left arrow
-    // const overrideCarouselStyles = () => {
-    //     console.log('hello');
-    //     const carouselElement = document.querySelector('.carousel');
-    //     const arrowElements = document.getElementsByClassName('control-arrow');
-    //     if (!carouselElement || arrowElements.length === 0) {
-    //         requestAnimationFrame(overrideCarouselStyles);
-    //         return;
-    //     }
-    //
-    //     carouselElement.classList.add('carousel-override');
-    //     Array.prototype.forEach.call(arrowElements, el => { el.classList.add('control-arrow-override') });
-    // };
+        carouselElement.classList.add('carousel-override');
+        Array.prototype.forEach.call(arrowElements, el => { el.classList.add('control-arrow-override') });
+    };
 
-    // const arrowElements = document.getElementsByClassName('control-arrow'); 
-    // useEffect(overrideCarouselStyles, [arrowElements]);
+    useEffect(overrideCarouselStyles, [query.data, carouselIndex]);
 
     const handleClosetPopup = () => {
         queryClient.setQueryData(['ItemDetails'], { display: false})    
@@ -159,22 +153,50 @@ function ItemPopup () {
 
     }
 
+    const handleSearch = event => {
+        const { value } = event.target;
+        console.log(event, value);
+        setText(value);
+        getFriendsAndContacts(value);
+    };
+    
+    const debounceSearch = () => {
+        let timeout;
+        
+        return event => {
+            const func = () => {
+                clearTimeout(timeout);
+                handleSearch(event);
+            }
+            
+            clearTimeout(timeout);
+            setTimeout(func, 1000);
+        };
+    };
+
     return (
-        <Dialog maxWidth={false} open={query.data && query.data.display} onClose={handleClosetPopup}>
+        <Dialog
+            PaperProps={{ style: { height: '55%', width: '65%' } }}
+            maxWidth={false}
+            open={query.data && query.data.display}
+            onClose={handleClosetPopup}
+        >
             <DialogContent style={{ paddingTop: 25, paddingBottom: 25 }}>
-                <Grid justify="space-evenly" wrap="nowrap" container>
-                    <Grid xs={5} direction="column" alignItems="flex-start" container item>
-                        <Grid item>
+                <Grid style={{ height: '100%' }} justify="space-evenly" wrap="nowrap" container>
+                    <Grid
+                        style={{ height: '100%' }}
+                        xs={5}
+                        direction="column"
+                        wrap="nowrap"
+                        justify="space-between"
+                        alignItems="flex-start"
+                        container
+                        item
+                    >
+                        <Grid alignItems="center" justify="center" container item>
                             {
                                 loading ? (
-                                    <Grid
-                                        style={{ height: 'calc(300px + 15vh)', width: 'calc(350px + 25vw)' }}
-                                        justify="center"
-                                        alignItems="center"
-                                        container
-                                    >
-                                        <CircularProgress />
-                                    </Grid>
+                                    <CircularProgress />
                                 ) : (
                                     itemDetail &&
                                     <motion.div
@@ -186,7 +208,12 @@ function ItemPopup () {
                                         {
                                             imageData.length > 1 ?
                                                 <div id="carousel">
-                                                    <Carousel showThumbs={false} showStatus={false} showArrows>
+                                                    <Carousel
+                                                        onChange={i => setCarouselIndex(i)}
+                                                        showThumbs={false}
+                                                        showStatus={false}
+                                                        showArrows
+                                                    >
                                                         {imageData}
                                                     </Carousel>
                                                 </div>
@@ -214,7 +241,7 @@ function ItemPopup () {
                             }
                         </Grid>
                     </Grid>
-                    <Grid xs={4} direction="column" container item>
+                    <Grid style={{ height: '100%' }} xs={4} wrap="nowrap" direction="column" container item>
                         <Grid item>
                             <h2 style={{ fontWeight: 'bold' }}>Get Feedback!</h2>
                         </Grid>
@@ -227,6 +254,7 @@ function ItemPopup () {
                                     className: 'friends-search'
                                 }}
                                 placeholder="Search Contacts"
+                                onChange={debounceSearch()}
                             />
                         </Grid>
                         <Grid item>
@@ -237,15 +265,34 @@ function ItemPopup () {
                                 </Grid>
                             </Button>
                         </Grid>
-                        <Grid direction="column" container item>
-                            <Scrollbars autoHeight autoHide>
+                        <Grid style={{ flexGrow: 2 }} item>
+                            <Scrollbars style={{ height: '100%' }} autoHide>
                                 {
                                     friends.map((f, i) => (
                                         <Grid key={i} style={{ width: '100%' }} item>
                                             <Button className="contact-button">
                                                 <Grid justify="space-between" alignItems="center" container>
                                                     <Grid style={{ width: 'auto' }} alignItems="center" container item>
-                                                        <img style={{ height: 40, width: 40, padding: '0 10px' }} src={f.profile_image} alt="Profile" />
+                                                        <img style={{ height: 40, width: 40, paddingRight: 10 }} src={f.profile_image} alt="Profile" />
+                                                        <span>
+                                                            {f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
+                                                        </span>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Send />
+                                                    </Grid>
+                                                </Grid>
+                                            </Button>
+                                        </Grid>
+                                    ))
+                                }
+                                {
+                                    friends.map((f, i) => (
+                                        <Grid key={i} style={{ width: '100%' }} item>
+                                            <Button className="contact-button">
+                                                <Grid justify="space-between" alignItems="center" container>
+                                                    <Grid style={{ width: 'auto' }} alignItems="center" container item>
+                                                        <img style={{ height: 40, width: 40, paddingRight: 10 }} src={f.profile_image} alt="Profile" />
                                                         <span>
                                                             {f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
                                                         </span>
