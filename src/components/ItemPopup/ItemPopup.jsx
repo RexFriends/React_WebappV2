@@ -130,9 +130,18 @@ function ItemPopup () {
             .then(res => res.json());
     }
 
+    const copyFallback = link => {
+        const inp = document.createElement('input');
+        document.body.appendChild(inp);
+        inp.value = link;
+        inp.select();
+        document.execCommand('copy', false);
+        inp.remove();
+    };
+    
     const handleGetCopyLink = () => {
-        let rexUID = localStorage.getItem("rexUID")
-        let payload = { listing_id: itemDetail.id}
+        const rexUID = localStorage.getItem("rexUID");
+        const payload = { listing_id: itemDetail.id};
         fetch(URL + '/api/copy_feedback_link?uid=' + rexUID, {
             method: 'POST',
             headers: {
@@ -143,14 +152,14 @@ function ItemPopup () {
             .then((res) => res.text())
             .then((link) => {
                 // console.log(link)
-                var inp = document.createElement('input');
-                document.body.appendChild(inp);
-                inp.value = link;
-                inp.select();
-                document.execCommand('copy', false);
-                inp.remove();
-            })
-
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(link)
+                        .catch(err => {
+                            console.error(err);
+                            copyFallback(link);
+                        })
+                } else copyFallback(link);
+            });
     }
 
     const handleSearch = event => {
@@ -241,21 +250,27 @@ function ItemPopup () {
                             }
                         </Grid>
                     </Grid>
-                    <Grid style={{ height: '100%' }} xs={4} wrap="nowrap" direction="column" container item>
+                    <Grid style={{ height: '100%' }} xs={5} wrap="nowrap" direction="column" container item>
                         <Grid item>
                             <h2 style={{ fontWeight: 'bold' }}>Get Feedback!</h2>
                         </Grid>
-                        <Grid item>
-                            <TextField
-                                style={{ width: '100%' }}
-                                variant="outlined"
-                                InputProps={{
-                                    startAdornment: <InputAdornment><Search /></InputAdornment>,
-                                    className: 'friends-search'
-                                }}
-                                placeholder="Search Contacts"
-                                onChange={debounceSearch()}
-                            />
+                        <Grid justify="space-between" container item>
+                            <Grid xs={9} item>
+                                <TextField
+                                    variant="outlined"
+                                    InputProps={{
+                                        startAdornment: <InputAdornment><Search /></InputAdornment>,
+                                        className: 'friends-search'
+                                    }}
+                                    placeholder="Search Contacts"
+                                    onChange={debounceSearch()}
+                                />
+                            </Grid>
+                            <Grid style={{ textAlign: 'right' }} xs={2} item>
+                                <IconButton style={{ paddingRight: 12 }} onClick={handleGetCopyLink}>
+                                    <FaCopy/>
+                                </IconButton>
+                            </Grid>
                         </Grid>
                         <Grid item>
                             <Button className="contact-button">

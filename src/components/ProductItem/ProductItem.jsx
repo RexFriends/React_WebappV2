@@ -40,7 +40,7 @@ function ProductItem({ item }) {
         //     product_nameSet(name)
         // }
         product_nameSet(item.name);
-        const itemPrice = item.price ? `$${item.price}` : '';
+        const itemPrice = item.price ? `${item.currency}${item.price}` : '';
         priceSet(itemPrice);
     }, [item])
     const queryClient = useQueryClient()
