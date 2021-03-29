@@ -38,7 +38,7 @@ function ItemPopup () {
     const [carouselIndex, setCarouselIndex] = useState(0); // used to trigger override styles
     
     const getFriendsAndContacts = value => {
-        let rexUID = localStorage.getItem("rexUID");
+        const rexUID = localStorage.getItem("rexUID");
         fetch(`${APIURL}/api/get-users?uid=${rexUID}&text=${value}`)
             .then((res) => res.json())
             .then((json) => {
@@ -114,20 +114,20 @@ function ItemPopup () {
         queryClient.setQueryData(['ItemDetails'], { display: false})    
     }
     
-    const handleSendRequest = (id) => {
-        let rexUID = localStorage.getItem("rexUID")
-        let payload = {
-            contact_id: id,
+    const handleSendRequest = id => {
+        const rexUID = localStorage.getItem("rexUID");
+        const payload = {
+            user_requesting_id: id,
             product_id: itemDetail.id,
-          };
+        };
         fetch(URL + '/api/send_rex?uid=' + rexUID, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
-        }).then(res => res.json())
-        // .then(json => console.log(json))
+        })
+            .then(res => res.json());
     }
 
     const handleGetCopyLink = () => {
@@ -176,7 +176,7 @@ function ItemPopup () {
 
     return (
         <Dialog
-            PaperProps={{ style: { height: '55%', width: '65%' } }}
+            PaperProps={{ style: { height: '55%', width: '65%', borderRadius: 15 } }}
             maxWidth={false}
             open={query.data && query.data.display}
             onClose={handleClosetPopup}
@@ -270,7 +270,7 @@ function ItemPopup () {
                                 {
                                     friends.map((f, i) => (
                                         <Grid key={i} style={{ width: '100%' }} item>
-                                            <Button className="contact-button">
+                                            <Button className="contact-button" onClick={() => handleSendRequest(f.id)}>
                                                 <Grid justify="space-between" alignItems="center" container>
                                                     <Grid style={{ width: 'auto' }} alignItems="center" container item>
                                                         <img style={{ height: 40, width: 40, paddingRight: 10 }} src={f.profile_image} alt="Profile" />
