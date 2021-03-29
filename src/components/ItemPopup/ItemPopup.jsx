@@ -104,7 +104,9 @@ function ItemPopup () {
     useEffect(overrideCarouselStyles, [query.data, carouselIndex]);
 
     const handleClosetPopup = () => {
-        queryClient.setQueryData(['ItemDetails'], { display: false})    
+        queryClient.setQueryData(['ItemDetails'], { display: false});
+        setText('');
+        setCarouselIndex(0);
     }
     
     const handleSendRequest = id => {
@@ -178,7 +180,7 @@ function ItemPopup () {
 
     return (
         <Dialog
-            PaperProps={{ style: { height: '55%', width: '65%', borderRadius: 15 } }}
+            PaperProps={{ style: { height: '55%', width: '65%', maxHeight: 550, maxWidth: 850, borderRadius: 15 } }}
             maxWidth={false}
             open={query.data && query.data.display}
             onClose={handleClosetPopup}
