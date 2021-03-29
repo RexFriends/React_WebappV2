@@ -4,8 +4,9 @@ import { AccountCircle, Send } from '@material-ui/icons';
 import { AiOutlineSmile, AiOutlineFrown } from 'react-icons/ai';
 import './Notification.scss'
 import APIURL from '../../assets/URL';
+import TextOverflow from '../TextOverflow/TextOverflow';
 
-function Notification({ notification }) {
+function Notification({ notification, updater }) {
     const [product, setProduct] = useState(undefined);
     const [image, setImage] = useState(undefined);
     useEffect(() => {
@@ -41,10 +42,17 @@ function Notification({ notification }) {
         }
     }, [product, notification.product_id]);
     
+    const redirectToFeedbackForm = () => {
+        updater([{ id: notification.id, notified_user: true, type: 'request' }]);
+        window.open(notification.feedback_form_link, '_blank');
+    };
+    
     let name = '';
     if (notification.first_name) name += notification.first_name.trim();
     if (notification.last_name) name += ` ${notification.last_name.trim()}`;
+    name = name.trim(); // in case only the last name is present so there's an extra space
     if (!name) name = 'Someone';
+    
     return(
         <Card style={{ width: '100%', backgroundColor: notification.seen ? 'rgb(230, 230, 230)' : '#fff' }}>
             <CardContent>
@@ -61,7 +69,7 @@ function Notification({ notification }) {
                         </Grid>
                     }
                     <Grid item>
-                        <span style={{ fontStyle: 'italic' }}>{notification.time_sent ? 'Requested feedback' : 'Sent feedback'}</span>
+                        <span style={{ fontStyle: 'italic', fontSize: '11pt' }}>{notification.time_sent ? 'Requested feedback' : 'Sent feedback'}</span>
                     </Grid>
                     <Grid style={{ marginLeft: 15, marginRight: 15 }} item>
                         <img style={{ height: 80, width: 80 }} src={image} alt="product" id="image" />
@@ -74,17 +82,7 @@ function Notification({ notification }) {
                                     <span style={{ fontWeight: 'bold' }}>{product.brand || 'Something'}</span>
                                 </Grid>
                                 <Grid item>
-                                    {
-                                        product.name ?
-                                            product.name.length < 30 ?
-                                                product.name
-                                                :
-                                                <Tooltip title={product.name} disableFocusListener disableTouchListener arrow>
-                                                    <span>{`${product.name.substring(0, 30)}...`}</span>
-                                                </Tooltip>
-                                            :
-                                            <span>Something</span>
-                                    }
+                                    <TextOverflow text={product.name ? product.name.split(',')[0] : ''} overflowLength={30} />
                                 </Grid>
                             </>
                         }
@@ -99,7 +97,7 @@ function Notification({ notification }) {
                         {
                             notification.time_sent ? (
                                 <div>
-                                    <IconButton> {/* TODO: fix positioning to line up with icons */}
+                                    <IconButton onClick={redirectToFeedbackForm}>
                                         <Send style={{ color: '#37DB69', height: 64, width: 64 }} />
                                     </IconButton>
                                 </div>
