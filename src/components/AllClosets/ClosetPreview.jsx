@@ -18,15 +18,7 @@ function ClosetPreview({closet}){
                         fetch(item.images).then(
                             res => res.json()
                         ).then(json => {
-                            let base64 = json.img_1
-                            if (
-                                base64.substring(0, 2) === "b'" &&
-                                base64[base64.length - 1]
-                                ) {
-                                base64 = base64.slice(2);
-                                base64 = base64.slice(0, -1);
-                                }
-                            temp.push('data:image/jpeg;base64,' +base64)
+                            temp.push(json.img_1);
                         })
                     }else{
                         fetch(item.img).then(

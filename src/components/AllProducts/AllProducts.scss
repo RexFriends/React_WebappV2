@@ -35,46 +35,19 @@
                 justify-content: flex-start;
                 #image {
                     // border: solid red 2px;
-                    margin-top: 0px;
+                    margin-top: 0;
                     height: 170px;
                     object-fit: contain;
                     background-color: white;
                     border-radius: 10px 10px;
                     padding: 5px;
                 }
-                #product-info {
-                    width: 210px;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-evenly;
-                    #info-name {
-                        width: 160px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: flex-start;
-                        align-items: flex-start;
-                        #brand-name {
-                            font-weight: bold;
-                        }
-                        #product-name {
-                            color: rgb(114, 114, 114);
-                            font-size: 10pt;
-                            line-height: 1em;
-                        }
-                    }
-                    #price {
-                        width: 60px;
-                        #price-text {
-                            font-weight: bold;
-                        }
-                    }
-                }
                 #overlay {
                     border: solid rgba(0, 0, 0, 0.171) 1px;
                     position: absolute;
                     bottom: 0;
                     right: 0;
-                    height: 100%;
+                    height: 240px;
                     width: 200px;
                     padding: 5px;
                     border-radius: 10px;

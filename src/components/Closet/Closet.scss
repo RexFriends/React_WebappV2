@@ -82,26 +82,30 @@
         grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
 
         #product{
+            background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             position: relative;
             width: 210px;
-            height: 210px;
+            height: 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
             #image{
-                border-radius: 10px;
-                height: 200px;
-                width: 200px;
+                margin-top: 0;
+                height: 170px;
                 object-fit: contain;
                 background-color: white;
+                border-radius: 10px 10px;
                 padding: 5px;
             }
             #overlay{
                 border: solid rgba(0, 0, 0, 0.171) 1px;
                 position:absolute;
                 bottom: 0;
-                right:0;
-                height: 200px;
+                right: 0;
+                height: 240px;
                 width: 200px;
                 padding: 5px;
                 border-radius: 10px;

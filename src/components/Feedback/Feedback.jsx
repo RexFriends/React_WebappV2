@@ -44,32 +44,21 @@ function Feedback(){
                 console.log(data)
                 feedbackRowIdSet(json.feedback_row_id)
                 formDataSet(data)
-                    let tempImages = []
                     let screenshot = json.screenshot
                     if(data.images !== null){
                     fetch(data.images)
                     .then((res) => res.json())
                     .then((json) => {
-                    //! need to transform the weird base64 code to an img html object
-                        for (const key in json) {
-                            let base64 = json[key];
-                            if (
-                            base64.substring(0, 2) === "b'" &&
-                            base64[base64.length - 1]
-                            ) {
-                            base64 = base64.slice(2);
-                            base64 = base64.slice(0, -1);
-                            }
-                            tempImages.push(
-                            <img  src={'data:image/jpeg;base64,' + base64} id="img" alt={`webscraper ${key}`}/>
-                            );
-                        }
+                        const images = Object.entries(json)
+                            .map(([key, value]) => (
+                                <img className="img" key={key} src={value} alt={`webscraper ${key}`}/>
+                            ));
 
                         fetch(screenshot)
                         .then((res) => res.json())
                         .then((json) => {
-                            tempImages.push(<img src={json.uri} id="img" alt="screenshot" />)
-                            imagesSet(tempImages);
+                            images.push(<img src={json.uri} id="img" alt="screenshot" />)
+                            imagesSet(images);
                         });
 
                     

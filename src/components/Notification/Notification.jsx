@@ -12,13 +12,11 @@ function Notification({ notification, updater }) {
     useEffect(() => {
         if (!product) {
             const rexUID = localStorage.getItem('rexUID');
-            // We need to get the product id for the asFriend key also
             fetch(`${APIURL}/api/product?product_id=${notification.product_info.id}&uid=${rexUID}`)
                 .then(res => res.json())
                 .then(json => {
                     setProduct(json.product);
-                })
-                // .catch(err => console.log("product err", err, notification))
+                });
         }
         
         if (product) {
@@ -26,12 +24,7 @@ function Notification({ notification, updater }) {
                 fetch(product.images)
                     .then(res => res.json())
                     .then(json => {
-                        let base64 = json.img_1;
-                        if (base64.substring(0, 2) === "b'" && base64[base64.length - 1]) {
-                            base64 = base64.slice(2);
-                            base64 = base64.slice(0, -1);
-                        }
-                        setImage('data:image/jpeg;base64,' + base64);
+                        setImage(json.img_1);
                     })
                     .catch(err => console.log("err 1"));
             } else {

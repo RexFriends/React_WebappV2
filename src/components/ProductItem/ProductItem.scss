@@ -1,0 +1,27 @@
+#product-info {
+  width: 210px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  #info-name {
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    #brand-name {
+      font-weight: bold;
+    }
+    #product-name {
+      color: rgb(114, 114, 114);
+      font-size: 10pt;
+      line-height: 1em;
+    }
+  }
+  #price {
+    width: 60px;
+    #price-text {
+      font-weight: bold;
+    }
+  }
+}

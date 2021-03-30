@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { BsInfo } from 'react-icons/bs';
-import '../AllProducts/AllProducts.scss';
+import './ProductItem.scss';
 import TextOverflow from '../TextOverflow/TextOverflow';
 
 function ProductItem({ item }) {
@@ -15,16 +15,11 @@ function ProductItem({ item }) {
     const [price, priceSet] = useState("$99.99");
     
     useEffect(() => {
-        if(item.images !== null) {
+        if (item.images !== null) {
             fetch(item.images)
                 .then(res => res.json())
                 .then(json => {
-                    let base64 = json.img_1;
-                    if (base64.substring(0, 2) === "b'" && base64[base64.length - 1]) {
-                        base64 = base64.slice(2);
-                        base64 = base64.slice(0, -1);
-                    }
-                    imageSet('data:image/jpeg;base64,' + base64);
+                    imageSet(json.img_1);
                 })
                 .catch(err => console.log("err 1"));
         } else {
