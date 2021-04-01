@@ -1,65 +1,64 @@
-#ClosetPage{
+#ClosetPage {
     // border: solid red 5px;
     // height: 100%;
     width: 95%;
     margin: 0px auto;
-   
-
-    #closet-header{
-        
+    #closet-header {
         height: 100px;
         width: 95%;
         margin: 0px auto;
-    
-        border-radius:  20px;
+        border-radius: 20px;
         // border: solid red 2px;
         overflow: hidden;
         display: flex;
-       
-        #text{
+        #text {
             // border: solid red 5px;
             height: 80%;
-            margin: auto auto;
+            margin: auto auto auto 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             color: #ffffff;
-            mix-blend-mode: luminosity;;
+            mix-blend-mode: luminosity;
+            ;
             z-index: 400;
-            #user{
+            #user {
                 // border: solid red 2px;
-                font-size:calc(8px + 1.5vw);
+                font-size: calc(8px + 1.5vw);
                 font-weight: 600;
                 text-align: left;
                 mix-blend-mode: difference;
                 user-select: none;
                 z-index: 500;
             }
-            #name{
+            #name {
                 // border: solid red 2px;
-                font-size:calc(28px + 1.5vw);
+                font-size: calc(28px + 1.5vw);
                 font-weight: 600;
                 line-height: 40px;
                 text-align: left;
                 user-select: none;
                 z-index: 500;
             }
-  
         }
-
-        #edit-form-button{
+        #back-button {
+            // border: solid red 1px;
+            height: 50px;
+            width: 50px;
+            margin: auto 0px auto 20px;
+            color: white;
+        }
+        #edit-form-button {
             // position: absolute;
             // right: 60px;
             // top: 20px;
-            border: solid rgb(90, 90, 90) 2px;
+            // border: solid rgb(90, 90, 90) 2px;
             height: 50px;
             width: 50px;
             margin-top: 25px;
             margin-right: 15px;
         }
-
-
-        #img{
+        #img {
             width: 200px;
             height: 200px;
             object-fit: contain;
@@ -68,11 +67,8 @@
             // top: 0;
             // left: 250px;
         }
-
-
     }
-
-    #item-container{
+    #item-container {
         padding: 10px;
         // border: solid red 2px;
         margin: 0px 10px;
@@ -80,8 +76,7 @@
         grid-gap: 16px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
-
-        #product{
+        #product {
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -92,7 +87,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            #image{
+            #image {
                 margin-top: 0;
                 height: 170px;
                 object-fit: contain;
@@ -100,9 +95,9 @@
                 border-radius: 10px 10px;
                 padding: 5px;
             }
-            #overlay{
+            #overlay {
                 border: solid rgba(0, 0, 0, 0.171) 1px;
-                position:absolute;
+                position: absolute;
                 bottom: 0;
                 right: 0;
                 height: 240px;
@@ -112,76 +107,73 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                #top{
+                #top {
                     // border: solid red 2px;
                     width: 180px;
                     margin: 5px auto 0px auto;
-                    #info{
+                    #info {
                         // border: solid red 2px;
                         margin-left: 130px;
                         background-color: rgba(196, 196, 196, 0.397);
-        
                     }
                 }
             }
         }
     }
-    #editForm{
+    #editForm {
         // border: solid red 2px;
         margin: 0px 10px;
         padding: 10px;
         display: flex;
-        flex-direction:column;
+        flex-direction: column;
         height: 550px;
-        #top-row{
+        #top-row {
             font-size: 20px;
             text-align: center;
             font-weight: 600;
             display: flex;
             justify-content: space-between;
         }
-        #row{
-            display:flex;
+        #row {
+            display: flex;
             // border: solid red 2px;
             margin: 10px;
             padding: 5px;
-            .MuiTypography-body1{
+            .MuiTypography-body1 {
                 font-size: 20px;
                 font-family: "Baloo 2";
             }
-            #label{
+            #label {
                 font-size: 20px;
                 margin-left: 15px;
             }
-
-            #field{
+            #field {
                 margin-left: 20px;
             }
         }
-        #upload{
+        #upload {
             margin: 10px;
-            #upload-button{
-                box-shadow: 0 0 3px  rgba(0, 0, 0, 0.4);
+            #upload-button {
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
                 font-family: "Baloo 2";
             }
         }
-        #currentImage{
+        #currentImage {
             height: 250px;
             margin: 10px;
-            #image{
+            #image {
                 margin: 0px auto;
                 width: 250px;
                 height: 250px;
-             
-                #closet-img{
-                    box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
-                    border-radius: 10px;;
+                #closet-img {
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+                    border-radius: 10px;
+                    ;
                     width: 250px;
                     height: 250px;
                     object-fit: contain;
                 }
             }
-            
         }
     }
 }

@@ -12,9 +12,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import APIURL from '../../assets/URL'
 import ProductItem from '../ProductItem/ProductItem';
 import ItemPopup from '../ItemPopup/ItemPopup';
+import {useHistory }from "react-router-dom"
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { FaSave } from 'react-icons/fa'
 
 function Closet(){
     // use the id to fetch the closet data
+    // let location = useLocation()
+    let history = useHistory()
+
     const [closetData, closetDataSet] = useState(undefined)
     const [showClosetForm, showClosetFormSet] = useState(false)
     const [publicValue, publicValueSet] = useState(true)
@@ -110,6 +116,7 @@ function Closet(){
         animate={{ opacity: 1 }}
         exit={{   opacity: 0 }}
         >
+            {/* history.push('/closets') */}
             {
                 closetData ?
                 closetData.isOwned ?
@@ -120,6 +127,11 @@ function Closet(){
                 transition={{duration: 0.3}}
                 >
                     {/* <img src={data.closet_png} id="img" alt="closet"/> */}
+                    {/* startIcon={<ArrowBackIcon/>} */}
+
+                    <IconButton id="back-button"  onClick={ () => history.push('/closets')}>  
+                        <ArrowBackIcon/>
+                    </IconButton>
                     <div id="text">
                         <div id="name">{closetData.name}</div>
                     </div>
@@ -139,7 +151,6 @@ function Closet(){
                     {/* <img src={data.closet_png} id="img" alt="closet"/> */}
                     <div id="text">
                         <div id="user">{closetData.user.first_name + " " + closetData.user.last_name}'s</div>
-                        <div id="name">{closetData.name}</div>
                     </div>
                 </motion.div>
                 :
@@ -158,7 +169,7 @@ function Closet(){
                     <div id="top-row">
                         <Button startIcon={<IoArrowBack/>} onClick={handleGoBack}>Go Back</Button>
                         <div id="center">Edit Closet</div>
-                        <Button startIcon={<FiSave/>} onClick={handleUpdateCloset}>Save Settings</Button>
+                        <Button startIcon={<FaSave/>} onClick={handleUpdateCloset}>Save Settings</Button>
                     </div>
                     <div id="row">
                         <FormControlLabel
