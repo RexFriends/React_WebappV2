@@ -50,24 +50,16 @@ function ItemPopup () {
             fetch(url)
                 .then(res => res.json())
                 .then(json => {
-                    itemDetailSet(json.product);
-                    let tempImages = [];
                     if (json.product.images !== null) {
                         fetch(json.product.images)
                             .then((res) => res.json())
                             .then((json) => {
                                 //! need to transform the weird base64 code to an img html object
-                                for (const key in json) {
-                                    let base64 = json[key];
-                                    if (base64.substring(0, 2) === "b'" && base64[base64.length - 1]) {
-                                        base64 = base64.slice(2);
-                                        base64 = base64.slice(0, -1);
-                                    }
-                                    tempImages.push(
-                                        <img className="img" key={key} src={'data:image/jpeg;base64,' + base64} alt={`webscraper ${key}`}/>
-                                    );
-                                }
-                                imagesDataSet(tempImages);
+                                const images = Object.entries(json)
+                                    .map(([key, value]) => (
+                                        <img className="img" key={key} src={value} alt={`webscraper ${key}`}/>
+                                    ));
+                                imagesDataSet(images);
                                 setLoading(false);
                             });
                     } else {
@@ -76,7 +68,6 @@ function ItemPopup () {
                             .then((res) => res.json())
                             .then((json) => {
                                 tempImages.push(<img src={json.uri} id="carousel-single" alt="screenshot" />);
-                                console.log(tempImages);
                                 imagesDataSet(tempImages);
                                 setLoading(false);
                             });
@@ -159,7 +150,6 @@ function ItemPopup () {
 
     const handleSearch = event => {
         const { value } = event.target;
-        console.log(event, value);
         setText(value);
         getFriendsAndContacts(value);
     };

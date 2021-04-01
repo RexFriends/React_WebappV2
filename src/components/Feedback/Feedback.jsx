@@ -44,8 +44,8 @@ function Feedback(){
                 console.log(data)
                 feedbackRowIdSet(json.feedback_row_id)
                 formDataSet(data)
-                    let tempImages = []
                     let screenshot = json.screenshot
+                    let tempImages = []
                     if(data.images !== null){
                     fetch(data.images)
                     .then((res) => res.json())
@@ -73,8 +73,8 @@ function Feedback(){
                         fetch(screenshot)
                         .then((res) => res.json())
                         .then((json) => {
-                            tempImages.push(<img src={json.uri} id="img" alt="screenshot" />)
-                            imagesSet(tempImages);
+                            images.push(<img src={json.uri} id="img" alt="screenshot" />)
+                            imagesSet(images);
                         });
 
                     
@@ -202,9 +202,6 @@ function Feedback(){
                             
                             <Carousel
                                 arrows
-                                // value={imageIndex}
-                                // slides={images}
-                                // onChange={handleCarousel}
                                 dots
                             >
                                 {
