@@ -37,6 +37,11 @@ function Feedback() {
     }
 
     getFeedbackForm().then((FeedbackData) => {
+      if (FeedbackData.success === false) {
+        completePageSet(true);
+        completePageContentSet(FeedbackData.reason);
+        return;
+      }
       formDataSet(FeedbackData);
       let screenshot = FeedbackData.screenshot;
       let tempImages = [];
