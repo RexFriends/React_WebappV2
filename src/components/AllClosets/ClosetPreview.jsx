@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { useHistory }from "react-router-dom"
-import {motion} from 'framer-motion'
+import {motion, AnimatePresence} from 'framer-motion'
+import './ClosetPreview.scss';
 
 function ClosetPreview({closet}){
 
     let history = useHistory()
     const [imageData, imageDataSet] = useState([])
+    const [hover, hoverSet] = useState(false);
     const [change, changeSet] = useState(false)
     useEffect(() => {
         // console.log("Render", closet.id)
@@ -51,6 +53,8 @@ function ClosetPreview({closet}){
 
     return(
     <motion.div id="closet"
+    onMouseEnter={() => hoverSet(true)}
+    onMouseLeave={() => hoverSet(false)}
     initial={{ y: 100, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{
@@ -75,6 +79,18 @@ function ClosetPreview({closet}){
                 
 
         }
+        <AnimatePresence>
+                    {
+                        hover &&
+                        <motion.div id="overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                            {/* <div id="top">
+                                <IconButton onClick={handleShowInfo} id="info">
+                                    <SendIcon fontSize="large" style={{color: "14c4b2", width: "30px", height: "30px"}}/>
+                                </IconButton>
+                            </div> */}
+                        </motion.div>
+                    }
+                </AnimatePresence>
         
         <div id="closet-name">{closet.closet_name}</div>
     </motion.div>

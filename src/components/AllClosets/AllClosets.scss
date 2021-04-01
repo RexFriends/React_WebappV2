@@ -37,11 +37,12 @@
             #closet-name {
                 position: absolute;
                 width: 200px;
+                color: rgb(80, 80, 80);
                 margin-left: 10px;
                 top: 220px;
                 // border: solid red 2px;
                 font-size: 20px;
-                font-weight: 600;
+                font-weight: 500;
             }
             #img {
                 // border: solid red 2px;
@@ -58,12 +59,13 @@
             }
         }
         #overlay {
-            border: solid rgba(0, 0, 0, 0.171) 1px;
+            border: solid rgba(0, 0, 0, 0.05) 1px;
             position: absolute;
+            background-color: rgba(0, 0, 0, 0.05);
             bottom: 0;
             right: 0;
-            height: 220px;
-            width: 220px;
+            height: 218px;
+            width: 218px;
             padding: 0px;
             border-radius: 10px;
             display: flex;
