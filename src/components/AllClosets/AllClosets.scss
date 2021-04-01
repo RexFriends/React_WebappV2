@@ -1,9 +1,9 @@
-#AllClosetsPage{
+#AllClosetsPage {
     // border: solid red 2px;
     // height: 100%;
     width: 95%;
     margin: 0px auto;
-    #title{
+    #title {
         text-align: left;
         width: 100%;
         // border: solid red 2px;
@@ -13,7 +13,7 @@
         font-size: calc(16px + 1.2vw);
         font-weight: 700;
     }
-    #closet-container{
+    #closet-container {
         padding: 10px;
         // border: solid red 2px;
         margin: 0px 10px;
@@ -21,11 +21,10 @@
         grid-gap: 16px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
-        #closet{
+        #closet {
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
-         
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             position: relative;
             width: 220px;
@@ -35,57 +34,51 @@
             flex-wrap: wrap;
             justify-content: space-around;
             margin-bottom: 40px;
-            #closet-name{
+            #closet-name {
                 position: absolute;
-                width:200px;
+                width: 200px;
                 margin-left: 10px;
                 top: 220px;
                 // border: solid red 2px;
-                font-size:20px;
+                font-size: 20px;
                 font-weight: 600;
             }
-            #img{
+            #img {
                 // border: solid red 2px;
                 width: 90px;
                 height: 90px;
                 object-fit: contain;
                 margin: 5px;
-            
             }
-            #closet-icon{
+            #closet-icon {
                 width: 220px;
                 height: 220px;
                 object-fit: contain;
                 // border: solid red 2px;
-
             }
         }
-        #overlay{
+        #overlay {
             border: solid rgba(0, 0, 0, 0.171) 1px;
-            position:absolute;
+            position: absolute;
             bottom: 0;
-            right:0;
-            height: 200px;
-            width: 200px;
-            padding: 5px;
-            border-radius: 35px;
+            right: 0;
+            height: 220px;
+            width: 220px;
+            padding: 0px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            #top{
+            #top {
                 // border: solid red 2px;
                 width: 180px;
                 margin: 5px auto 0px auto;
-                #info{
+                #info {
                     // border: solid red 2px;
                     margin-left: 130px;
                     background-color: rgba(196, 196, 196, 0.397);
-    
                 }
             }
         }
     }
-
-
-
 }

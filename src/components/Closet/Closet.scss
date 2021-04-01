@@ -81,7 +81,7 @@
         #product {
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             position: relative;
             width: 210px;
@@ -98,13 +98,14 @@
                 padding: 5px;
             }
             #overlay {
-                border: solid rgba(0, 0, 0, 0.171) 1px;
+                border: solid rgba(0, 0, 0, 0.05) 1px;
                 position: absolute;
+                background-color: rgba(0, 0, 0, 0.05);
                 bottom: 0;
                 right: 0;
-                height: 240px;
-                width: 200px;
-                padding: 5px;
+                height: 238px;
+                width: 208px;
+                padding: 0px;
                 border-radius: 10px;
                 display: flex;
                 flex-direction: column;

@@ -7,6 +7,7 @@ import { BsInfo } from 'react-icons/bs';
 import './ProductItem.scss';
 import TextOverflow from '../TextOverflow/TextOverflow';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import SendIcon from '@material-ui/icons/Send';
 
 function ProductItem({ item }) {
     const [hover, hoverSet] = useState(false);
@@ -82,7 +83,7 @@ function ProductItem({ item }) {
                         <motion.div id="overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                             <div id="top">
                                 <IconButton onClick={handleShowInfo} id="info">
-                                    <BsInfo/>
+                                    <SendIcon fontSize="large" style={{color: "14c4b2", width: "30px", height: "30px"}}/>
                                 </IconButton>
                             </div>
                         </motion.div>
