@@ -146,7 +146,7 @@ function Feedback(){
                     completePageContentSet(json.reason)
                 }
             }    
-            ).catch(err => console.log("err response after send", err)
+            ).catch(err => console.log("err response after send:", err)
             
                 )
             
