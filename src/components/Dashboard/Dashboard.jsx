@@ -386,7 +386,7 @@ function Dashboard({children}){
                                          <Scrollbars autoHide>
                                         {
                                             closetData &&
-                                            closetData.slice(1, closetData.length).map(
+                                            closetData.map(
                                                 (closet, i) => 
                                                 <div id="closet" key={i}className={currentCloset === closet.id ? "highlight" : ""}
                                                 onClick={()=>handleGotoCloset(closet.id)}>
