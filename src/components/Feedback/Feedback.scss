@@ -18,28 +18,20 @@
             margin-left: 25px;
         }
         #carousel {
-            // border: solid red 2px;
-            max-width: 100%;
-            max-height: 300px;
-            align-self: center;
-            position: relative;
+            max-height: 500px;
             #sub-carousel {
-                display: flex;
-                flex-direction: row;
+           
                 #img {
-                    // border: solid red 2px;
+                    margin: 0px auto;
                     max-width: 100%;
-                    max-height: 300px;
+                    max-height: 500px;
                     object-fit: contain;
                 }
-                .MuiButtonBase-root {
-                    height: 50px;
-                    width: 20px;
-                    margin: auto;
-                }
+
             }
         }
         #carousel-single {
+
             max-width: 100%;
             max-height: 35vh;
             align-self: center;

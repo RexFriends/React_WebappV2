@@ -51,6 +51,7 @@ function Feedback(){
                     .then((res) => res.json())
                     .then((json) => {
                     //! need to transform the weird base64 code to an img html object
+                        console.log(json)
                         for (const key in json) {
                             let base64 = json[key];
                             if (
@@ -59,10 +60,14 @@ function Feedback(){
                             ) {
                             base64 = base64.slice(2);
                             base64 = base64.slice(0, -1);
-                            }
                             tempImages.push(
-                            <img  src={'data:image/jpeg;base64,' + base64} id="img" alt={`webscraper ${key}`}/>
-                            );
+                                <img  src={'data:image/jpeg;base64,' + base64} id="img" alt={`webscraper ${key}`}/>
+                                );
+                            }else{
+                                tempImages.push( <img  src={ base64} id="img" alt={`webscraper ${key}`}/>
+                                )
+                            }
+                          
                         }
 
                         fetch(screenshot)
@@ -194,22 +199,20 @@ function Feedback(){
                    
                     <div id="carousel">
                         <div id="sub-carousel">
-                            <Button id="button" onclick={()=>imageIndexSet((imageIndex - 1) % images.length)} id="left_image"> L </Button>
-                           
+                            
                             <Carousel
-                                value={imageIndex}
-                                slides={images}
-                                onChange={handleCarousel}
-                                
+                                arrows
+                                // value={imageIndex}
+                                // slides={images}
+                                // onChange={handleCarousel}
+                                dots
                             >
+                                {
+                            images.map(item => item)}
                             </Carousel>
-                            <Button id="button" onclick={()=>imageIndexSet((imageIndex + 1) % images.length)} id="right_image"> R </Button>
+                          
                         </div>
-                            <Dots
-                                value={imageIndex}
-                                onChange={handleCarousel}
-                                number={images.length}
-                            /> 
+
                             
                     </div>
                     :
