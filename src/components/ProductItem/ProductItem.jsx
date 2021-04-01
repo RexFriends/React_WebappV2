@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { BsInfo } from 'react-icons/bs';
 import './ProductItem.scss';
 import TextOverflow from '../TextOverflow/TextOverflow';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 function ProductItem({ item }) {
     const [hover, hoverSet] = useState(false);
@@ -59,14 +60,15 @@ function ProductItem({ item }) {
                 <img src={image} alt="product" id="image" />
                 <Grid style={{ width: 220, padding: '0 10px' }} justify="space-between" container>
                     <Grid xs={8} direction="column" container item>
-                        <span style={{ fontWeight: 'bold', textAlign: 'left' }}>{brand}</span>
+                        <span style={{ fontWeight: 'bold', textAlign: 'left', fontSize: '15px' }}>{brand}</span>
                         <TextOverflow
-                            style={{ color: 'rgb(114, 114, 114)', fontSize: '10pt', lineHeight: '1em', textAlign: 'left' }}
+                            style={{ color: 'rgb(114, 114, 114)', fontSize: '13px', lineHeight: '1em', textAlign: 'left' }}
                             text={product_name ? product_name.split(',')[0] : ''}
                         />
                     </Grid>
                     <Grid xs={4} id="price" item>
-                        <span style={{ fontWeight: 'bold' }}>{price}</span>
+                        <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{price}</span>
+                        <IconButton style={{marginTop: '8px' }}/>
                     </Grid>
                 </Grid>
                 <AnimatePresence>

@@ -4,7 +4,6 @@
     display: flex;
     #sidebar {
         background-color: #FFFFFF;
-
         z-index: 500;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
         position: relative;
@@ -41,7 +40,6 @@
                 // border: solid red 2px;
                 cursor: pointer;
                 z-index: 500;
-        
                 margin: 10px 0px 2px 5px;
                 text-align: center;
                 color: rgba(80, 80, 80, 0.856);
@@ -58,7 +56,7 @@
             }
             #closetList {
                 z-index: 400;
-                border: solid rgba(58, 58, 58, 0.226) 1px;
+                // border: solid rgba(58, 58, 58, 0.226) 1px;
                 margin-left: 5px;
                 overflow: auto;
                 padding: 5px 10px 5px 5px;
@@ -68,9 +66,11 @@
                     color: rgba(80, 80, 80, 0.856);
                     cursor: pointer;
                     text-align: left;
+                    margin-left: 30%;
                     transition: color 0.01s, padding 0.5s;
                     &:hover {
                         color: black;
+                        font-size: calc(12.3px + 0.5vw);
                     }
                 }
                 #closet.highlight {
@@ -143,9 +143,6 @@
                 #notif {
                     padding-left: 20px;
                     margin: auto;
-                    
-                
-                   
                 }
                 #searchbar {
                     // border: solid red 2px;
@@ -159,11 +156,11 @@
                     // border: solid red 2px;
                     margin: auto;
                     display: flex;
-                    #login-signup{
+                    #login-signup {
                         // border: solid red 2px;
                         width: 120px;
                         height: 40px;
-                        color:rgb(221, 220, 220);
+                        color: rgb(221, 220, 220);
                         font-weight: 700;
                         background-color: #7e7e7e;
                         padding: 0px;
@@ -178,7 +175,7 @@
                         text-overflow: ellipsis;
                         padding-right: 10px;
                     }
-                    #temp-propic{
+                    #temp-propic {
                         height: 55px;
                         width: 55px;
                         background-color: #7e7e7e;
@@ -200,16 +197,15 @@
             // display: flex;
             // justify-content: space-around;
         }
-        #notification-bar-container{
+        #notification-bar-container {
             // border: solid red 2px;
             overflow: hidden;
-            #notification-bar{
+            #notification-bar {
                 // border: solid red 2px;
                 height: 150px;
             }
         }
-        
-        #responsive-insert{
+        #responsive-insert {
             // background-color: aqua;
             flex-grow: 1;
             &::-webkit-scrollbar {

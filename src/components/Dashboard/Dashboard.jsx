@@ -380,7 +380,7 @@ function Dashboard({children}){
                                
                                     <motion.div id="closetList"
                                         initial={{y: 0, height: 0, opacity: 0}}
-                                        animate={{ y: 0, height: "calc(60vh - 200px)", opacity: 1}}
+                                        animate={{ y: 0, height: "calc(60vh)", opacity: 1}}
                                         exit={{y: 0, height: 0, opacity: 0}}
                                     >
                                          <Scrollbars autoHide>
