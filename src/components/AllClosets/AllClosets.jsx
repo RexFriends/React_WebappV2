@@ -36,7 +36,7 @@ function AllClosets () {
                 
                 closetData &&
                 <div id="closet-container">
-                {  closetData.slice(0, 5).map((closet, i ) => 
+                {  closetData.slice(1, closetData.length).map((closet, i ) => 
                             <ClosetPreview closet={closet} key={i}/>
                   )
                 }
