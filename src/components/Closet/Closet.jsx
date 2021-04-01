@@ -27,6 +27,7 @@ function Closet(){
     const [closetName, closetNameSet] = useState(undefined)
     const [imageUpload, imageUploadSet] = useState(undefined)
     const [fileUpload, fileUploadSet] = useState(undefined)
+    const [headerColor, setHeaderColor] = useState(undefined)
     let {id} = useParams()
 
     useEffect(() => {
@@ -44,8 +45,9 @@ function Closet(){
             res => res.json()
         ).then(
             json => {
-            // console.log("closet fetch results", json)
+            console.log("closet fetch results", json)
             closetDataSet(json)
+            setHeaderColor(json.background_color)
             if(json.isOwned === true){
                 imageUploadSet(json.closet_image_uri)
                 publicValueSet(json.user.isPublic)
@@ -121,7 +123,7 @@ function Closet(){
                 closetData ?
                 closetData.isOwned ?
 
-                <motion.div id="closet-header" style={{backgroundColor: "#1F7C9D"}}
+                <motion.div id="closet-header" style={{backgroundColor: `#${headerColor}`}}
                 initial={{ x:200, opacity: 0 }}
                 animate={{ x:0, opacity: 1 }}
                 transition={{duration: 0.3}}

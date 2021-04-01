@@ -462,7 +462,7 @@ function Dashboard({children}){
                         }
                         <div id="searchbar">
                             <SearchBar
-                                placeholder="Search People or Closets / IN DEV"
+                                placeholder="Find People You Know / IN DEV"
                                 value={searchbar} 
                                 onChange={(val) => searchbarSet(val)}
                                 onRequestSearch={handleSearch}

@@ -12,6 +12,7 @@ import {FaCopy} from 'react-icons/fa'
 import Scrollbars from "react-custom-scrollbars";
 import APIURL from '../../assets/URL'
 import TextOverflow from '../TextOverflow/TextOverflow';
+
 const ItemDetails = () => {
     // console.log("querying")
     return(
@@ -177,64 +178,7 @@ function ItemPopup () {
         >
             <DialogContent style={{ paddingTop: 25, paddingBottom: 25 }}>
                 <Grid style={{ height: '100%' }} justify="space-evenly" wrap="nowrap" container>
-                    <Grid
-                        style={{ height: '100%' }}
-                        xs={5}
-                        direction="column"
-                        wrap="nowrap"
-                        justify="space-between"
-                        alignItems="flex-start"
-                        container
-                        item
-                    >
-                        <Grid alignItems="center" justify="center" container item>
-                            {
-                                loading ? (
-                                    <CircularProgress />
-                                ) : (
-                                    itemDetail &&
-                                    <motion.div
-                                        id="image-container"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 1 }}
-                                    >
-                                        {
-                                            imageData.length > 1 ?
-                                                <div id="carousel">
-                                                    <Carousel
-                                                        onChange={i => setCarouselIndex(i)}
-                                                        showThumbs={false}
-                                                        showStatus={false}
-                                                        showArrows
-                                                    >
-                                                        {imageData}
-                                                    </Carousel>
-                                                </div>
-                                                :
-                                                imageData[0]
-                                        }
-                                    </motion.div>
-                                )
-                            }
-                        </Grid>
-                        <Grid container item>
-                            {
-                                itemDetail &&
-                                <Grid
-                                    style={{ width: 300, marginTop: 15 }}
-                                    direction="column"
-                                    alignItems="flex-start"
-                                    justify="flex-start"
-                                    container
-                                    item
-                                >
-                                    <span style={{ fontWeight: 'bold' }}>{itemDetail.brand}</span>
-                                    <TextOverflow id="product-name" text={itemDetail.name ? itemDetail.name.split(',')[0] : ''} />
-                                </Grid>
-                            }
-                        </Grid>
-                    </Grid>
+
                     <Grid style={{ height: '100%' }} xs={5} wrap="nowrap" direction="column" container item>
                         <Grid style={{ marginLeft: 12 }} item>
                             <h2 style={{ fontWeight: 'bold' }}>Get Feedback!</h2>

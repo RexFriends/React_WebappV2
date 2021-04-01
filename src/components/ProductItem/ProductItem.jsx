@@ -14,6 +14,7 @@ function ProductItem({ item }) {
     const [brand, brandSet] = useState("Brand");
     const [product_name, product_nameSet] = useState("Product name");
     const [price, priceSet] = useState("$99.99");
+    const [brandLogo, setbrandlogo] = useState(undefined)
     
     useEffect(() => {
         if (item.images !== null) {
@@ -29,7 +30,10 @@ function ProductItem({ item }) {
                 .then(json => imageSet(json.uri))
                 .catch(err => console.log("err 2"));
         }
+        console.log(item.site_name)
         brandSet(item.brand)
+        setbrandlogo(item.site_name)
+        // setbrandlogo(item.site_name)
         // var item_name = item.name
         // if (item_name) {
         //     var name = item_name.substring(0, item_name.indexOf(','))
@@ -57,6 +61,7 @@ function ProductItem({ item }) {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "tween", delay: 0.3}}
             >
+                {/* <img style={{width: '30px', height: 'auto', borderFadius: '100%'}} src={`logo.clearbit.com/${brandLogo}`} /> */}
                 <img src={image} alt="product" id="image" />
                 <Grid style={{ width: 220, padding: '0 10px' }} justify="space-between" container>
                     <Grid xs={8} direction="column" container item>

@@ -1,12 +1,13 @@
 #ClosetPage {
-    // border: solid red 5px;
     // height: 100%;
     width: 95%;
-    margin: 0px auto;
+    margin-left: auto;
+    margin-right: auto;
     #closet-header {
         height: 100px;
-        width: 95%;
-        margin: 0px auto;
+        max-width: 890px;
+        margin: 0px auto auto 0px;
+        margin-left: 20px;
         border-radius: 20px;
         // border: solid red 2px;
         overflow: hidden;
@@ -53,6 +54,7 @@
             // right: 60px;
             // top: 20px;
             // border: solid rgb(90, 90, 90) 2px;
+            color: white;
             height: 50px;
             width: 50px;
             margin-top: 25px;
@@ -71,7 +73,7 @@
     #item-container {
         padding: 10px;
         // border: solid red 2px;
-        margin: 0px 10px;
+        margin: 10px;
         overflow: hidden;
         grid-gap: 16px;
         display: grid;
