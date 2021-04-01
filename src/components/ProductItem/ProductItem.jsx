@@ -31,21 +31,11 @@ function ProductItem({ item }) {
                 .then(json => imageSet(json.uri))
                 .catch(err => console.log("err 2"));
         }
-        console.log(item.site_name)
-        brandSet(item.brand)
-        setbrandlogo(item.site_name)
-        // setbrandlogo(item.site_name)
-        // var item_name = item.name
-        // if (item_name) {
-        //     var name = item_name.substring(0, item_name.indexOf(','))
-        //     product_nameSet(name)
-        // }
+        brandSet(item.brand);
         product_nameSet(item.name);
-        const itemPrice = item.price ? `${item.price}` : '';
-        priceSet(itemPrice);
+        priceSet(item.price);
     }, [item])
-    const queryClient = useQueryClient()
-    // const query = useQuery('ItemDetails', ItemDetails)
+    const queryClient = useQueryClient();
 
     const handleShowInfo = () => {
         const payload = { display: true, itemId: item.id};

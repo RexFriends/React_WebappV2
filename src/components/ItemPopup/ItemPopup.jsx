@@ -171,7 +171,7 @@ function ItemPopup () {
 
     return (
         <Dialog
-            PaperProps={{ style: { height: '55%', width: '65%', maxHeight: 550, maxWidth: 850, borderRadius: 15 } }}
+            PaperProps={{ style: { height: '55%', maxHeight: 550, maxWidth: 850, borderRadius: 15 } }}
             maxWidth={false}
             open={query.data && query.data.display}
             onClose={handleClosetPopup}
