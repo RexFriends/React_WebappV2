@@ -21,7 +21,7 @@
         grid-gap: 16px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
-        #closet {
+        .closet {
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

@@ -56,6 +56,11 @@ function Closet() {
 
     return () => {};
   }, [id]);
+  
+  useEffect(() => {
+    const { state } = history.location;
+    if (state) showClosetFormSet(state.edit);
+  }, [history.location]);
 
   const showEditForm = () => {
     showClosetFormSet(!showClosetForm);
