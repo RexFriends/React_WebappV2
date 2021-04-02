@@ -33,7 +33,24 @@
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-around;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
+            #stock-closet-image {
+                width: 220px;
+                height: 220px;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                #name {
+                    color: white;
+                    margin: 0px auto auto 10px;
+                    font-weight: 700;
+                    font-size: 35px;
+                }
+                #options-button {
+                    margin: auto 10px 0px auto;
+                }
+                // background-color: rosybrown;
+            }
             #closet-name {
                 position: absolute;
                 width: 200px;

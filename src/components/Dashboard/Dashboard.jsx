@@ -64,7 +64,16 @@ function Dashboard({ children }) {
           if (json.user) {
             userAuthSet(true);
             userDataSet(json.user);
-            closetDataSet(json.closets);
+            var updatedData = [];
+            var i;
+            for (i = 0; i < json.closets.length; i++) {
+                // console.log(json.closet_preview[i].closet_name)
+                if (json.closets[i].name !== "Saved Products") {
+                    updatedData[i] = json.closets[i]
+                }
+            }
+            console.log(updatedData)
+            closetDataSet(updatedData);
             NotifCountSet(json.notif_count);
           } else {
             userAuthSet(false);
@@ -219,9 +228,7 @@ function Dashboard({ children }) {
                   >
                     <Scrollbars autoHide>
                       {closetData &&
-                        closetData
-                          .slice(1, closetData.length)
-                          .map((closet, i) => (
+                        closetData.map((closet, i) => (
                             <div
                               id="closet"
                               key={i}

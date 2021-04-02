@@ -17,7 +17,16 @@ function AllClosets () {
         ).then(
             json => {
             // console.log("allcloset render", json)
-            closetDataSet(json.closet_preview)}
+            // console.log(json.closet_preview)
+            var updatedData = [];
+            var i;
+            for (i = 0; i < json.closet_preview.length; i++) {
+                // console.log(json.closet_preview[i].closet_name)
+                if (json.closet_preview[i].closet_name !== "Saved Products") {
+                    updatedData[i] = json.closet_preview[i]
+                }
+            }
+            closetDataSet(updatedData)}
         )
 
         return () => {
@@ -36,7 +45,7 @@ function AllClosets () {
                 
                 closetData &&
                 <div id="closet-container">
-                {  closetData.slice(1, closetData.length).map((closet, i ) => 
+                {  closetData.map((closet, i ) => 
                             <ClosetPreview closet={closet} key={i}/>
                   )
                 }
