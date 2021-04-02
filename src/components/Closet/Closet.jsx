@@ -272,13 +272,11 @@ function Closet() {
                   <img
                     id="closet-img"
                     alt="closet"
-                    src="https://media.istockphoto.com/vectors/closet-icon-vector-sign-and-symbol-isolated-on-white-background-logo-vector-id1022960976"
+                    src="https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
                   />
                 </div>
               )}
-            </div>
-
-            <div id="upload">
+              <div id="upload">
               <input
                 style={{ display: "none" }}
                 id="raised-button-file"
@@ -288,11 +286,12 @@ function Closet() {
                 onChange={handleUpload}
               />
               <label htmlFor="raised-button-file">
-                <Button component="span" id="upload-button">
-                  Upload Thumbnail
-                </Button>
+                <Button component="span" id="upload-button"/>
               </label>
             </div>
+            </div>
+
+            
             <Button id="save-button" onClick={handleUpdateCloset}>
                 Save
               </Button>

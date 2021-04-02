@@ -65,7 +65,7 @@ function ClosetPreview({closet}){
         {
             // closet.closet_icon !== "FaSave" ?
             closet.closet_icon ?
-            <img src={closet.closet_icon} id="closet-icon" alt="closet-icon" />
+            <img src={closet.closet_icon} style={{objectFit: 'cover', width: '100%', height: '100%', borderRadius: '10px'}} id="closet-icon" alt="closet-icon" />
 
 
             :
