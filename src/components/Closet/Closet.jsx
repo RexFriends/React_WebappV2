@@ -15,6 +15,9 @@ import ItemPopup from "../ItemPopup/ItemPopup";
 import { useHistory } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { FaSave } from "react-icons/fa";
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function Closet() {
   // use the id to fetch the closet data
@@ -64,13 +67,13 @@ function Closet() {
   const handleUpdateCloset = () => {
     let rexUID = localStorage.getItem("rexUID");
     let payload = {
-      new_closet: {
         id: id,
         closet_name: closetName,
         is_public: publicValue,
         closet_image_uri: fileUpload ?? null,
-      },
+        background_color: headerColor
     };
+    console.log(payload)
     // console.log(payload)
     fetch(APIURL + "/api/update-closet?uid=" + rexUID, {
       method: "PATCH",
@@ -78,9 +81,38 @@ function Closet() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    }).then((res) => res.json());
+    }).then((res) => res.json())
+    .then(() => {
+        let url;
+
+        if (rexUID !== null) {
+          url = APIURL + "/api/closet?uid=" + rexUID + "&id=" + id;
+        } else {
+          url = APIURL + "/api/closet";
+        }
+        // console.log(url)
+        fetch(url)
+          .then((res) => res.json())
+          .then((json) => {
+            console.log("closet fetch results", json);
+            closetDataSet(json);
+            setHeaderColor(json.background_color);
+            if (json.isOwned === true) {
+              imageUploadSet(json.closet_image_uri);
+              publicValueSet(json.user.isPublic);
+              closetNameSet(json.name);
+            }
+          })
+          .catch((err) => console.log(err));
+        }).then(() => {
+            handleGoBack();
+        });
+
+   
+
+}
+
     // .then(json => console.log(json))
-  };
 
   const handleUpload = (e) => {
     let image = URL.createObjectURL(e.target.files[0]);
@@ -107,6 +139,18 @@ function Closet() {
     closetNameSet(closetData.name);
   };
 
+  const handleBackButton = () => {
+    if (showClosetForm) {
+        handleGoBack()
+    } else {
+        history.push("/closets")
+    }
+  };
+
+  const handleColorChange = () => {
+
+  }
+
   return (
     <motion.div
       id="ClosetPage"
@@ -129,7 +173,7 @@ function Closet() {
 
             <IconButton
               id="back-button"
-              onClick={() => history.push("/closets")}
+              onClick={handleBackButton}
             >
               <ArrowBackIcon />
             </IconButton>
@@ -169,15 +213,6 @@ function Closet() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            <div id="top-row">
-              <Button startIcon={<IoArrowBack />} onClick={handleGoBack}>
-                Go Back
-              </Button>
-              <div id="center">Edit Closet</div>
-              <Button startIcon={<FaSave />} onClick={handleUpdateCloset}>
-                Save Settings
-              </Button>
-            </div>
             <div id="row">
               <FormControlLabel
                 control={
@@ -203,6 +238,29 @@ function Closet() {
                 />
               </div>
             </div>
+
+            {/* <div id="row">
+              <div id="label">Color :</div>
+              <div id="field">
+              <FormControl id='Color-Form'>
+                <Select
+                value={headerColor}
+                onChange={handleColorChange}
+                id='Color-Select'
+                >
+                <MenuItem value={headerColor}>
+                </MenuItem>
+                <MenuItem value={'207c9d'}>
+                    <div id="color">
+
+                    </div>
+                </MenuItem>
+                <MenuItem value={'14c4b2'}>Twenty</MenuItem>
+                <MenuItem value={'ffcc77'}>Thirty</MenuItem>
+                </Select>
+            </FormControl>
+              </div>
+            </div> */}
 
             <div id="currentImage">
               {imageUpload ? (
@@ -231,10 +289,13 @@ function Closet() {
               />
               <label htmlFor="raised-button-file">
                 <Button component="span" id="upload-button">
-                  Upload Closet Image
+                  Upload Thumbnail
                 </Button>
               </label>
             </div>
+            <Button id="save-button" onClick={handleUpdateCloset}>
+                Save
+              </Button>
           </motion.div>
         ) : (
           <motion.div
