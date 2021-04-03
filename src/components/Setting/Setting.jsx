@@ -1,24 +1,25 @@
-import React from 'react'
-import './Setting.scss'
-import Button from '@material-ui/core/Button'
-import {  useHistory, Redirect }from "react-router-dom"
-function Setting(){
-    let history = useHistory()
-    
+import React from 'react';
+import './Setting.scss';
+import Button from '@material-ui/core/Button';
+import { Redirect, useHistory } from 'react-router-dom';
+
+function Setting() {
+    let history = useHistory();
+
     const handleLogout = () => {
-        localStorage.removeItem('rexUID')
-        history.go(0)
+        localStorage.removeItem('rexUID');
+        history.go(0);
+    };
+
+    if (!localStorage.getItem('rexUID')) {
+        return <Redirect to="/" />;
     }
 
-    if(!localStorage.getItem("rexUID")){
-        return <Redirect to="/"/>
-    }
-
-    return(
+    return (
         <div id="SettingPage">
-            <Button id="button" onClick={handleLogout}>LogOut</Button>
+            <Button id="button" onClick={handleLogout}>Log Out</Button>
         </div>
-    )
+    );
 }
 
-export default Setting
+export default Setting;
