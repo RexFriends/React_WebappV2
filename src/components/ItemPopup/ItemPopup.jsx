@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from 'react'
-import {useQuery, useQueryClient} from 'react-query'
-import './ItemPopup.scss'
-import {AnimatePresence, motion} from 'framer-motion'
-import URL from '../../assets/URL'
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-import { Button, Dialog, DialogContent, CircularProgress, Grid, InputAdornment, TextField, Tooltip } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import './ItemPopup.scss';
+import URL from '../../assets/URL';
+import APIURL from '../../assets/URL';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Button, Dialog, DialogContent, Grid, InputAdornment, TextField } from '@material-ui/core';
 import { AddCircle, Search, Send } from '@material-ui/icons';
-import IconButton from '@material-ui/core/IconButton'
-import {FaCopy} from 'react-icons/fa'
-import Scrollbars from "react-custom-scrollbars";
-import APIURL from '../../assets/URL'
+import IconButton from '@material-ui/core/IconButton';
+import { FaCopy } from 'react-icons/fa';
+import Scrollbars from 'react-custom-scrollbars';
 import TextOverflow from '../TextOverflow/TextOverflow';
 
 const ItemDetails = () => {
-    // console.log("querying")
     return(
         {
             display: false,
@@ -32,7 +29,7 @@ function ItemPopup () {
     const queryClient = useQueryClient()
     const query = useQuery('ItemDetails', ItemDetails);
     const [carouselIndex, setCarouselIndex] = useState(0); // used to trigger override styles
-    
+
     const getFriendsAndContacts = value => {
         const rexUID = localStorage.getItem("rexUID");
         fetch(`${APIURL}/api/get-users?uid=${rexUID}&text=${value}`)
@@ -47,7 +44,7 @@ function ItemPopup () {
             // make fetch call here with provided item id to fill data
             let rexUID = localStorage.getItem("rexUID");
             let url = URL + "/api/product?uid=" + rexUID + "&product_id=" + query.data.itemId;
-            
+
             fetch(url)
                 .then(res => res.json())
                 .then(json => {
@@ -75,15 +72,15 @@ function ItemPopup () {
                     }
                 });
         }
-        
+
         getFriendsAndContacts(text);
     }, [query.data, query.status]);
-    
+
     const overrideCarouselStyles = () => {
         const carouselElement = document.querySelector('.carousel');
         const arrowElements = document.getElementsByClassName('control-arrow');
         if (!query.data || !query.data.display) return;
-        
+
         if (!carouselElement || arrowElements.length === 0) {
             requestAnimationFrame(overrideCarouselStyles);
             return;
@@ -100,7 +97,7 @@ function ItemPopup () {
         setText('');
         setCarouselIndex(0);
     }
-    
+
     const handleSendRequest = id => {
         const rexUID = localStorage.getItem("rexUID");
         const payload = {
@@ -125,7 +122,7 @@ function ItemPopup () {
         document.execCommand('copy', false);
         inp.remove();
     };
-    
+
     const handleGetCopyLink = () => {
         const rexUID = localStorage.getItem("rexUID");
         const payload = { listing_id: itemDetail.id};
@@ -154,16 +151,16 @@ function ItemPopup () {
         setText(value);
         getFriendsAndContacts(value);
     };
-    
+
     const debounceSearch = () => {
         let timeout;
-        
+
         return event => {
             const func = () => {
                 clearTimeout(timeout);
                 handleSearch(event);
             }
-            
+
             clearTimeout(timeout);
             setTimeout(func, 1000);
         };
