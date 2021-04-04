@@ -15,6 +15,8 @@ import AllClosets from './components/AllClosets/AllClosets';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { AnimatePresence } from 'framer-motion';
+import Alerts from './components/Alerts/Alerts';
+
 
 const queryClient = new QueryClient();
 
@@ -55,6 +57,7 @@ function App() {
                         </Dashboard>
                     </Switch>
                 </Router>
+                <Alerts />
             </div>
             <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

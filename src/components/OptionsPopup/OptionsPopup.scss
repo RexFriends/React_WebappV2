@@ -1,0 +1,58 @@
+#image-container {
+    max-width: calc(350px + 25vw);
+    max-height: calc(300px + 15vh);
+    #carousel {
+        .img {
+            // border: solid red 2px;
+            max-width: calc(250px + 25vw);
+            max-height: calc(250px + 15vh);
+            object-fit: contain;
+        }
+    }
+    #carousel-single {
+        max-width: 95%;
+        max-height: 500px;
+        align-self: center;
+    }
+}
+
+#product-name {
+    color: rgb(114, 114, 114);
+    font-size: 10pt;
+    line-height: 1em;
+}
+
+.carousel-override {
+    display: flex;
+    align-items: center;
+}
+
+.control-arrow-override {
+    background: rgba(0, 0, 0, 0.4) !important;
+    top: unset !important;
+    bottom: unset !important;
+}
+
+.users-search {
+    border-radius: 10px !important;
+    width: 100%;
+    height: 50px;
+}
+
+.contact-button {
+    border-radius: 10px !important;
+    width: 100%;
+    height: 50px;
+    padding: 12px !important;
+    text-transform: unset !important;
+}
+
+.options-popup-button {
+    display: flex !important;
+    justify-content: left !important;
+    width: 100%;
+}
+
+.delete-button {
+    color: rgb(255, 108, 115) !important;
+}

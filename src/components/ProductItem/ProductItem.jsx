@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useQueryClient } from 'react-query';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Button, Divider, Grid, InputAdornment, Popover, TextField } from '@material-ui/core';
-import { AddToPhotos, Close, Delete, FileCopy, MoreHoriz, PersonAdd, Search, Send } from '@material-ui/icons';
+import { Grid } from '@material-ui/core';
+import { AddToPhotos, FileCopy, MoreHoriz, Send } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
-import './ProductItem.scss';
 import TextOverflow from '../TextOverflow/TextOverflow';
 import SendIcon from '@material-ui/icons/Send';
-import URL from '../../assets/URL';
 import APIURL from '../../assets/URL';
-import Scrollbars from 'react-custom-scrollbars';
+import OptionsPopup from '../OptionsPopup/OptionsPopup';
+import FeedbackPopup from '../../FeedbackPopup/FeedbackPopup';
+import { copyFallback } from '../../util';
+import { showAlert } from '../Alerts/Alerts';
 
 function ProductItem({ item }) {
     const [hover, hoverSet] = useState(false);
@@ -17,9 +17,9 @@ function ProductItem({ item }) {
     const [brand, brandSet] = useState('Brand');
     const [productName, setProductName] = useState('Product name');
     const [price, priceSet] = useState('$99.99');
-    const [brandLogo, setBrandLogo] = useState(undefined);
+    // const [brandLogo, setBrandLogo] = useState(undefined);
     const [showPopup, setShowPopup] = useState(false);
-    const [showItemPopup, setShowItemPopup] = useState(false);
+    const [showFeedbackPopup, setShowFeedbackPopup] = useState(false);
     const [friends, friendsSet] = useState([]);
     const [text, setText] = useState('');
 
@@ -36,25 +36,23 @@ function ProductItem({ item }) {
                 .then(json => imageSet(json.uri));
         }
         brandSet(item.brand);
-        setBrandLogo(item.site_name);
+        // setBrandLogo(item.site_name);
         setProductName(item.name);
         const itemPrice = item.price ? `${item.price}` : '';
         priceSet(itemPrice);
     }, [item]);
 
-    const getFriendsAndContacts = value => {
+    useEffect(() => {
         const rexUID = localStorage.getItem("rexUID");
-        fetch(`${APIURL}/api/get-users?uid=${rexUID}&text=${value}`)
+        fetch(`${APIURL}/api/get-users?uid=${rexUID}&text=${text}`)
             .then((res) => res.json())
             .then((json) => {
                 friendsSet(json.users);
             });
-    };
+    }, [text]);
 
-    const queryClient = useQueryClient();
-
-    const handleShowInfo = () => {
-        setShowItemPopup(true);
+    const handleShowFeedbackPopup = () => {
+        setShowFeedbackPopup(true);
         setShowPopup(false);
     }
 
@@ -64,29 +62,22 @@ function ProductItem({ item }) {
             user_requesting_id: id,
             product_id: item.id,
         };
-        fetch(URL + '/api/send_rex?uid=' + rexUID, {
+        fetch(`${APIURL}/api/send_rex?uid=${rexUID}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
         })
-            .then(res => res.json());
+            .then(() => {
+                showAlert('Sent Rex!', 'success');
+            });
     }
 
-    const copyFallback = link => {
-        const inp = document.createElement('input');
-        document.body.appendChild(inp);
-        inp.value = link;
-        inp.select();
-        document.execCommand('copy', false);
-        inp.remove();
-    };
-
     const handleGetCopyLink = () => {
-        const rexUID = localStorage.getItem("rexUID");
+        const rexUID = localStorage.getItem('rexUID');
         const payload = { listing_id: item.id};
-        fetch(URL + '/api/copy_feedback_link?uid=' + rexUID, {
+        fetch(`${APIURL}/api/copy_feedback_link?uid=${rexUID}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,14 +86,16 @@ function ProductItem({ item }) {
         })
             .then((res) => res.text())
             .then((link) => {
-                // console.log(link)
                 if (navigator.clipboard) {
                     navigator.clipboard.writeText(link)
                         .catch(err => {
                             console.error(err);
                             copyFallback(link);
-                        })
+                        });
                 } else copyFallback(link);
+            })
+            .then(() => {
+                showAlert('Copied link!', 'success');
             });
     }
 
@@ -125,21 +118,17 @@ function ProductItem({ item }) {
         };
     };
 
+    const handleCloseFeedbackPopup = () => {
+        setShowFeedbackPopup(false);
+        setText('');
+    };
+
     const productId = `product-${item.id}`;
-    const productElement = document.getElementById(productId);
-    let position;
-    if (productElement) {
-        const clientRect = productElement.getBoundingClientRect();
-        const rightHasSpace = clientRect.right + 200 < window.innerWidth;
-        const left = rightHasSpace ? clientRect.right : clientRect.left - 185;
-        position = { top: clientRect.bottom, left };
-    }
 
     return (
         <>
             <motion.div
-                id={productId}
-                class="product"
+                className="product"
                 onMouseEnter={() => hoverSet(true)}
                 onMouseLeave={() => hoverSet(false)}
                 initial={{ y: 100, opacity: 0 }}
@@ -166,7 +155,7 @@ function ProductItem({ item }) {
                             <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{price}</span>
                         </Grid>
                         <Grid item>
-                            <IconButton style={{ zIndex: 1000, padding: 'unset' }} onClick={() => setShowPopup(true)}>
+                            <IconButton id={productId} style={{ zIndex: 1000, padding: 'unset' }} onClick={() => setShowPopup(true)}>
                                 <MoreHoriz />
                             </IconButton>
                         </Grid>
@@ -182,7 +171,7 @@ function ProductItem({ item }) {
                             exit={{ opacity: 0 }}
                         >
                             <div id="top">
-                                <IconButton onClick={handleShowInfo} id="info">
+                                <IconButton onClick={handleShowFeedbackPopup} id="info">
                                     <SendIcon
                                         fontSize="large"
                                         style={{ color: '14c4b2', width: '30px', height: '30px' }}
@@ -193,110 +182,27 @@ function ProductItem({ item }) {
                     }
                 </AnimatePresence>
             </motion.div>
-            <Popover
-                anchorEl={document.getElementById(productId)}
-                anchorReference="anchorPosition"
-                anchorPosition={position}
-                PaperProps={{ style: { padding: 15, borderRadius: 15 } }}
+            <OptionsPopup
+                anchorElementId={productId}
                 open={showPopup}
                 onClose={() => setShowPopup(false)}
-            >
-                <Grid direction="column" container>
-                    <Grid item>
-                        <span style={{ fontWeight: 'bold', textAlign: 'left', fontSize: '15px' }}>Options</span>
-                    </Grid>
-                    <Grid style={{ margin: '10px 0 10px -15px', width: 'calc(100% + 30px)' }} item>
-                        <Divider />
-                    </Grid>
-                    <Grid item>
-                        <Button className="round-button" startIcon={<AddToPhotos />}>Add to Closet</Button>
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            className="round-button"
-                            onClick={handleShowInfo}
-                            startIcon={<Send />}
-                        >
-                            Send a Rex
-                        </Button>
-                    </Grid>
-                    <Grid item>
-                        <Button className="round-button" startIcon={<Delete />}>Remove Product</Button>
-                    </Grid>
-                </Grid>
-            </Popover>
-            <Popover
-                anchorEl={document.getElementById(productId)}
-                anchorReference="anchorPosition"
-                anchorPosition={position}
-                PaperProps={{ style: { padding: 15, borderRadius: 15 } }}
-                open={showItemPopup}
-                onClose={() => setShowItemPopup(false)}
-            >
-                <Grid direction="column" container>
-                    <Grid justify="space-between" alignItems="center" wrap="nowrap" container item>
-                        <Grid alignItems="center" container item>
-                            <Grid item>
-                                <IconButton onClick={() => setShowItemPopup(false)}><Close /></IconButton>
-                            </Grid>
-                            <Grid item>
-                                <span style={{ fontSize: '18pt' }}>Get Feedback!</span>
-                            </Grid>
-                        </Grid>
-                        <Grid item>
-                            <IconButton onClick={handleGetCopyLink}><FileCopy /></IconButton>
-                        </Grid>
-                    </Grid>
-                    <Grid spacing={2} alignItems="center" container item>
-                        <Grid item>
-                            <TextField
-                                variant="outlined"
-                                InputProps={{
-                                    startAdornment: <InputAdornment><Search /></InputAdornment>,
-                                    style: { height: 40, borderRadius: 15 }
-                                }}
-                                placeholder="Search Users"
-                                onChange={debounceSearch()}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Button className="round-button" startIcon={<PersonAdd />}>Invite</Button>
-                        </Grid>
-                    </Grid>
-                    <Grid style={{ height: '30vh', maxHeight: 350 }} item>
-                        <Scrollbars style={{ height: '100%' }} autoHide>
-                            {
-                                friends.map((f, i) => (
-                                    <Grid key={i} style={{ width: '100%' }} item>
-                                        <Button className="contact-button" onClick={() => handleSendRequest(f.id)}>
-                                            <Grid justify="space-between" alignItems="center" container>
-                                                <Grid style={{ width: 'auto' }} wrap="nowrap" alignItems="center" container item>
-                                                    <img style={{ height: 40, width: 40, paddingRight: 10 }} src={f.profile_image} alt="Profile" />
-                                                    <Grid direction="column" justify="center" alignItems="flex-start" container item>
-                                                        <TextOverflow
-                                                            style={{ fontSize: '9pt', fontWeight: 'bold' }}
-                                                            text={f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
-                                                            overflowLength={26}
-                                                        />
-                                                        {
-                                                            f.is_user ? (
-                                                                <span style={{ fontSize: '8pt' }}>@{f.username}</span>
-                                                            ) : null
-                                                        }
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Send />
-                                                </Grid>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                ))
-                            }
-                        </Scrollbars>
-                    </Grid>
-                </Grid>
-            </Popover>
+                title="Options"
+                buttons={[
+                    { text: 'Add to Closet', icon: <AddToPhotos /> },
+                    { text: 'Send a Rex', onClick: handleShowFeedbackPopup, icon: <Send /> },
+                    { text: 'Copy Link', onClick: handleGetCopyLink, icon: <FileCopy /> },
+                    { text: 'Remove Product', isDelete: true }
+                ]}
+            />
+            <FeedbackPopup
+                anchorElementId={productId}
+                open={showFeedbackPopup}
+                onClose={handleCloseFeedbackPopup}
+                handleGetCopyLink={handleGetCopyLink}
+                handleSearch={debounceSearch()}
+                friends={friends}
+                handleSendRequest={handleSendRequest}
+            />
         </>
     );
 }

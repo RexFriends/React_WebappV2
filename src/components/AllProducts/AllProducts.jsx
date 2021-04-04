@@ -3,7 +3,6 @@ import './AllProducts.scss';
 import { AnimatePresence, motion } from 'framer-motion';
 import APIURL from '../../assets/URL';
 import ProductItem from '../ProductItem/ProductItem';
-import ItemPopup from '../ItemPopup/ItemPopup';
 
 function AllProducts() {
     const [productData, productDataSet] = useState([]);
@@ -30,7 +29,6 @@ function AllProducts() {
                 <AnimatePresence>
                     <>
                         {productData.map((product, i) => <ProductItem item={product} key={i}/>)}
-                        <ItemPopup/>
                     </>
                 </AnimatePresence>
             </div>

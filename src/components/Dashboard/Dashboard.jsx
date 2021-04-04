@@ -15,6 +15,7 @@ import AllNotifications from '../AllNotifications/AllNotifications';
 import APIURL from '../../assets/URL';
 import Scrollbars from 'react-custom-scrollbars';
 import { AnimatePresence, motion } from 'framer-motion';
+import '../../assets/base.scss';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {

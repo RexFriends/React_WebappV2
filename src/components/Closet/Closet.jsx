@@ -10,8 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import APIURL from '../../assets/URL';
 import ProductItem from '../ProductItem/ProductItem';
-import ItemPopup from '../ItemPopup/ItemPopup';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import './Closet.scss';
 
 function Closet() {
     const history = useHistory();
@@ -80,8 +80,8 @@ function Closet() {
             .then(() => {
                 fetchCloset();
             }).then(() => {
-                handleGoBack();
-            });
+            handleGoBack();
+        });
     };
 
     const handleUpload = (e) => {
@@ -138,7 +138,7 @@ function Closet() {
                                 id="back-button"
                                 onClick={handleBackButton}
                             >
-                                <ArrowBackIcon/>
+                                <ArrowBackIcon />
                             </IconButton>
                             <div id="text">
                                 <div id="name">{closetData.name}</div>
@@ -146,7 +146,7 @@ function Closet() {
                             {
                                 !showClosetForm && (
                                     <IconButton onClick={showEditForm} id="edit-form-button">
-                                        <FiEdit2/>
+                                        <FiEdit2 />
                                     </IconButton>
                                 )
                             }
@@ -203,9 +203,9 @@ function Closet() {
                             </div>
                             <div id="currentImage">
                                 {
-                                        imageUpload ? (
+                                    imageUpload ? (
                                         <div id="image">
-                                            <img id="closet-img" alt="closet" src={imageUpload}/>
+                                            <img id="closet-img" alt="closet" src={imageUpload} />
                                         </div>
                                     ) : (
                                         <div id="image">
@@ -227,7 +227,7 @@ function Closet() {
                                         onChange={handleUpload}
                                     />
                                     <label htmlFor="raised-button-file">
-                                        <Button component="span" id="upload-button"/>
+                                        <Button component="span" id="upload-button" />
                                     </label>
                                 </div>
                             </div>
@@ -245,9 +245,8 @@ function Closet() {
                             <>
                                 {
                                     closetData &&
-                                    closetData.listings.map((product, i) => (<ProductItem item={product} key={i}/>))
+                                    closetData.listings.map((product, i) => (<ProductItem item={product} key={i} />))
                                 }
-                                <ItemPopup/>
                             </>
                         </motion.div>
                     )

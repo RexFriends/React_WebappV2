@@ -46,8 +46,9 @@
                     font-weight: 700;
                     font-size: 35px;
                 }
-                #options-button {
-                    margin: auto 10px 0px auto;
+                .options-button {
+                    margin: 0 15px 10px auto;
+                    padding: unset;
                 }
                 // background-color: rosybrown;
             }

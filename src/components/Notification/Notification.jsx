@@ -51,7 +51,16 @@ function Notification({ notification, updater }) {
             <CardContent>
                 <Grid spacing={2} container wrap="nowrap">
                     <Grid item>
-                        <AccountCircle style={{ height: 64, width: 64 }}/>
+                        {
+                            notification.profile_image || notification.name ?
+                                <img
+                                    style={{ height: 40, width: 40, paddingRight: 10 }}
+                                    src={notification.profile_image ?? `https://ui-avatars.com/api/?background=bdbcbb&color=fff&rounded=true&name=${notification.name}&size=64`}
+                                    alt="Profile"
+                                />
+                                :
+                                <AccountCircle style={{ height: 40, width: 40 }} />
+                        }
                     </Grid>
                     {
                         notification &&

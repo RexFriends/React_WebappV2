@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Button, Divider, Grid, IconButton, Popover } from '@material-ui/core';
-import { Delete, Edit, FileCopy, MoreHoriz } from '@material-ui/icons';
-import './ClosetPreview.scss';
+import { IconButton } from '@material-ui/core';
+import {  Edit, FileCopy, MoreHoriz } from '@material-ui/icons';
+import OptionsPopup from '../OptionsPopup/OptionsPopup';
+import APIURL from '../../assets/URL';
+import { copyFallback } from '../../util';
+import { showAlert } from '../Alerts/Alerts';
 
 function ClosetPreview({ closet }) {
     const history = useHistory();
@@ -13,20 +16,26 @@ function ClosetPreview({ closet }) {
         history.push({ pathname: `/closets/${closet.id}`, state: { edit } });
     };
 
-    const closetId = `closet-${closet.id}`;
-    const closetElement = document.getElementById(closetId);
-    let position;
-    if (closetElement) {
-        const clientRect = closetElement.getBoundingClientRect();
-        const rightHasSpace = clientRect.right + 200 < window.innerWidth;
-        const left = rightHasSpace ? clientRect.right : clientRect.left - 185;
-        position = { top: clientRect.bottom, left };
+    const handleGetCopyLink = () => {
+        const link = `${APIURL}/closets/${closet.id}`;
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(link)
+                .then(() => {
+                    showAlert('Copied link!', 'success');
+                })
+                .catch(err => {
+                    console.error(err);
+                    copyFallback(link);
+                });
+        } else copyFallback(link);
     }
+
+    const closetId = `closet-${closet.id}`;
 
     return (
         <>
             <motion.div
-                id={closetId}
                 className="closet"
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -34,7 +43,7 @@ function ClosetPreview({ closet }) {
                     type: 'tween',
                     delay: 0.3
                 }}
-                onClick={handleClosetView}
+                onClick={() => handleClosetView(false)}
             >
                 {
                     closet.closet_icon ?
@@ -47,7 +56,8 @@ function ClosetPreview({ closet }) {
                         <div id="stock-closet-image" style={{ backgroundColor: `#${closet.color}` }}>
                             <span id="name">{closet.closet_name}</span>
                             <IconButton
-                                id="options-button"
+                                id={closetId}
+                                className="options-button"
                                 onClick={e => {
                                     e.stopPropagation();
                                     setShowPopup(true);
@@ -60,38 +70,16 @@ function ClosetPreview({ closet }) {
                         </div>
                 }
             </motion.div>
-            <Popover
-                anchorEl={document.getElementById(closetId)}
-                anchorReference="anchorPosition"
-                anchorPosition={position}
-                PaperProps={{ style: { padding: 15, borderRadius: 15 } }}
+            <OptionsPopup
+                anchorElementId={closetId}
                 open={showPopup}
                 onClose={() => setShowPopup(false)}
-            >
-                <Grid direction="column" container>
-                    <Grid item>
-                        <span style={{ fontWeight: 'bold', textAlign: 'left', fontSize: '15px' }}>Options</span>
-                    </Grid>
-                    <Grid style={{ margin: '10px 0 10px -15px', width: 'calc(100% + 30px)' }} item>
-                        <Divider />
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            className="round-button"
-                            onClick={() => handleClosetView(true)}
-                            startIcon={<Edit />}
-                        >
-                            Edit Closet
-                        </Button>
-                    </Grid>
-                    <Grid item>
-                        <Button className="round-button" startIcon={<FileCopy />}>Copy Link</Button>
-                    </Grid>
-                    <Grid item>
-                        <Button className="round-button" startIcon={<Delete />}>Remove Closet</Button>
-                    </Grid>
-                </Grid>
-            </Popover>
+                buttons={[
+                    { text: 'Edit Closet', onClick: () => handleClosetView(true), icon: <Edit /> },
+                    { text: 'Copy Link', onClick: handleGetCopyLink, icon: <FileCopy /> },
+                    { text: 'Remove Closet', isDelete: true }
+                ]}
+            />
         </>
     );
 }

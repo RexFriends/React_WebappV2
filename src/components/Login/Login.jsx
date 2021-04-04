@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
-import { Button, Snackbar, TextField } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Button, TextField } from '@material-ui/core';
 import logo from '../../assets/img/128.png';
 import { FaFacebookF, FaGoogle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import { showAlert } from '../Alerts/Alerts';
 import firebase from 'firebase';
 import APIURL from '../../assets/URL';
 import 'firebase/auth';
@@ -27,7 +27,6 @@ function Login() {
     const [firstname, firstnameSet] = useState('');
     const [lastname, lastnameSet] = useState('');
     const [phone, phoneSet] = useState('');
-    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         const rexUID = localStorage.getItem('rexUID');
@@ -92,7 +91,7 @@ function Login() {
             })
             .catch(err => {
                 console.log(err);
-                setShowAlert(true);
+                showAlert('Invalid login!', 'error');
             });
     };
 
@@ -170,10 +169,6 @@ function Login() {
         // need to first check if user was on a rex page before, if not, we send them to the landing page
         history.push('/closets');
     };
-
-    const closeAlert = () => {
-        setShowAlert(false);
-    }
 
     return (
         <>
@@ -349,11 +344,6 @@ function Login() {
                         </div>
                 }
             </div>
-            <Snackbar style={{ zIndex: 1500 }} open={showAlert} onClose={closeAlert} autoHideDuration={2500} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                <Alert severity={"error"} variant="filled" onClose={closeAlert}>
-                    Invalid login!
-                </Alert>
-            </Snackbar>
         </>
     );
 }
