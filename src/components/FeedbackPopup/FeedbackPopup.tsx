@@ -100,14 +100,14 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                     }
                 </Grid>
                 <Grid style={{ height: '30vh', maxHeight: 350 }} item>
-                    <Scrollbars style={{ height: '100%' }} autoHide>
+                    <Scrollbars style={{ height: '100%', marginTop: '5px' }} autoHide>
                         {
                             friends.map((f, i) => (
                                 <Grid key={i} style={{ width: '100%' }} item>
-                                    <Button className="contact-button" onClick={() => handleSendRequest(f.id)}>
+                                    <Button className="contact-button">
                                         <Grid justify="space-between" alignItems="center" container>
                                             <Grid style={{ width: 'auto' }} wrap="nowrap" alignItems="center" container item>
-                                                <img style={{ height: 40, width: 40, paddingRight: 10 }} src={f.profile_image} alt="Profile" />
+                                                <img style={{ height: 40, width: 40, paddingRight: 10,  }} src={f.profile_image} alt="Profile" />
                                                 <Grid direction="column" justify="center" alignItems="flex-start" container item>
                                                     <TextOverflow
                                                         style={{ fontSize: '9pt', fontWeight: 'bold' }}
@@ -122,7 +122,18 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                 </Grid>
                                             </Grid>
                                             <Grid item>
-                                                <Send />
+                                                {/* <Send /> */}
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    className="send-button"
+                                                    endIcon={<Send>Send</Send>}
+                                                    style={{width: '80px', backgroundColor: "#14c4b2", borderRadius: 50, color: 'white', textTransform: 'none', marginRight: '15px'}}
+                                                    onClick={() => handleSendRequest(f.id)}
+                                                  
+                                                >
+                                                    Send
+                                                </Button>
                                             </Grid>
                                         </Grid>
                                     </Button>
