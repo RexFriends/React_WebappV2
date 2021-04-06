@@ -21,6 +21,28 @@
         grid-gap: 16px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+        #new-closet {
+            width: 220px;
+            height: 220px;
+            background-color: #207c9d;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            #new-form {
+                display: flex;
+                flex-direction: column;
+                width: 220px;
+                height: 220px;
+            }
+            #content {
+                // border: solid red 2px;
+                width: 220px;
+                height: 220px;
+                display: flex;
+                flex-direction: column;
+            }
+            // justify-content: center;
+            // align-items: center;
+        }
         .closet {
             background-color: white;
             border-radius: 10px;

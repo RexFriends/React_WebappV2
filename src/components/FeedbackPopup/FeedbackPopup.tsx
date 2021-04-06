@@ -99,7 +99,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                         )
                     }
                 </Grid>
-                <Grid style={{ height: '30vh', maxHeight: 350 }} item>
+                <Grid style={{ height: '30vh', maxHeight: 450 }} item>
                     <Scrollbars style={{ height: '100%', marginTop: '5px' }} autoHide>
                         {
                             friends.map((f, i) => (

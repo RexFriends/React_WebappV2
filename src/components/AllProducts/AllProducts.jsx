@@ -15,7 +15,7 @@ function AllProducts() {
             .then(json => {
                 productDataSet(json.products);
             });
-    }, []);
+    }, [productData]);
 
     return (
 

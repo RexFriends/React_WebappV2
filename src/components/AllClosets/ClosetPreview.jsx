@@ -8,7 +8,7 @@ import APIURL from '../../assets/URL';
 import { copyFallback } from '../../util';
 import { showAlert } from '../Alerts/Alerts';
 
-function ClosetPreview({ closet }) {
+function ClosetPreview({closet}) {
     const history = useHistory();
     const [showPopup, setShowPopup] = useState(false);
 
@@ -45,6 +45,7 @@ function ClosetPreview({ closet }) {
             .then(res => res.json())
             .then(() => {
                 showAlert('Removed closet!', 'success');
+                setShowPopup(false);
             })
             .catch(err => {
                 console.error(err);

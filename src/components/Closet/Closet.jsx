@@ -53,7 +53,7 @@ function Closet() {
 
     useEffect(() => {
         fetchCloset();
-    }, [id]);
+    }, [id, closetData]);
 
     const showEditForm = () => {
         showClosetFormSet(!showClosetForm);

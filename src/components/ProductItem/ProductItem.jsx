@@ -68,6 +68,8 @@ function ProductItem({ item }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
+        }).catch((err) => {
+            showAlert('Failed to send', err);
         })
             .then(() => {
                 showAlert('Sent Rex!', 'success');
@@ -162,6 +164,7 @@ function ProductItem({ item }) {
         })
             .then(res => res.json())
             .then(() => {
+                setShowPopup(false);
                 showAlert('Removed product!', 'success');
             })
             .catch(err => {

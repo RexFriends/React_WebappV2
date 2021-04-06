@@ -80,8 +80,12 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                     image === 'None' || !image ?
                         <Photo style={{ height: 80, width: 80, borderRadius: 8 }} />
                         :
+                        notification.seen?
+                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#f8f8f8', borderRadius: 8 }} src={image} alt="product" id="image" />
+                        :
                         <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" />
-                }
+                        
+                    }
             </Grid>
             <div style={{ position: 'absolute', background: '#f8f8f8', border: 'red' }} />
         </Grid>
