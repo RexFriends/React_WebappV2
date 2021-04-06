@@ -75,12 +75,12 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                     </span>
                 </span>
             </Grid>
-            <Grid style={{ marginLeft: 15, marginRight: 15 }} item>
+            <Grid style={{ marginLeft: 15, marginRight: 0 }} item>
                 {
                     image === 'None' || !image ?
-                        <Photo style={{ height: 80, width: 80 }} />
+                        <Photo style={{ height: 80, width: 80, borderRadius: 8 }} />
                         :
-                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff' }} src={image} alt="product" id="image" />
+                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" />
                 }
             </Grid>
             <div style={{ position: 'absolute', background: '#f8f8f8', border: 'red' }} />

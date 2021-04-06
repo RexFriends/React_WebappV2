@@ -57,14 +57,14 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
 
     return (
         <Popover
-            PaperProps={{ style: { height: 550, width: 500, maxWidth: '100vw', borderRadius: 15 } }}
+            PaperProps={{ style: { height: '80vh', width: 465, maxWidth: '100vw', borderRadius: 15 } }}
             open={open}
             onClose={onClose}
             anchorEl={document.getElementById('notif-button')}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         >
             <h3 style={{ textAlign: 'center' }}>Notifications</h3>
-            <Scrollbars style={{ height: 480 }} autoHide>
+            <Scrollbars style={{ height: '70vh' }} autoHide>
                 <Grid style={{ padding: '15px 10px' }} direction="column" container>
                     {
                         notifications.map((notif, i) =>
