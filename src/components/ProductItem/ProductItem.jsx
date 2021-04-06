@@ -7,7 +7,7 @@ import TextOverflow from '../TextOverflow/TextOverflow';
 import SendIcon from '@material-ui/icons/Send';
 import APIURL from '../../assets/URL';
 import OptionsPopup from '../OptionsPopup/OptionsPopup';
-import FeedbackPopup from '../../FeedbackPopup/FeedbackPopup';
+import FeedbackPopup from '../FeedbackPopup/FeedbackPopup';
 import { copyFallback } from '../../util';
 import { showAlert } from '../Alerts/Alerts';
 
@@ -123,6 +123,53 @@ function ProductItem({ item }) {
         setText('');
     };
 
+    const handleInvite = async ref => {
+        if (!ref.current) return;
+
+        try {
+            const rexUID = localStorage.getItem('rexUID');
+            const res = await fetch(`${APIURL}/api/addfriendnumber?uid=${rexUID}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phonenumber: ref.current?.children[1].value
+                })
+            });
+            const json = await res.json();
+            if (json.success) showAlert('Invited user!', 'success');
+            else {
+                showAlert(`${json.reason}!`, 'error');
+                return new Error(json.reason);
+            }
+        } catch (err) {
+            showAlert('Invite failed!', 'error');
+            throw err;
+        }
+    };
+
+    const handleDelete = () => {
+        const rexUID = localStorage.getItem('rexUID');
+        fetch(`${APIURL}/api/deletelisting?uid=${rexUID}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                product_id: item.id
+            })
+        })
+            .then(res => res.json())
+            .then(() => {
+                showAlert('Removed product!', 'success');
+            })
+            .catch(err => {
+                console.error(err);
+                showAlert('Removing product failed!', 'error');
+            });
+    };
+
     const productId = `product-${item.id}`;
 
     return (
@@ -145,9 +192,11 @@ function ProductItem({ item }) {
                                 color: 'rgb(114, 114, 114)',
                                 fontSize: '13px',
                                 lineHeight: '1em',
-                                textAlign: 'left'
+                                textAlign: 'left',
+                                zIndex: 1000
                             }}
                             text={productName ? productName.split(',')[0] : ''}
+                            overflowLength={30}
                         />
                     </Grid>
                     <Grid xs={4} direction="column" container item>
@@ -191,7 +240,7 @@ function ProductItem({ item }) {
                     { text: 'Add to Closet', icon: <AddToPhotos /> },
                     { text: 'Send a Rex', onClick: handleShowFeedbackPopup, icon: <Send /> },
                     { text: 'Copy Link', onClick: handleGetCopyLink, icon: <FileCopy /> },
-                    { text: 'Remove Product', isDelete: true }
+                    { text: 'Remove Product', onClick: handleDelete, isDelete: true }
                 ]}
             />
             <FeedbackPopup
@@ -202,6 +251,7 @@ function ProductItem({ item }) {
                 handleSearch={debounceSearch()}
                 friends={friends}
                 handleSendRequest={handleSendRequest}
+                handleInvite={handleInvite}
             />
         </>
     );

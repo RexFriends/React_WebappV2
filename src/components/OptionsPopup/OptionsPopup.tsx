@@ -9,7 +9,7 @@ import { positionPopup } from '../../util';
 export interface IButton {
     text: string,
     onClick: React.MouseEventHandler,
-    icon?: React.ReactNode,
+    icon?: JSX.Element,
     isDelete?: boolean
 }
 
@@ -20,7 +20,7 @@ export interface IOptionsPopupProps {
     buttons: Array<IButton>
 }
 
-function OptionsPopup({ anchorElementId, open, onClose, buttons }: IOptionsPopupProps): React.ReactNode {
+function OptionsPopup({ anchorElementId, open, onClose, buttons }: IOptionsPopupProps): JSX.Element {
     const [position, setPosition] = useState<PopoverPosition>({ top: 0, left: 0 });
     const [origin, setOrigin] = useState<PopoverOrigin>({ vertical: 'top', horizontal: 'right' });
 

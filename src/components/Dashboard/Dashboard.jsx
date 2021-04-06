@@ -4,14 +4,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { IoMail } from 'react-icons/io5';
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
 import { RiSettings3Line } from 'react-icons/ri';
-import { Popover } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import SearchBar from 'material-ui-search-bar';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import logo from '../../assets/img/Asset 1.png';
 import Button from '@material-ui/core/Button';
-import AllNotifications from '../AllNotifications/AllNotifications';
+import NotificationPopup from '../NotificationPopup/NotificationPopup';
 import APIURL from '../../assets/URL';
 import Scrollbars from 'react-custom-scrollbars';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -260,15 +259,11 @@ function Dashboard({ children }) {
                                                     <IoMail style={{ fontSize: '35px' }}/>
                                                 </StyledBadge>
                                             </IconButton>
-                                            <Popover
-                                                PaperProps={{ style: { maxHeight: 550, width: 950 } }}
+                                            <NotificationPopup
                                                 open={showNotification}
                                                 onClose={() => showNotificationSet(!showNotification)}
-                                                anchorEl={document.getElementById('notif-button')}
-                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                                            >
-                                                <AllNotifications notifCountSetter={NotifCountSet}/>
-                                            </Popover>
+                                                notifCountSetter={NotifCountSet}
+                                            />
                                         </div>
                                     )
                                 }

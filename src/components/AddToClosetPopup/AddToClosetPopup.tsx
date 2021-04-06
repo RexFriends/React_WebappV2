@@ -9,7 +9,7 @@ export interface IAddToClosetPopupProps {
     onClose: () => void
 }
 
-function AddToClosetPopup(props: IAddToClosetPopupProps): React.ReactNode {
+function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
     const { anchorElementId, open, onClose } = props;
     const [position, setPosition] = useState<PopoverPosition>({ top: 0, left: 0 });
     const [origin, setOrigin] = useState<PopoverOrigin>({ vertical: 'top', horizontal: 'right' });

@@ -31,6 +31,27 @@ function ClosetPreview({ closet }) {
         } else copyFallback(link);
     }
 
+    const handleDelete = () => {
+        const rexUID = localStorage.getItem('rexUID');
+        fetch(`${APIURL}/api/closet?uid=${rexUID}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                closet_id: closet.id
+            })
+        })
+            .then(res => res.json())
+            .then(() => {
+                showAlert('Removed closet!', 'success');
+            })
+            .catch(err => {
+                console.error(err);
+                showAlert('Removing closet failed!', 'error');
+            });
+    };
+
     const closetId = `closet-${closet.id}`;
 
     return (
@@ -77,7 +98,7 @@ function ClosetPreview({ closet }) {
                 buttons={[
                     { text: 'Edit Closet', onClick: () => handleClosetView(true), icon: <Edit /> },
                     { text: 'Copy Link', onClick: handleGetCopyLink, icon: <FileCopy /> },
-                    { text: 'Remove Closet', isDelete: true }
+                    { text: 'Remove Closet', onClick: handleDelete, isDelete: true }
                 ]}
             />
         </>

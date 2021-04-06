@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { MouseEventHandler } from 'react';
 import { Button, Grid, IconButton, InputAdornment, Popover, TextField } from '@material-ui/core';
 import type { PopoverOrigin, PopoverPosition } from '@material-ui/core';
-import { Close, FileCopy, PersonAdd, Search, Send } from '@material-ui/icons';
-import TextOverflow from '../components/TextOverflow/TextOverflow';
+import { Cancel, Close, FileCopy, PersonAdd, Search, Send } from '@material-ui/icons';
+import TextOverflow from '../TextOverflow/TextOverflow';
 import Scrollbars from 'react-custom-scrollbars';
-import { positionPopup } from '../util';
+import { positionPopup } from '../../util';
 
 export interface IFeedbackPopupProps {
     anchorElementId: string,
@@ -14,18 +14,39 @@ export interface IFeedbackPopupProps {
     handleGetCopyLink: MouseEventHandler
     handleSearch: (event: object) => void,
     friends: Array<IFriend>,
-    handleSendRequest: (id: number) => void
+    handleSendRequest: (id: number) => void,
+    handleInvite: (ref: React.RefObject<HTMLElement>) => Promise<void>
 }
 
-function FeedbackPopup(props: IFeedbackPopupProps): React.ReactNode {
-    const { anchorElementId, open, onClose, handleGetCopyLink, handleSearch, handleSendRequest, friends } = props;
+function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
+    const { anchorElementId, open, onClose, handleGetCopyLink, handleSearch, handleSendRequest, handleInvite, friends } = props;
     const [position, setPosition] = useState<PopoverPosition>({ top: 0, left: 0 });
     const [origin, setOrigin] = useState<PopoverOrigin>({ vertical: 'top', horizontal: 'right' });
+    const [invite, setInvite] = useState<boolean>(false);
+    const phoneInput = useRef<HTMLElement>(null);
 
     const anchorElement = document.getElementById(anchorElementId);
     useEffect(() => {
         positionPopup(anchorElement, open, setOrigin, setPosition);
     }, [anchorElement, open]);
+
+    const handleClose = () => {
+        setInvite(false);
+        onClose();
+    };
+
+    const handleCancel = () => {
+        // @ts-ignore
+        phoneInput.current.children[1].value = '';
+        setInvite(false);
+    };
+
+    const onInvite = () => {
+        handleInvite(phoneInput)
+            .then(() => {
+                handleCancel();
+            });
+    };
 
     return (
         <Popover
@@ -35,13 +56,13 @@ function FeedbackPopup(props: IFeedbackPopupProps): React.ReactNode {
             transformOrigin={origin}
             PaperProps={{ style: { padding: 15, borderRadius: 15 } }}
             open={open}
-            onClose={onClose}
+            onClose={handleClose}
         >
             <Grid direction="column" container>
                 <Grid justify="space-between" alignItems="center" wrap="nowrap" container item>
                     <Grid alignItems="center" container item>
                         <Grid item>
-                            <IconButton onClick={onClose}><Close /></IconButton>
+                            <IconButton onClick={handleClose}><Close /></IconButton>
                         </Grid>
                         <Grid item>
                             <span style={{ fontSize: '18pt' }}>Get Feedback!</span>
@@ -51,22 +72,32 @@ function FeedbackPopup(props: IFeedbackPopupProps): React.ReactNode {
                         <IconButton onClick={handleGetCopyLink}><FileCopy /></IconButton>
                     </Grid>
                 </Grid>
-                <Grid spacing={2} alignItems="center" container item>
+                <Grid spacing={invite ? 1 : 2} alignItems="center" container item>
                     <Grid item>
                         <TextField
                             variant="outlined"
                             InputProps={{
                                 /* @ts-ignore */
-                                startAdornment: <InputAdornment><Search /></InputAdornment>,
-                                style: { height: 40, borderRadius: 15 }
+                                startAdornment: <InputAdornment style={{ marginRight: 5 }}>{invite ? <PersonAdd /> : <Search />}</InputAdornment>,
+                                style: { height: 40, borderRadius: 15 },
+                                ref: phoneInput
                             }}
-                            placeholder="Search Users"
-                            onChange={handleSearch}
+                            placeholder={invite ? 'Add Phone Number' : 'Search for Users'}
+                            onChange={invite ? () => null : handleSearch}
                         />
                     </Grid>
-                    <Grid item>
-                        <Button className="round-button" startIcon={<PersonAdd />}>Invite</Button>
-                    </Grid>
+                    {
+                        invite ? (
+                            <Grid item>
+                                <IconButton className="round-button" onClick={onInvite}><Send /></IconButton>
+                                <IconButton className="round-button" onClick={handleCancel}><Cancel /></IconButton>
+                            </Grid>
+                        ) : (
+                            <Grid item>
+                                <Button className="round-button" onClick={() => setInvite(true)} startIcon={<PersonAdd />}>Invite</Button>
+                            </Grid>
+                        )
+                    }
                 </Grid>
                 <Grid style={{ height: '30vh', maxHeight: 350 }} item>
                     <Scrollbars style={{ height: '100%' }} autoHide>

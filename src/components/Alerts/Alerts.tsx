@@ -15,7 +15,7 @@ const showAlert = (text: string, type: 'success' | 'error'): void => {
 
 export { showAlert };
 
-function Alerts(): React.ReactNode {
+function Alerts(): JSX.Element {
     const [show, setShow] = useState<boolean>(false);
     const [text, setText] = useState<string>('');
     const [type, setType] = useState<Color>('success');
