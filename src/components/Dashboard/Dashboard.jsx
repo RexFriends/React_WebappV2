@@ -62,7 +62,7 @@ function Dashboard({ children }) {
                     if (json.user) {
                         userAuthSet(true);
                         userDataSet(json.user);
-                        const updatedData = json.closets.filter(c => c.closet_name !== 'Saved Products');
+                        const updatedData = json.closets.filter(c => c.name !== 'Saved Products');
                         closetDataSet(updatedData);
                         NotifCountSet(json.notif_count);
                     } else {
