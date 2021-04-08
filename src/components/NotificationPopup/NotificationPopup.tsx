@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { showAlert } from '../Alerts/Alerts';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 export interface INotificationPopupProps {
     open: boolean,
@@ -114,6 +115,7 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
             { page === "notifications" ?
                 //  <NotificationList notifications={notifications} updated={performUpdateCall}/>
                 <Grid container>
+                    
                     <h3 style={{ textAlign: 'center' }}>Notifications</h3>
                     <Scrollbars style={{ height: '70vh' }} autoHide>
                         <Grid style={{ padding: '15px 10px' }} direction="column" container>
@@ -135,9 +137,16 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
               page === 'request' ?
 
                     <div id="container" style={{width: '100%', height: '95%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
-                        <span style={{margin: '10px auto 10px auto', fontWeight: 700}}>Send Feedback</span>
-                        <div id="user-info" style={{height: '60px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
-                            <img src="https://ui-avatars.com/api/?background=207c9d&color=fff&rounded=true&name=Manas+Chakka&size=64" style={{width: '45px', height: '45px', margin: 'auto 5px auto 8px'}} />
+                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', margin: '20px 10px 10px 10px'}}>
+                            
+                            <Button onClick={() => {setPage('notifications')}} style={{width: '20px', height: '30px', margin: 'auto 0px auto 0', borderRadius: '100px'}}>
+                                <ArrowBackIosIcon/>
+                            </Button>
+                            <span style={{margin: 'auto auto auto 100px', fontWeight: 700}}>Send Feedback</span>
+                        </div>
+                        
+                        <div id="user-info" style={{height: '60px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', margin: '10px'}}>
+                            <img src="https://ui-avatars.com/api/?background=207c9d&color=fff&rounded=true&name=Manas+Chakka&size=64" style={{width: '45px', height: '45px', margin: 'auto 5px auto 30px'}} />
                             <div style={{margin: 'auto auto auto 0px', flexDirection: 'column', display: 'flex', justifyContent: 'space-around'}}>
                             <span style={{fontWeight: 700}} >Manas Chakka</span>
                             <span style={{fontSize: '12px'}}>@mchakka456</span>
