@@ -5,6 +5,11 @@ import Notification from '../Notification/Notification';
 import Scrollbars from 'react-custom-scrollbars';
 import APIURL from '../../assets/URL';
 import useWindowDimensions from '../../Hooks/useWindowDimensions';
+import { AiOutlineFrown, AiOutlineSmile } from 'react-icons/ai';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { showAlert } from '../Alerts/Alerts';
 
 export interface INotificationPopupProps {
     open: boolean,
@@ -15,6 +20,9 @@ export interface INotificationPopupProps {
 function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPopupProps) {
     const [notifications, setNotifications] = useState<Array<INotification>>([]);
     const [page, setPage] = useState("request")
+    const [currentRequest, setCurrentRequest] = useState<INotification>();
+    const [thumbs, thumbsSet] = useState(false);
+    const [additionalFeedback, additionalFeedbackSet] = useState("");
 
     const performUpdateCall = (toUpdate: Array<NotificationUpdate>) => {
         const rexUID = localStorage.getItem('rexUID');
@@ -51,11 +59,49 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
             .then(json => {
                 notifCountSetter(json.notifications.amount);
                 setNotifications(json.notifications.notifications);
+                // console.log(json.notifications.notifications[0].product_info)
+                console.log(json.notifications.notifications[0]);
+                setCurrentRequest(json.notifications.notifications[0]);
                 if (update) setTimeout(() => updateAllUnseenNotifications(json.notifications.notifications), 2000);
             });
     };
 
     useEffect(() => getNotifications(true), []);
+
+    const handleSendFeedback = () => {
+        if (thumbs === undefined) {
+            showAlert('Add Response!', 'error');
+        } else {
+            let payload = {
+                // additionalFeedback: additionalFeedback,
+                // review: thumbs,
+                // feedback_row_id: currentRequest.id
+            };
+            // fetch(
+            //     APIURL + `/feedback?uid=${uid ? uid : 'null'}&rex_feedback_link=${id}`,
+            //     {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify(payload)
+            //     }
+            // )
+            //     .then((res) => res.json())
+            //     .then((json) => {
+            //         console.log('response after send', json);
+            //         if (json.success === true) {
+            //             completePageSet(true);
+            //             return;
+            //         }
+            //         if (json.success === false) {
+            //             completePageSet(true);
+            //             completePageContentSet(json.reason);
+            //         }
+            //     })
+            //     .catch((err) => console.log('err response after send:', err));
+        }
+    }
 
     return (
         <Popover
@@ -82,19 +128,87 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
               :
               page === 'feeback' ?
                     <div id="container" style={{width: '100%', height: '100%', border: 'solid red 2px'}}>
-
+                        
                      </div>
               :
 
               page === 'request' ?
-                    <div id="container" style={{width: '100%', height: '100%', border: 'solid red 2px'}}>
-                    <span>Send Feedback</span>
-                    <div id="product-info">
-                        <span>
-                            Product name
-                        </span>
-                    </div>
+
+                    <div id="container" style={{width: '100%', height: '95%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                        <span style={{margin: '10px auto 10px auto', fontWeight: 700}}>Send Feedback</span>
+                        <div id="user-info" style={{height: '60px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
+                            <img src="https://ui-avatars.com/api/?background=207c9d&color=fff&rounded=true&name=Manas+Chakka&size=64" style={{width: '45px', height: '45px', margin: 'auto 5px auto 8px'}} />
+                            <div style={{margin: 'auto auto auto 0px', flexDirection: 'column', display: 'flex', justifyContent: 'space-around'}}>
+                            <span style={{fontWeight: 700}} >Manas Chakka</span>
+                            <span style={{fontSize: '12px'}}>@mchakka456</span>
+                            </div>
+                            
+                        </div>
+                       
+                        <div id="product-info" style={{display: 'flex', flexDirection: 'row', width: '100%', height: '220px', margin: '5px auto 0px auto'}}>
+                        
+                            <div id="image-container" style={{height: '95%', width: '50%', margin: '5px 5px 5px auto'}}>
+                                { currentRequest ?
+                                    <img src="https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199879943/Ramen-Panda-tahiti-blue-light-t-shirt-teeturtle-full-21-1000x1000.jpg" alt="product img" style={{height: '100%', width: 'auto', display: 'block', margin: 'auto 5px auto auto'}}></img>
+                                    // <img src={currentRequest.images} alt="product img" style={{height: '100%', width: 'auto', display: 'block', margin: 'auto'}}></img>
+                                :
+                                    <div>
+                                        Loading
+                                    </div>
+                                }
+                            </div>
+                            <div id="product-details" style={{display: 'flex', flexDirection: "column", justifyContent: 'space-around', width: '40%', margin: '0 10px 0 0px'}}>
+                                <span>Brand</span>
+                                <span>Product Name</span>
+                                <span>Price</span>
+                            </div>
+                        </div>
+                        <div style={{height: '300px', width: '100%', margin: '0 auto auto auto', display: 'flex', flexDirection: 'column'}}>
+                                <div style={{margin: '10px auto 0 auto'}}>
+                                <IconButton
+                                    id="button"
+                                    className={thumbs === true ? 'highlight1' : ''}
+                                    style={{ color: '#FD6C73' , width: '70px', height: '70px'}}
+                                    onClick={() => thumbsSet(false)}
+                                >
+                                    <AiOutlineFrown id="icon" style={{width: '100%', height: '100%'}}/>
+                                </IconButton>
+                                <IconButton
+                                    id="button"
+                                    className={thumbs === false ? 'highlight1' : ''}
+                                    style={{ color: '#37DB69', width: '70px', height: '70px' }}
+                                    onClick={() => thumbsSet(true)}
+                                >
+                                    <AiOutlineSmile id="icon" style={{width: '100%', height: '100%'}}/>
+                                </IconButton>
+                                </div>
+                                {/* <TextField
+                                            multiline
+                                            id="text_field"
+                                            label="thoughts???"
+                                            autoComplete="off"
+                                            value={additionalFeedback}
+                                            onChange={(e) => additionalFeedbackSet(e.target.value)}
+                                        /> */}
+                                <textarea 
+                                    name="Text1"
+                                    placeholder="Add Comment..."
+                                    style={{width: '80%', height: '70px', margin: '10px auto auto auto', resize: 'none', borderRadius: '5px'}}
+                                />
+                                <Button
+                                    onClick={handleSendFeedback}
+                                    id="submit"
+                                    style={{width: '80px', height: '40px', margin: '10px auto auto auto', backgroundColor: '#14c4b2', color: 'white', borderRadius: '100px', fontWeight: 700, fontSize: '16px'}}
+                                >
+                                    Send
+                                </Button>
+                                
+
+                        </div>
+
                      </div>
+                     
+                    
                 :
                 <div>
                     Some Page
