@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Popover } from '@material-ui/core';
 import Notification from '../Notification/Notification';
+// import NotificationList from './NotificationList';
 import Scrollbars from 'react-custom-scrollbars';
 import APIURL from '../../assets/URL';
 import useWindowDimensions from '../../Hooks/useWindowDimensions';
@@ -13,6 +14,7 @@ export interface INotificationPopupProps {
 
 function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPopupProps) {
     const [notifications, setNotifications] = useState<Array<INotification>>([]);
+    const [page, setPage] = useState("request")
 
     const performUpdateCall = (toUpdate: Array<NotificationUpdate>) => {
         const rexUID = localStorage.getItem('rexUID');
@@ -63,7 +65,43 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
             anchorEl={document.getElementById('notif-button')}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         >
-            <h3 style={{ textAlign: 'center' }}>Notifications</h3>
+            { page === "notifications" ?
+                //  <NotificationList notifications={notifications} updated={performUpdateCall}/>
+                <Grid container>
+                    <h3 style={{ textAlign: 'center' }}>Notifications</h3>
+                    <Scrollbars style={{ height: '70vh' }} autoHide>
+                        <Grid style={{ padding: '15px 10px' }} direction="column" container>
+                            {
+                                notifications.map((notif, i) =>
+                                    <Notification key={i} notification={notif} updater={performUpdateCall} />
+                                )
+                            }
+                        </Grid>
+                    </Scrollbars>
+                </Grid>
+              :
+              page === 'feeback' ?
+                    <div id="container" style={{width: '100%', height: '100%', border: 'solid red 2px'}}>
+
+                     </div>
+              :
+
+              page === 'request' ?
+                    <div id="container" style={{width: '100%', height: '100%', border: 'solid red 2px'}}>
+                    <span>Send Feedback</span>
+                    <div id="product-info">
+                        <span>
+                            Product name
+                        </span>
+                    </div>
+                     </div>
+                :
+                <div>
+                    Some Page
+                </div>
+            }
+           
+            {/* <h3 style={{ textAlign: 'center' }}>Notifications</h3>
             <Scrollbars style={{ height: '70vh' }} autoHide>
                 <Grid style={{ padding: '15px 10px' }} direction="column" container>
                     {
@@ -72,7 +110,7 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                         )
                     }
                 </Grid>
-            </Scrollbars>
+            </Scrollbars> */}
         </Popover>
     );
 }
