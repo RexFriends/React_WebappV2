@@ -55,7 +55,7 @@ function Closet() {
         if (!showClosetForm) {
             fetchCloset();
         }
-    }, [id, closetData]);
+    }, [id, showClosetForm]);
 
     const showEditForm = () => {
         showClosetFormSet(!showClosetForm);
@@ -247,7 +247,7 @@ function Closet() {
                             <>
                                 {
                                     closetData &&
-                                    closetData.listings.map((product, i) => (<ProductItem item={product} key={i} />))
+                                    closetData.listings.map((product, i) => (<ProductItem item={product} updateProducts={fetchCloset} key={i} />))
                                 }
                             </>
                         </motion.div>

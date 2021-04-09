@@ -7,15 +7,18 @@ import ProductItem from '../ProductItem/ProductItem';
 function AllProducts() {
     const [productData, productDataSet] = useState([]);
 
-    useEffect(() => {
+    const fetchProducts = () => {
         const rexUID = localStorage.getItem('rexUID');
-
         fetch(`${APIURL}/api/all_listings?uid=${rexUID}`)
             .then(res => res.json())
             .then(json => {
                 productDataSet(json.products);
             });
-    }, [productData]);
+    }
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
 
     return (
 
@@ -28,7 +31,7 @@ function AllProducts() {
             <div id="container">
                 <AnimatePresence>
                     <>
-                        {productData.map((product, i) => <ProductItem item={product} key={i}/>)}
+                        {productData.map((product, i) => <ProductItem item={product} updateProducts={fetchProducts} key={i}/>)}
                     </>
                 </AnimatePresence>
             </div>

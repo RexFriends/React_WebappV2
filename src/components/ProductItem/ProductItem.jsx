@@ -10,8 +10,9 @@ import OptionsPopup from "../OptionsPopup/OptionsPopup";
 import FeedbackPopup from "../FeedbackPopup/FeedbackPopup";
 import { copyFallback } from "../../util";
 import { showAlert } from "../Alerts/Alerts";
+import AddToClosetPopup from '../AddToClosetPopup/AddToClosetPopup';
 
-function ProductItem({ item }) {
+function ProductItem({ item, updateProducts }) {
   const [hover, hoverSet] = useState(false);
   const [image, imageSet] = useState(undefined);
   const [brand, brandSet] = useState("Brand");
@@ -20,6 +21,7 @@ function ProductItem({ item }) {
   // const [brandLogo, setBrandLogo] = useState(undefined);
   const [showPopup, setShowPopup] = useState(false);
   const [showFeedbackPopup, setShowFeedbackPopup] = useState(false);
+  const [showAddToClosetPopup, setShowAddToClosetPopup] = useState(false);
   const [friends, friendsSet] = useState([]);
   const [text, setText] = useState("");
 
@@ -136,7 +138,7 @@ function ProductItem({ item }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          phonenumber: ref.current?.children[1].value,
+          phonenumber: ref.current.value,
         }),
       });
       const json = await res.json();
@@ -164,13 +166,19 @@ function ProductItem({ item }) {
     })
       .then((res) => res.json())
       .then(() => {
-        setShowPopup(false);
         showAlert("Removed product!", "success");
+        updateProducts();
+        setShowPopup(false);
       })
       .catch((err) => {
         console.error(err);
         showAlert("Removing product failed!", "error");
       });
+  };
+
+  const handleShowAddToClosetPopup = () => {
+    setShowAddToClosetPopup(true);
+    setShowPopup(false);
   };
 
   const productId = `product-${item.id}`;
@@ -257,12 +265,8 @@ function ProductItem({ item }) {
         onClose={() => setShowPopup(false)}
         title="Options"
         buttons={[
-          { text: "Add to Closet", icon: <AddToPhotos /> },
-          {
-            text: "Send a Rex",
-            onClick: handleShowFeedbackPopup,
-            icon: <Send />,
-          },
+          { text: "Add to Closet", onClick: handleShowAddToClosetPopup, icon: <AddToPhotos /> },
+          { text: "Send a Rex", onClick: handleShowFeedbackPopup, icon: <Send />, },
           { text: "Copy Link", onClick: handleGetCopyLink, icon: <FileCopy /> },
           { text: "Remove Product", onClick: handleDelete, isDelete: true },
         ]}
@@ -276,6 +280,13 @@ function ProductItem({ item }) {
         friends={friends}
         handleSendRequest={handleSendRequest}
         handleInvite={handleInvite}
+      />
+      <AddToClosetPopup
+          anchorElementId={productId}
+          open={showAddToClosetPopup}
+          onClose={() => setShowAddToClosetPopup(false)}
+          item={item}
+          updateProducts={updateProducts}
       />
     </>
   );

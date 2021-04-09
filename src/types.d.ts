@@ -35,6 +35,21 @@ interface IProduct {
     url: string
 }
 
+interface ICloset {
+    id: number,
+    closet_name: string,
+    closet_icon: string | null,
+    items: Array<IClosetItem>,
+    color: string
+}
+
+interface IClosetItem {
+    product_id: number,
+    img: string,
+    images: string,
+    isWebscraped: boolean
+}
+
 type NotificationUpdate = {
     id: number,
     notified_user: boolean,

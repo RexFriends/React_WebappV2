@@ -37,7 +37,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
 
     const handleCancel = () => {
         // @ts-ignore
-        phoneInput.current.children[1].value = '';
+        phoneInput.current.value = '';
         setInvite(false);
     };
 
@@ -79,11 +79,11 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                             InputProps={{
                                 /* @ts-ignore */
                                 startAdornment: <InputAdornment style={{ marginRight: 5 }}>{invite ? <PersonAdd /> : <Search />}</InputAdornment>,
-                                style: { height: 40, borderRadius: 15 },
-                                ref: phoneInput
+                                style: { height: 40, borderRadius: 15 }
                             }}
                             placeholder={invite ? 'Add Phone Number' : 'Search for Users'}
                             onChange={invite ? () => null : handleSearch}
+                            inputRef={phoneInput}
                         />
                     </Grid>
                     {
@@ -115,9 +115,14 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                         overflowLength={26}
                                                     />
                                                     {
-                                                        f.is_user ? (
-                                                            <span style={{ fontSize: '8pt' }}>@{f.username}</span>
-                                                        ) : null
+                                                        <span style={{ fontSize: '8pt' }}>
+                                                            {
+                                                                f.is_user ?
+                                                                    `@${f.username}`
+                                                                    :
+                                                                    `(${f.phone_number.substring(0, 3)}) ${f.phone_number.substring(3, 6)}-${f.phone_number.substring(6)}`
+                                                            }
+                                                        </span>
                                                     }
                                                 </Grid>
                                             </Grid>
@@ -130,7 +135,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                     endIcon={<Send>Send</Send>}
                                                     style={{width: '80px', backgroundColor: "#14c4b2", borderRadius: 50, color: 'white', textTransform: 'none', marginRight: '15px'}}
                                                     onClick={() => handleSendRequest(f.id)}
-                                                  
+
                                                 >
                                                     Send
                                                 </Button>

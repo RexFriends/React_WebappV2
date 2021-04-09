@@ -14,18 +14,23 @@ function AllClosets() {
     const [closetData, closetDataSet] = useState(undefined);
     const [creatingCloset, creatingClosetSet] = useState(false);
     const [closetName, closetNameSet] = useState("");
-    useEffect(() => {
+
+    const fetchClosets = () => {
         fetch(`${APIURL}/api/closet_preview?uid=${rexUID}`)
             .then(res => res.json())
             .then(json => {
-                const updatedData = json.closet_preview.filter(c => c.closet_name !== 'Saved Products');
-                closetDataSet(updatedData);
-            }
-        );
-    }, [rexUID, closetData]);
+                    const updatedData = json.closet_preview.filter(c => c.closet_name !== 'Saved Products');
+                    closetDataSet(updatedData);
+                }
+            );
+    };
+
+    useEffect(() => {
+        fetchClosets();
+    }, [rexUID]);
 
     async function handleNewCloset() {
-        if (closetName.length == 0) {
+        if (closetName.length === 0) {
             showAlert('Give your closet a name!', 'error');
         } else {
             const requestOptions = {
@@ -33,23 +38,24 @@ function AllClosets() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ closet_name: closetName })
             };
-        try {
-            const res = await fetch(`${APIURL}/api/closet?uid=${rexUID}`, requestOptions);
-            const json = await res.json();
-            console.log(json);
-            if (json.success) {
+            try {
+                const res = await fetch(`${APIURL}/api/closet?uid=${rexUID}`, requestOptions);
+                const json = await res.json();
+                console.log(json);
+                if (json.success) {
+                    showAlert('Closet Created!', 'success');
+                    creatingClosetSet(false);
+                    fetchClosets();
+                } else {
+                    showAlert(`${json.reason}!`, 'error');
+                    return new Error(json.reason);
+                }
+            } catch (err) {
+                //idk why successfull requests go here
                 showAlert('Closet Created!', 'success');
                 creatingClosetSet(false);
-            } else {
-                showAlert(`${json.reason}!`, 'error');
-                return new Error(json.reason);
+                fetchClosets();
             }
-            
-        } catch (err) {
-            //idk why successfull requests go here
-            showAlert('Closet Created!', 'success');
-                creatingClosetSet(false);
-        }
         }
     }
 
@@ -74,11 +80,11 @@ function AllClosets() {
                         onClick={() => creatingClosetSet(true)}
                     >
                         <div id="new-closet">
-                            {  
-                               
+                            {
+
                                 creatingCloset ?
                                 <div id="new-form">
-                                    <TextField 
+                                    <TextField
                                     style={{margin: 'auto auto 0px auto', color: '#fff'}}
                                     label='Closet Name'
                                     value={closetName}
@@ -96,16 +102,16 @@ function AllClosets() {
                                         Done
                                     </Button>
                                 </div>
-                                
+
                             :
-                            <div id="content"> 
+                            <div id="content">
                                 <LibraryAddIcon style={{color: "white", fontSize: 70, margin: "auto auto 0px auto"}}/>
-                                <span style={{margin: '5px auto auto auto', color: 'white', fontWeight: '700', fontSize: '24px'}}>New</span> 
+                                <span style={{margin: '5px auto auto auto', color: 'white', fontWeight: '700', fontSize: '24px'}}>New</span>
                         </div>
                             }
                         </div>
                     </motion.div>
-                    {closetData.map((closet, i) => <ClosetPreview closet={closet} key={i}/>)}
+                    {closetData.map((closet, i) => <ClosetPreview closet={closet} updateClosets={fetchClosets} key={i}/>)}
                 </div>
             }
         </motion.div>
