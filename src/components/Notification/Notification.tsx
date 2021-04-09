@@ -97,10 +97,10 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                 <br/>
                 {
                     notification.seen ?
-                    <span style={{fontSize: '14px', color: '#737373'}}>Just Now</span>
+                    <span style={{fontSize: '14px', color: '#737373'}}>{notification.time}</span>
                     
                     :
-                    <span style={{fontSize: '14px', fontWeight: 'bold', color: '#14c4b2'}}>Just Now</span>
+                    <span style={{fontSize: '14px', fontWeight: 'bold', color: '#14c4b2'}}>{notification.time}</span>
                 }
                 
             </Grid>
@@ -109,7 +109,9 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                     image === 'None' || !image ?
                         <Photo style={{ height: 80, width: 80, borderRadius: 8 }} />
                         :
-                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" />           
+                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" >
+                            
+                            </img>           
                 }
             </Grid>
             {

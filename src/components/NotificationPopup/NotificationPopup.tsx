@@ -158,7 +158,7 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                         </div>
                         { currentRequest ?
                         <div id="user-info" style={{height: '60px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', margin: '10px'}}>
-                            <img src="https://ui-avatars.com/api/?background=207c9d&color=fff&rounded=true&name=Manas+Chakka&size=64" style={{width: '45px', height: '45px', margin: 'auto 5px auto 30px'}} />
+                            <img src={currentRequest.profile_image} style={{width: '45px', height: '45px', margin: 'auto 5px auto 30px'}} />
                             <div style={{margin: 'auto auto auto 0px', flexDirection: 'column', display: 'flex', justifyContent: 'space-around'}}>
                                 <span style={{fontWeight: 700}} >{currentRequest.first_name + " " + currentRequest.last_name }</span>
                                 <span style={{fontSize: '12px'}}>{currentRequest.username}</span>

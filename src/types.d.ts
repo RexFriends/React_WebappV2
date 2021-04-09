@@ -23,7 +23,8 @@ interface INotification {
     sent_from_id?: number,
     thumbs_up?: boolean,
     time_responded?: string,
-    time_sent?: string
+    time_sent?: string,
+    time: string
 }
 
 interface IProduct {
