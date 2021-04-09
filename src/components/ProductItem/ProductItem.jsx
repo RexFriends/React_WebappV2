@@ -208,7 +208,7 @@ function ProductItem({ item }) {
                 fontSize: "13px",
                 lineHeight: "1em",
                 textAlign: "left",
-                zIndex: 500,
+                zIndex: 200,
               }}
               text={productName ? productName.split(",")[0] : ""}
               overflowLength={30}
@@ -223,7 +223,7 @@ function ProductItem({ item }) {
             <Grid item>
               <IconButton
                 id={productId}
-                style={{ zIndex: 1000, padding: "unset" }}
+                style={{ zIndex: 200, padding: "unset" }}
                 onClick={() => setShowPopup(true)}
               >
                 <MoreHoriz />
