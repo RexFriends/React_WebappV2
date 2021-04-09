@@ -128,8 +128,9 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                 //  <NotificationList notifications={notifications} updated={performUpdateCall}/>
                 <Grid container>
                     
-                    <h3 style={{ textAlign: 'center' }}>Notifications</h3>
-                    <Scrollbars style={{ height: '70vh' }} autoHide>
+                   
+                    <Scrollbars style={{ height: '80vh', margin: '0px auto' }} autoHide>
+                        <h3 style={{margin: '15px auto 0px 30px', color: "#525252", fontSize: "25px" }}>Notifications</h3>
                         <Grid style={{ padding: '15px 10px' }} direction="column" container>
                             {
                                 notifications.map((notif, i) =>
