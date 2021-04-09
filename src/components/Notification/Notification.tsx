@@ -40,7 +40,7 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
     return (
         <Grid
             style={{
-                backgroundColor: notification.seen ? '#f8f8f8' : '#ffffff',
+                backgroundColor: '#ffffff',
                 borderRadius: 8,
                 margin: '5px 0',
                 padding: 10
@@ -61,32 +61,65 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                         <AccountCircle style={{ height: 60, width: 60 }} />
                 }
             </Grid>
-            <Grid style={{ width: 250 }} item>
+            <Grid style={{ width: 230 }} item>
                 <span>
-                    <span style={{ fontWeight: 'bold' }}>{name}</span>
-                    &nbsp;{notification.notif_type === 'Request' ? 'wants your feedback on' : 'sent you feedback on'}
-                    &nbsp;
-                    <span style={{ fontWeight: 'bold' }}>
-                        <TextOverflow
-                            text={notification.product_info.name ? notification.product_info.name.split(',')[0] : 'Something'}
-                            overflowLength={30}
-                        />
-                        {/*{notification.product_info.name ? notification.product_info.name.split(',')[0] : 'Something'}*/}
+                    {
+                        notification.seen ?
+                        <span>
+                            <span style={{ fontWeight: 'bold', color: '#737373'}}>{name}</span>
+                            <span style={{color: '#737373'}}>
+                            &nbsp;{notification.notif_type === 'Request' ? 'wants your feedback on' : 'sent you feedback on'}
+                            &nbsp;
+                            </span>
+                            
+                            <span style={{ fontWeight: 'bold', color: '#737373' }}>
+                                <TextOverflow
+                                    text={notification.product_info.name ? notification.product_info.name.split(',')[0] : 'Something'}
+                                    overflowLength={30}
+                                />
+                            </span>
+                        </span>
+                        :
+                        <span>
+                            <span style={{ fontWeight: 'bold' }}>{name}</span>
+                        &nbsp;{notification.notif_type === 'Request' ? 'wants your feedback on' : 'sent you feedback on'}
+                        &nbsp;
+                        <span style={{ fontWeight: 'bold' }}>
+                            <TextOverflow
+                                text={notification.product_info.name ? notification.product_info.name.split(',')[0] : 'Something'}
+                                overflowLength={30}
+                            />
+                        </span>
                     </span>
+                    }
+                    
                 </span>
+                <br/>
+                {
+                    notification.seen ?
+                    <span style={{fontSize: '14px', color: '#737373'}}>Just Now</span>
+                    
+                    :
+                    <span style={{fontSize: '14px', fontWeight: 'bold', color: '#14c4b2'}}>Just Now</span>
+                }
+                
             </Grid>
             <Grid style={{ marginLeft: 15, marginRight: 0 }} item>
                 {
                     image === 'None' || !image ?
                         <Photo style={{ height: 80, width: 80, borderRadius: 8 }} />
                         :
-                        notification.seen?
-                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#f8f8f8', borderRadius: 8 }} src={image} alt="product" id="image" />
-                        :
-                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" />
-                        
-                    }
+                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" />           
+                }
             </Grid>
+            {
+                notification.seen ?
+                <div> </div>
+                :
+                <div style={{width: '10px', height: '10px', backgroundColor: '#14c4b2', margin: 'auto auto auto 15px', borderRadius: '100px'}}/>
+            }
+            
+
             <div style={{ position: 'absolute', background: '#f8f8f8', border: 'red' }} />
         </Grid>
     );

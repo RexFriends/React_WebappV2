@@ -54,14 +54,14 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
     };
 
     const fetchImage = () => {
-        if (notification.product_info && notification.product_info.images) {
-            fetch(notification.product_info.images)
-                .then(res => res.json())
-                .then(json => {
-                    setImage(json.img_1);
-                })
-                .catch(err => console.log('err 1'));
-        }
+        // if (notification.product_info && notification.product_info.images) {
+        //     fetch(notification.product_info.images)
+        //         .then(res => res.json())
+        //         .then(json => {
+        //             setImage(json.img_1);
+        //         })
+        //         .catch(err => console.log('err 1'));
+        // }
     }
     
 
