@@ -53,6 +53,18 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
         }
     };
 
+    const fetchImage = () => {
+        if (notification.product_info && notification.product_info.images) {
+            fetch(notification.product_info.images)
+                .then(res => res.json())
+                .then(json => {
+                    setImage(json.img_1);
+                })
+                .catch(err => console.log('err 1'));
+        }
+    }
+    
+
     const getNotifications = (update: boolean) => {
         const rexUID = localStorage.getItem('rexUID');
         fetch(`${APIURL}/api/get_notif?uid=${rexUID}`)
@@ -144,22 +156,26 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                             </Button>
                             <span style={{margin: 'auto auto auto 100px', fontWeight: 700}}>Send Feedback</span>
                         </div>
-                        
+                        { currentRequest ?
                         <div id="user-info" style={{height: '60px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', margin: '10px'}}>
                             <img src="https://ui-avatars.com/api/?background=207c9d&color=fff&rounded=true&name=Manas+Chakka&size=64" style={{width: '45px', height: '45px', margin: 'auto 5px auto 30px'}} />
                             <div style={{margin: 'auto auto auto 0px', flexDirection: 'column', display: 'flex', justifyContent: 'space-around'}}>
-                            <span style={{fontWeight: 700}} >Manas Chakka</span>
-                            <span style={{fontSize: '12px'}}>@mchakka456</span>
+                                <span style={{fontWeight: 700}} >{currentRequest.first_name + " " + currentRequest.last_name }</span>
+                                <span style={{fontSize: '12px'}}>{currentRequest.username}</span>
                             </div>
-                            
                         </div>
-                       
+                        :
+                        <div> Loading</div>
+                        }
+                        { currentRequest ?
+                        
+
                         <div id="product-info" style={{display: 'flex', flexDirection: 'row', width: '100%', height: '220px', margin: '5px auto 0px auto'}}>
                         
                             <div id="image-container" style={{height: '95%', width: '50%', margin: '5px 5px 5px auto'}}>
                                 { currentRequest ?
-                                    <img src="https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199879943/Ramen-Panda-tahiti-blue-light-t-shirt-teeturtle-full-21-1000x1000.jpg" alt="product img" style={{height: '100%', width: 'auto', display: 'block', margin: 'auto 5px auto auto'}}></img>
-                                    // <img src={currentRequest.images} alt="product img" style={{height: '100%', width: 'auto', display: 'block', margin: 'auto'}}></img>
+                                    // <img src="https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199879943/Ramen-Panda-tahiti-blue-light-t-shirt-teeturtle-full-21-1000x1000.jpg" alt="product img" style={{height: '100%', width: 'auto', display: 'block', margin: 'auto 5px auto auto'}}></img>
+                                    <img src={currentRequest.product_info.images[0]} alt="product img" style={{height: '100%', width: 'auto', display: 'block', margin: 'auto'}}></img>
                                 :
                                     <div>
                                         Loading
@@ -167,11 +183,16 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                                 }
                             </div>
                             <div id="product-details" style={{display: 'flex', flexDirection: "column", justifyContent: 'space-around', width: '40%', margin: '0 10px 0 0px'}}>
-                                <span>Brand</span>
-                                <span>Product Name</span>
+                                <span>{currentRequest.product_info.brand}</span>
+                                <span>{currentRequest.product_info.name}</span>
                                 <span>Price</span>
                             </div>
                         </div>
+                        :
+                        <div>
+                            loading
+                            </div>
+                            }
                         <div style={{height: '300px', width: '100%', margin: '0 auto auto auto', display: 'flex', flexDirection: 'column'}}>
                                 <div style={{margin: '10px auto 0 auto'}}>
                                 <IconButton

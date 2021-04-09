@@ -63,10 +63,11 @@ export const SearchBar = ({ scrolled }: SearchBarProps) => {
   return (
     <div id="SearchBar">
       <SearchBarComp
-        placeholder="Find People You Know / IN DEV"
+        placeholder="Find People You Know"
         value={searchBar}
         onChange={(val) => searchBarSet(val)}
         onRequestSearch={handleSearch}
+        onCancelSearch={() => {searchResultsSet([])}}
         style={{ backgroundColor: scrolled && "#f6f8f8" }}
       />
       <AnimatePresence>
