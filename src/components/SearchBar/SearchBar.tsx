@@ -67,7 +67,9 @@ export const SearchBar = ({ scrolled }: SearchBarProps) => {
         value={searchBar}
         onChange={(val) => searchBarSet(val)}
         onRequestSearch={handleSearch}
-        onCancelSearch={() => {searchResultsSet([])}}
+        onCancelSearch={() => {
+          searchResultsSet([]);
+        }}
         style={{ backgroundColor: scrolled && "#f6f8f8" }}
       />
       <AnimatePresence>
@@ -77,7 +79,9 @@ export const SearchBar = ({ scrolled }: SearchBarProps) => {
             initial={{ height: 0 }}
             animate={{
               height:
-                searchResults.length > 8 ? 400 : searchResults.length * 50,
+                searchResults.length > 8
+                  ? 400
+                  : searchResults.filter((u) => u.is_user).length * 50,
             }}
             exit={{ height: 0, opacity: 0 }}
           >
