@@ -1,56 +1,55 @@
 #SearchBar {
-  //   border: solid red 2px;
-  margin: auto;
-  min-width: 200px;
-  width: 80%;
-  // max-width: 1400px;
-  padding: 0px 0px;
-  position: relative;
-  #result-container {
-    position: absolute;
-    // border: solid red 2px;
-    width: 100%;
-    #results {
-      //   border: solid red 2px;
-      //   background-color: white;
-      margin: 0px 30px;
-
-      height: 100%;
-      overflow: auto;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-      box-shadow: -1px 4px 3px rgba(0, 0, 0, 0.062),
-        -1px 4px 3px rgba(0, 0, 0, 0.062);
-      #row {
-        background-color: white;
-        display: flex;
-        // padding: 10px;
-        // border: solid red 1px;
-        height: 50px;
-        align-items: center;
-        transition: background-color 0.2s;
-        cursor: pointer;
-        &:hover {
-          background-color: rgb(228, 228, 228);
+    //   border: solid red 2px;
+    margin: auto;
+    min-width: 200px;
+    width: 80%;
+    // max-width: 1400px;
+    padding: 0px 0px;
+    position: relative;
+    #result-container {
+        position: absolute;
+        // border: solid red 2px;
+        margin-top: 5px;
+        width: 100%;
+        #results {
+            //   border: solid red 2px;
+            //   background-color: white;
+            margin: 0px 30px;
+            height: 100%;
+            overflow: auto;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            box-shadow: -1px 4px 3px rgba(0, 0, 0, 0.062), -1px 4px 3px rgba(0, 0, 0, 0.062);
+            #row {
+                background-color: white;
+                display: flex;
+                // padding: 10px;
+                // border: solid red 1px;
+                height: 50px;
+                align-items: center;
+                transition: background-color 0.2s;
+                cursor: pointer;
+                &:hover {
+                    background-color: rgb(228, 228, 228);
+                }
+                #pro-img {
+                    height: 40px;
+                    margin-left: 5px;
+                }
+                #text {
+                    //   border: solid red 2px;
+                    margin: 5px auto auto 5px;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    #username {
+                        position: absolute;
+                        font-size: smaller;
+                        color: rgba(0, 0, 0, 0.507);
+                        top: 15px;
+                    }
+                }
+            }
         }
-        #pro-img {
-          height: 40px;
-          margin-left: 5px;
-        }
-        #text {
-          //   border: solid red 2px;
-          margin-left: 5px;
-          display: flex;
-          align-items: center;
-          position: relative;
-          #username {
-            position: absolute;
-            font-size: smaller;
-            color: rgba(0, 0, 0, 0.507);
-            top: 15px;
-          }
-        }
-      }
     }
-  }
 }
