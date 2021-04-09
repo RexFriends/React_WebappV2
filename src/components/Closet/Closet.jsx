@@ -52,7 +52,9 @@ function Closet() {
     }, [history.location]);
 
     useEffect(() => {
-        fetchCloset();
+        if (!showClosetForm) {
+            fetchCloset();
+        }
     }, [id, closetData]);
 
     const showEditForm = () => {
