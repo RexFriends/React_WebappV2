@@ -46,11 +46,40 @@ function Profile() {
     const handleFollow = () => {
         // fetch call to change follow state
         const payload = {
-            user_id: currUserInfo.id,
+            user_id: userData.id,
             new_follow_state: !following
         };
-        console.log('Change follow state to:', payload);
-        followingSet(!following);
+        console.log('Change follow state to:', id);
+
+        if (following)
+        {
+            fetch(`${APIURL}/api/unfollow-user?following=${id}&uid=${rexUID}`, {
+                method: 'POST'
+            })
+            .then(res => res.json())
+            .then(json => {
+                    followingSet(false);
+                }
+            );
+        }
+        else
+        {
+            fetch(`${APIURL}/api/follow-user?uid=${rexUID}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    following: id
+                }),
+            })
+            .then(res => res.json())
+            .then(json => {
+                    followingSet(true);
+                }
+            );
+        }
+
     };
 
     const handleBack = () => {
