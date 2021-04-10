@@ -7,13 +7,16 @@ import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import TextField from '@material-ui/core/TextField';
 import { Button} from '@material-ui/core';
 import { showAlert } from '../Alerts/Alerts';
-
+import CloseIcon from '@material-ui/icons/Close';
+import { StylesProvider } from "@material-ui/core/styles";
+// import "./styles.css";
 
 function AllClosets() {
     const rexUID = localStorage.getItem('rexUID');
     const [closetData, closetDataSet] = useState(undefined);
     const [creatingCloset, creatingClosetSet] = useState(false);
     const [closetName, closetNameSet] = useState("");
+
 
     const fetchClosets = () => {
         fetch(`${APIURL}/api/closet_preview?uid=${rexUID}`)
@@ -55,7 +58,17 @@ function AllClosets() {
                 showAlert('Closet Created!', 'success');
                 creatingClosetSet(false);
                 fetchClosets();
+                closetNameSet("");
             }
+        }
+    }
+
+    const handleEditCloset = (val) => {
+        if (creatingCloset) {
+            creatingClosetSet(val);
+            closetNameSet("");
+        } else {
+            creatingClosetSet(val);
         }
     }
 
@@ -77,21 +90,39 @@ function AllClosets() {
                             type: 'tween',
                             delay: 0.3
                         }}
-                        onClick={() => creatingClosetSet(true)}
+                        onClick={() => handleEditCloset(true)}
                     >
                         <div id="new-closet">
                             {
-
+                                
                                 creatingCloset ?
-                                <div id="new-form">
+                                
+                                <motion.div id='new-form'
+                                    initial={{ y: 100, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ type: "tween", delay: 0.2 }}
+                                >
+                                    
+                                    <Button 
+                                        onClick={(e) => {handleEditCloset(false); e.stopPropagation();}} 
+                                        style={{width: '30px', height: '30px', borderRadius: '100px', margin: '5px 0px 5px auto'}}>
+                                        <CloseIcon style={{color: 'white', width: '30x', height: '30px'}}/>
+                                    </Button>
+                                    <StylesProvider injectFirst>
                                     <TextField
+                                    id="text"
                                     style={{margin: 'auto auto 0px auto', color: '#fff'}}
                                     label='Closet Name'
+                                    InputProps={{
+                                        /* @ts-ignore */
+                                        style: { color: '#fff', borderRadius: 50, borderBottomColor: '#fff', borderColor: '#fff' }
+                                    }}
                                     value={closetName}
                                     onChange={(e) => {
                                         closetNameSet(e.target.value);
                                     }}
                                     ></TextField>
+                                    </StylesProvider>
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -101,13 +132,21 @@ function AllClosets() {
                                         >
                                         Done
                                     </Button>
-                                </div>
+                                </motion.div>
 
                             :
+                            // <motion.div id='content'
+                            //         initial={{ y: -100, opacity: 0 }}
+                            //         animate={{ y: 0, opacity: 1 }}
+                            //         transition={{ type: "tween", delay: 0.0 }}
+                            //     >
+                            //     <LibraryAddIcon style={{color: "white", fontSize: 70, margin: "auto auto 0px auto"}}/>
+                            //     <span style={{margin: '5px auto auto auto', color: 'white', fontWeight: '700', fontSize: '24px'}}>New</span>
+                            // </motion.div>
                             <div id="content">
                                 <LibraryAddIcon style={{color: "white", fontSize: 70, margin: "auto auto 0px auto"}}/>
                                 <span style={{margin: '5px auto auto auto', color: 'white', fontWeight: '700', fontSize: '24px'}}>New</span>
-                        </div>
+                                </div>
                             }
                         </div>
                     </motion.div>

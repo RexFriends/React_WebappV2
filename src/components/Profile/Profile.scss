@@ -1,134 +1,186 @@
-#profile-page{
-    height: 100%;
-  
-    display: flex;
-    flex-direction: column;
-    background-color: #F7F8F8;
-    #user-info{
-        padding: 10px;
-        z-index: 300;
-        color: #707070;
-
-        #propic{
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 100px;
-            border: solid rgb(145, 144, 144) 1px;
-        }
-        #username{
-            font-weight: 800;
+    #profile-page {
+        height: 100%;
+        max-width: 1200px;
+        margin: 10px auto auto auto;
+        display: flex;
+        flex-direction: column;
+        background-color: #F7F8F8;
+        #user-info {
+            padding: 10px;
+            z-index: 300;
             color: #707070;
-        }
-       
-        #buttons{
-            // border: solid red 2px;
-            display: flex;
-            min-width: 300px;
-           
-            justify-content: space-evenly;
-            margin: 0px auto;
-            #closetcount{
-                margin: auto;
+            #propic {
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 100px;
             }
-            
-                #back{
+            #username {
+                font-weight: 800;
+                color: #707070;
+            }
+            #buttons {
+                // border: solid red 2px;
+                display: flex;
+                min-width: 300px;
+                justify-content: space-evenly;
+                margin: 0px auto;
+                #closetcount {
+                    margin: auto;
+                }
+                #back {
                     margin-right: 115px;
                     margin-left: 12px;
-                    background-color:rgb(236, 235, 235) ;
+                    background-color: rgb(236, 235, 235);
                     height: 40px;
                     width: 40px;
                 }
-                #profile-options{
+                #profile-options {
                     margin: auto 0;
-                    #follow{
+                    #follow {
                         // border: solid red 2px;
                         width: 110px;
                         height: 35px;
                         margin: auto 0;
-                        background-color:rgb(236, 235, 235) ;
+                        background-color: rgb(236, 235, 235);
                         font-family: "Baloo 2";
                     }
-                    #menu{
-                        
+                    #menu {
                         margin: auto 12px;
-                        background-color:rgb(236, 235, 235) ;
+                        background-color: rgb(236, 235, 235);
                         height: 40px;
                         width: 40px;
                     }
                 }
-               
-            
-            
-        }
-    }
-    #user-closets{
-        z-index: 200;
-        margin-top: -30px;
-        flex-grow: 1;
-        
-        #closet-banner{
-            z-index: 250;
-            box-shadow: 0 0 5px  rgba(0, 0, 0, 0.4);
-            height: 150px;
-            margin: 30px 30px;
-            border-radius: 30px;
-            background-color: rgba(1, 125, 129, 0.288);
-            display: flex;
-            cursor: pointer;
-            
-            #img{
-                object-fit: cover;
-                width: 130px;
-                height: 130px;
-                margin-top: auto;
-                margin-bottom: auto;
-                margin-left: 20px;
-                user-select: none;
             }
-            #description{
-                padding-bottom: 20px;
-                padding-left: 25px;;
+        }
+        #user-closets {
+            padding: 10px;
+            // border: solid red 2px;
+            margin: 0px 10px;
+            overflow: hidden;
+            grid-gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+            #content {
+                // border: solid red 2px;
+                width: 220px;
+                height: 220px;
                 display: flex;
                 flex-direction: column;
-                justify-content: flex-end;
-                color: #ffffff;
-                mix-blend-mode: luminosity;;
-                #user{
-                    font-size:calc(8px + 1.5vw);
-                    font-weight: 600;
-                    text-align: left;
-                    mix-blend-mode: difference;
-                    user-select: none;
-                }
-                #name{
-                    font-size:calc(28px + 1.5vw);
-                    font-weight: 600;
-                    line-height: 40px;
-                    text-align: left;
-                    user-select: none;
-                    
-                }
             }
-            #fill{
-                flex-grow: 1;
+            .closet {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                position: relative;
+                width: 220px;
+                height: 220px;
                 display: flex;
                 flex-direction: row;
-                justify-content: flex-end;
-             
-                div{
-                    #menu{
-                        background-color:rgba(0, 0, 0, 0.05 ) ;
-                        width: 50px;
-                        height: 50px;
-                        margin-right: 10px;
-                        margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                margin-bottom: 10px;
+                #stock-closet-image {
+                    width: 220px;
+                    height: 220px;
+                    border-radius: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    #name {
+                        color: white;
+                        margin: 0px auto auto 10px;
+                        font-weight: 700;
+                        font-size: 35px;
                     }
+                    .options-button {
+                        margin: 0 15px 10px auto;
+                        padding: unset;
+                    }
+                    // background-color: rosybrown;
                 }
-                
+                #closet-name {
+                    position: absolute;
+                    width: 200px;
+                    color: rgb(80, 80, 80);
+                    margin-left: 10px;
+                    top: 220px;
+                    // border: solid red 2px;
+                    font-size: 20px;
+                    font-weight: 500;
+                }
+                #img {
+                    // border: solid red 2px;
+                    width: 90px;
+                    height: 90px;
+                    object-fit: contain;
+                    margin: 5px;
+                }
+                #closet-icon {
+                    width: 220px;
+                    height: 220px;
+                    object-fit: contain;
+                    // border: solid red 2px;
+                }
             }
-            
+            // #closet-banner {
+            //     z-index: 250;
+            //     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+            //     height: 150px;
+            //     margin: 30px 30px;
+            //     border-radius: 30px;
+            //     background-color: rgba(1, 125, 129, 0.288);
+            //     display: flex;
+            //     cursor: pointer;
+            //     #img {
+            //         object-fit: cover;
+            //         width: 130px;
+            //         height: 130px;
+            //         margin-top: auto;
+            //         margin-bottom: auto;
+            //         margin-left: 20px;
+            //         user-select: none;
+            //     }
+            // #description {
+            //     padding-bottom: 20px;
+            //     padding-left: 25px;
+            //     ;
+            //     display: flex;
+            //     flex-direction: column;
+            //     justify-content: flex-end;
+            //     color: #ffffff;
+            //     mix-blend-mode: luminosity;
+            //     ;
+            //     #user {
+            //         font-size: calc(8px + 1.5vw);
+            //         font-weight: 600;
+            //         text-align: left;
+            //         mix-blend-mode: difference;
+            //         user-select: none;
+            //     }
+            //     #name {
+            //         font-size: calc(28px + 1.5vw);
+            //         font-weight: 600;
+            //         line-height: 40px;
+            //         text-align: left;
+            //         user-select: none;
+            //     }
+            // }
+            // #fill {
+            //     flex-grow: 1;
+            //     display: flex;
+            //     flex-direction: row;
+            //     justify-content: flex-end;
+            //     div {
+            //         #menu {
+            //             background-color: rgba(0, 0, 0, 0.05);
+            //             width: 50px;
+            //             height: 50px;
+            //             margin-right: 10px;
+            //             margin-top: 10px;
+            //         }
+            //     }
+            // }
         }
-        
     }
-}

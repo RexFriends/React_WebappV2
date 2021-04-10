@@ -12,7 +12,7 @@ import { copyFallback } from '../../util';
 import { showAlert } from '../Alerts/Alerts';
 import AddToClosetPopup from '../AddToClosetPopup/AddToClosetPopup';
 
-function ProductItem({ item, updateProducts }) {
+function ProductItem({ item, isOwned, updateProducts }) {
     const [hover, hoverSet] = useState(false);
     const [image, imageSet] = useState(undefined);
     const [brand, brandSet] = useState('Brand');
@@ -267,6 +267,7 @@ function ProductItem({ item, updateProducts }) {
                     )}
                 </AnimatePresence>
             </motion.div>
+            { isOwned ?
             <OptionsPopup
                 anchorElementId={productId}
                 open={showPopup}
@@ -279,6 +280,19 @@ function ProductItem({ item, updateProducts }) {
                     { text: "Remove Product", onClick: handleDelete, isDelete: true },
                 ]}
             />
+            :
+            <OptionsPopup
+                anchorElementId={productId}
+                open={showPopup}
+                onClose={() => setShowPopup(false)}
+                title="Options"
+                buttons={[
+                    { text: "Add to Closet", onClick: handleShowAddToClosetPopup, icon: <AddToPhotos /> },
+                    { text: "Send a Rex", onClick: handleShowFeedbackPopup, icon: <Send />, },
+                    { text: "Copy Link", onClick: handleGetCopyLink, icon: <FileCopy /> },
+                ]}
+            />
+            }
             <FeedbackPopup
                 anchorElementId={productId}
                 open={showFeedbackPopup}

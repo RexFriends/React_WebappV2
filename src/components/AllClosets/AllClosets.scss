@@ -32,6 +32,14 @@
                 flex-direction: column;
                 width: 220px;
                 height: 220px;
+                #text {
+                    &.label.Mui-focused {
+                        color: 'green'
+                    }
+                    &.MuiInput-underline:after {
+                        border-bottom-color: 'green'
+                    }
+                }
             }
             #content {
                 // border: solid red 2px;

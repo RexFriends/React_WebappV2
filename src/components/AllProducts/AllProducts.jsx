@@ -31,7 +31,7 @@ function AllProducts() {
             <div id="container">
                 <AnimatePresence>
                     <>
-                        {productData.map((product, i) => <ProductItem item={product} updateProducts={fetchProducts} key={i}/>)}
+                        {productData.map((product, i) => <ProductItem item={product} isOwned={true} updateProducts={fetchProducts} key={i}/>)}
                     </>
                 </AnimatePresence>
             </div>

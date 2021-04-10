@@ -23,6 +23,7 @@ function Closet() {
     const [imageUpload, imageUploadSet] = useState(undefined);
     const [fileUpload, fileUploadSet] = useState(undefined);
     const [headerColor, setHeaderColor] = useState(undefined);
+    const [isOwned, setIsOwned] = useState(false);
     const { id } = useParams();
 
     const fetchCloset = () => {
@@ -37,7 +38,9 @@ function Closet() {
             .then((json) => {
                 closetDataSet(json);
                 setHeaderColor(json.background_color);
+                console.log('is owned? ', isOwned);
                 if (json.isOwned === true) {
+                    setIsOwned(true);
                     imageUploadSet(json.closet_image_uri);
                     publicValueSet(json.user.isPublic);
                     closetNameSet(json.name);
@@ -119,6 +122,10 @@ function Closet() {
         }
     };
 
+    const handleBackButtonSocial = () => {
+        history.push(`/user/${closetData.user.id}`);
+    };
+
     return (
         <motion.div
             id="ClosetPage"
@@ -156,15 +163,20 @@ function Closet() {
                     ) : (
                         <motion.div
                             id="closet-header"
-                            style={{ backgroundColor: '#1F7C9D' }}
+                            style={{ backgroundColor: `#${headerColor}` }}
                             initial={{ x: 200, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.3 }}
                         >
+                            <IconButton
+                                id="back-button"
+                                onClick={handleBackButtonSocial}
+                            >
+                                <ArrowBackIcon />
+                            </IconButton>
                             <div id="text">
-                                <div id="user">
-                                    {`${closetData.user.first_name} ${closetData.user.last_name}'s`}
-                                </div>
+                                <div id="closet-name">{`${closetData.user.first_name} ${closetData.user.last_name}'s`}</div>
+                                <div id="name">{closetData.name}</div>
                             </div>
                         </motion.div>
                     )
@@ -247,7 +259,7 @@ function Closet() {
                             <>
                                 {
                                     closetData &&
-                                    closetData.listings.map((product, i) => (<ProductItem item={product} updateProducts={fetchCloset} key={i} />))
+                                    closetData.listings.map((product, i) => (<ProductItem item={product} isOwned={isOwned} updateProducts={fetchCloset} key={i} />))
                                 }
                             </>
                         </motion.div>

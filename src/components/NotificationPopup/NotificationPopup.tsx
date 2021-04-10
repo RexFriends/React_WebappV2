@@ -130,7 +130,7 @@ function NotificationPopup({
     <Popover
       PaperProps={{
         style: {
-          height: "80vh",
+          height: "calc(100vh - 100px)",
           width: 465,
           maxWidth: "100vw",
           borderRadius: 15,
@@ -144,7 +144,7 @@ function NotificationPopup({
       {page === "notifications" ? (
         //  <NotificationList notifications={notifications} updated={performUpdateCall}/>
         <Grid container>
-          <Scrollbars style={{ height: "80vh", margin: "0px auto" }} autoHide>
+          <Scrollbars style={{ height: "calc(100vh - 100px)", margin: "0px auto"}} autoHide>
             <h3
               style={{
                 margin: "15px auto 0px 30px",
