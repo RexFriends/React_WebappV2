@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Grid, Popover } from '@material-ui/core';
+import { Button, Checkbox, Divider, Grid, Popover } from '@material-ui/core';
 import type { PopoverOrigin, PopoverPosition } from '@material-ui/core';
-import { AddToPhotos } from '@material-ui/icons';
+import { Done } from '@material-ui/icons';
 import { positionPopup } from '../../util';
 import APIURL from '../../assets/URL';
 import { showAlert } from '../Alerts/Alerts';
@@ -97,16 +97,36 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
             open={open}
             onClose={onClose}
         >
-            <Grid direction="column" container>
-                {
-                    closets.map((c, i) => (
-                        <Grid key={i} alignItems="center" container item>
-                            <Checkbox name={i.toString()} checked={closetsChecked[i]} onChange={handleChange} />
-                            <span>{c.closet_name}</span>
-                        </Grid>
-                    ))
-                }
-                <Button className="round-button" startIcon={<AddToPhotos />} onClick={handleAdd}>Add</Button>
+            <Grid alignItems="center" direction="column" container>
+                <Grid item>
+                    <span style={{ fontWeight: 'bold', textAlign: 'left', fontSize: '15px' }}>Add to Closet</span>
+                </Grid>
+                <Grid style={{ margin: '10px 0 10px -15px', width: 'calc(100% + 30px)' }} item>
+                    <Divider />
+                </Grid>
+                <div style={{ height: 100, overflowY: 'auto' }}> {/* TODO: center */}
+                    {
+                        closets.map((c, i) => (
+                            <Grid key={i} alignItems="center" container item>
+                                <Grid item>
+                                    <Checkbox style={{ margin: '0 12px 0 0', padding: 0 }} name={i.toString()} checked={closetsChecked[i]} onChange={handleChange} />
+                                </Grid>
+                                <Grid item>
+                                    <span>{c.closet_name}</span>
+                                </Grid>
+                            </Grid>
+                        ))
+                    }
+                </div>
+                <Button
+                    className="round-button"
+                    style={{ width: '70%', backgroundColor: '#14c4b2', fontWeight: 'bold', color: '#ffffff' }}
+                    startIcon={<Done />}
+                    onClick={handleAdd}
+                    variant="contained"
+                >
+                    Update
+                </Button>
             </Grid>
         </Popover>
     );
