@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { MouseEventHandler } from 'react';
 import { Button, Grid, IconButton, InputAdornment, Popover, TextField } from '@material-ui/core';
 import type { PopoverOrigin, PopoverPosition } from '@material-ui/core';
-import { Cancel, Close, FileCopy, PersonAdd, Search, Send } from '@material-ui/icons';
+import { Cancel, Close, Dialpad, FileCopy, PersonAdd, Search, Send } from '@material-ui/icons';
 import TextOverflow from '../TextOverflow/TextOverflow';
 import Scrollbars from 'react-custom-scrollbars';
 import { positionPopup } from '../../util';
@@ -15,7 +15,7 @@ export interface IFeedbackPopupProps {
     handleSearch: (event: object) => void,
     friends: Array<IFriend>,
     handleSendRequest: (id: number) => void,
-    handleInvite: (ref: React.RefObject<HTMLElement>) => Promise<void>
+    handleInvite: (nameInput: React.RefObject<HTMLElement>, phoneInput: React.RefObject<HTMLElement>) => Promise<void>
 }
 
 function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
@@ -23,7 +23,8 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
     const [position, setPosition] = useState<PopoverPosition>({ top: 0, left: 0 });
     const [origin, setOrigin] = useState<PopoverOrigin>({ vertical: 'top', horizontal: 'right' });
     const [invite, setInvite] = useState<boolean>(false);
-    const phoneInput = useRef<HTMLElement>(null);
+    const nameInput = useRef<HTMLInputElement>(null);
+    const phoneInput = useRef<HTMLInputElement>(null);
 
     const anchorElement = document.getElementById(anchorElementId);
     useEffect(() => {
@@ -36,13 +37,13 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
     };
 
     const handleCancel = () => {
-        // @ts-ignore
-        phoneInput.current.value = '';
+        nameInput.current!.value = '';
+        phoneInput.current!.value = '';
         setInvite(false);
     };
 
     const onInvite = () => {
-        handleInvite(phoneInput)
+        handleInvite(nameInput, phoneInput)
             .then(() => {
                 handleCancel();
             });
@@ -81,9 +82,9 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                 startAdornment: <InputAdornment style={{ marginRight: 5 }}>{invite ? <PersonAdd /> : <Search />}</InputAdornment>,
                                 style: { height: 40, borderRadius: 15 }
                             }}
-                            placeholder={invite ? 'Add Phone Number' : 'Search for Users'}
+                            placeholder={invite ? 'Name' : 'Search for Users'}
                             onChange={invite ? () => null : handleSearch}
-                            inputRef={phoneInput}
+                            inputRef={nameInput}
                         />
                     </Grid>
                     {
@@ -99,6 +100,21 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                         )
                     }
                 </Grid>
+                {
+                    invite &&
+                    <Grid style={{ marginTop: 5 }} item>
+                        <TextField
+                            variant="outlined"
+                            InputProps={{
+                                /* @ts-ignore */
+                                startAdornment: <InputAdornment style={{ marginRight: 5 }}>{<Dialpad />}</InputAdornment>,
+                                style: { height: 40, borderRadius: 15 }
+                            }}
+                            placeholder="Phone Number"
+                            inputRef={phoneInput}
+                        />
+                    </Grid>
+                }
                 <Grid style={{ height: '30vh', maxHeight: 450 }} item>
                     <Scrollbars style={{ height: '100%', marginTop: '5px' }} autoHide>
                         {
@@ -112,7 +128,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                     <TextOverflow
                                                         style={{ fontSize: '9pt', fontWeight: 'bold' }}
                                                         text={f.is_user ? `${f.first_name} ${f.last_name}` : f.name}
-                                                        overflowLength={26}
+                                                        overflowLength={15}
                                                     />
                                                     {
                                                         <span style={{ fontSize: '8pt' }}>
@@ -135,7 +151,6 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                     endIcon={<Send>Send</Send>}
                                                     style={{width: '80px', backgroundColor: "#14c4b2", borderRadius: 50, color: 'white', textTransform: 'none', marginRight: '15px'}}
                                                     onClick={() => handleSendRequest(f.id)}
-
                                                 >
                                                     Send
                                                 </Button>
