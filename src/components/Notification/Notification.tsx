@@ -5,10 +5,12 @@ import TextOverflow from '../TextOverflow/TextOverflow';
 
 export interface INotificationProps {
     notification: INotification,
-    updater: (toUpdate: Array<NotificationUpdate>) => void
+    updater: (toUpdate: Array<NotificationUpdate>) => void,
+    setPage: React.Dispatch<React.SetStateAction<string>>,
+    openNotification: (notification: INotification, image: string) => void
 }
 
-function Notification({ notification, updater }: INotificationProps): JSX.Element {
+function Notification({ notification, updater, setPage, openNotification }: INotificationProps): JSX.Element {
     const [name, setName] = useState<string>('');
     const [image, setImage] = useState<string>('');
 
@@ -43,8 +45,10 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                 backgroundColor: '#ffffff',
                 borderRadius: 8,
                 margin: '5px 0',
-                padding: 10
+                padding: 10,
+                cursor: 'pointer'
             }}
+            onClick={() => openNotification(notification, image)}
             alignItems="center"
             container
             item
@@ -71,7 +75,7 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                             &nbsp;{notification.notif_type === 'Request' ? 'wants your feedback on' : 'sent you feedback on'}
                             &nbsp;
                             </span>
-                            
+
                             <span style={{ fontWeight: 'bold', color: '#737373' }}>
                                 <TextOverflow
                                     text={notification.product_info.name ? notification.product_info.name.split(',')[0] : 'Something'}
@@ -92,26 +96,23 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                         </span>
                     </span>
                     }
-                    
+
                 </span>
                 <br/>
                 {
                     notification.seen ?
                     <span style={{fontSize: '14px', color: '#737373'}}>{notification.time}</span>
-                    
                     :
                     <span style={{fontSize: '14px', fontWeight: 'bold', color: '#14c4b2'}}>{notification.time}</span>
                 }
-                
+
             </Grid>
             <Grid style={{ marginLeft: 15, marginRight: 0 }} item>
                 {
                     image === 'None' || !image ?
                         <Photo style={{ height: 80, width: 80, borderRadius: 8 }} />
                         :
-                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" >
-                            
-                            </img>           
+                        <img style={{ height: 80, width: 80, objectFit: 'contain', background: '#fff', borderRadius: 8 }} src={image} alt="product" id="image" />
                 }
             </Grid>
             {
@@ -120,7 +121,7 @@ function Notification({ notification, updater }: INotificationProps): JSX.Elemen
                 :
                 <div style={{width: '10px', height: '10px', backgroundColor: '#14c4b2', margin: 'auto auto auto 15px', borderRadius: '100px'}}/>
             }
-            
+
 
             <div style={{ position: 'absolute', background: '#f8f8f8', border: 'red' }} />
         </Grid>

@@ -15,6 +15,7 @@ interface INotification {
     last_name: string,
     username: string,
     notif_type: 'Request' | 'Completed',
+    did_reply: boolean,
     feedback_form_link?: string,
     product_info: IProduct,
     products?: number,
@@ -31,6 +32,7 @@ interface IProduct {
     id: number,
     name: string,
     brand: string,
+    price: string,
     images: string,
     url: string
 }
@@ -48,6 +50,15 @@ interface IClosetItem {
     img: string,
     images: string,
     isWebscraped: boolean
+}
+
+interface IFeedback {
+    first_name: string,
+    last_name: string,
+    profile_image: string,
+    feedback_text: string,
+    thumbs_up?: boolean,
+    time: string
 }
 
 type NotificationUpdate = {
