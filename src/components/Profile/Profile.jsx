@@ -100,7 +100,7 @@ function Profile() {
                 <div id="username">@{userData.username}</div>
                 <div id="buttons">
                     <IconButton id="back" onClick={handleBack}><BiArrowBack /></IconButton>
-                    <div id="closetcount">{userData.count} Closets</div>
+                    <div id="closetcount">{`${userData.followers} Followers | ${userData.count} Closets`}</div>
                     <div id="profile-options">
                         <Button
                             id="follow" className={following ? 'highlight' : 'none'} onClick={() => {handleFollow()}} size="small"

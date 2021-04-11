@@ -67,6 +67,7 @@ function Dashboard({ children }) {
             );
             closetDataSet(updatedData);
             NotifCountSet(json.notif_count);
+            console.log("payload", json);
           } else {
             userAuthSet(false);
             localStorage.removeItem("rexUID");
@@ -286,12 +287,15 @@ function Dashboard({ children }) {
                       {userData &&
                         `${userData.first_name} ${userData.last_name}`}
                     </div>
-                    <div id="temp-propic">
+                    {userData &&
+                      <img src={userData.profile_image}/>
+                    }
+                    {/* <div id="temp-propic">
                       {userData &&
                         `${userData.first_name.charAt(
                           0
                         )}${userData.last_name.charAt(0)}`}
-                    </div>
+                    </div> */}
                   </div>
                 )}
               </div>
