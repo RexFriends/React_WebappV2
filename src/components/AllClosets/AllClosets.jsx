@@ -9,13 +9,17 @@ import { Button} from '@material-ui/core';
 import { showAlert } from '../Alerts/Alerts';
 import CloseIcon from '@material-ui/icons/Close';
 import { StylesProvider } from "@material-ui/core/styles";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import "./styles.css";
+import Checkbox from '@material-ui/core/Checkbox';
+import { SquareFoot } from '@material-ui/icons';
 
 function AllClosets() {
     const rexUID = localStorage.getItem('rexUID');
     const [closetData, closetDataSet] = useState(undefined);
     const [creatingCloset, creatingClosetSet] = useState(false);
     const [closetName, closetNameSet] = useState("");
+    const [isPublic, setIsPublic] = useState(false);
 
 
     const fetchClosets = () => {
@@ -72,6 +76,10 @@ function AllClosets() {
         }
     }
 
+    const handlePublicChange = () => {
+        setIsPublic(!isPublic);
+    }
+
     return (
         <motion.div id='AllClosetsPage'
             initial={{ opacity: 0 }}
@@ -123,6 +131,10 @@ function AllClosets() {
                                     }}
                                     ></TextField>
                                     </StylesProvider>
+                                    {/* <FormControlLabel
+                                        control={<Checkbox checked={setIsPublic(true)} onChange={handlePublicChange()} name="checkedA" />}
+                                        label="Secondary"
+                                    /> */}
                                     <Button
                                         variant="contained"
                                         color="primary"
