@@ -13,14 +13,12 @@ export interface ISendFeedbackProps {
 }
 
 function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISendFeedbackProps): JSX.Element {
-    const [thumbs, setThumbs] = useState<boolean | undefined>(notification.did_reply ? notification.thumbs_up  : undefined);
+    const [thumbs, setThumbs] = useState<boolean | undefined>(undefined);
     const [additionalFeedback, setAdditionalFeedback] = useState<string>('');
 
     const goBack = () => {
-        if (!notification.did_reply) {
-            setThumbs(undefined);
-            setAdditionalFeedback('');
-        }
+        setThumbs(undefined);
+        setAdditionalFeedback('');
         setPage('notifications');
     };
 
@@ -90,7 +88,7 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                 <div style={{ margin: "10px auto 0 auto" }}>
                     {
                         notification.did_reply ? (
-                            thumbs ? (
+                            notification.thumbs_up ? (
                                 <IconButton
                                     className="highlight1"
                                     style={{ color: "#37DB69", width: "70px", height: "70px" }}
@@ -134,22 +132,6 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                 <span style={{ fontWeight: 'bold' }}>Feedback</span>
                                 &nbsp;(optional)
                             </span>
-                            <Button
-                                onClick={() => handleSendFeedback(thumbs, additionalFeedback)}
-                                id="submit"
-                                style={{
-                                    width: "80px",
-                                    height: "40px",
-                                    margin: "10px auto auto auto",
-                                    backgroundColor: "#14c4b2",
-                                    color: "white",
-                                    borderRadius: "100px",
-                                    fontWeight: 700,
-                                    fontSize: "16px",
-                                }}
-                            >
-                                Send
-                            </Button>
                             <TextField
                                 InputProps={{
                                     style: {
@@ -166,6 +148,22 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                 onChange={(e) => setAdditionalFeedback(e.target.value)}
                                 multiline
                             />
+                            <Button
+                                onClick={() => handleSendFeedback(thumbs, additionalFeedback)}
+                                id="submit"
+                                style={{
+                                    width: "80px",
+                                    height: "40px",
+                                    margin: "10px auto auto auto",
+                                    backgroundColor: "#14c4b2",
+                                    color: "white",
+                                    borderRadius: "100px",
+                                    fontWeight: 700,
+                                    fontSize: "16px",
+                                }}
+                            >
+                                Send
+                            </Button>
                         </>
                     )
                 }

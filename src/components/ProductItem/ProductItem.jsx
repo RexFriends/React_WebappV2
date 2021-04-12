@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Grid } from '@material-ui/core';
-import { AddToPhotos, FileCopy, MoreHoriz, Send } from '@material-ui/icons';
-import IconButton from '@material-ui/core/IconButton';
+import { Grid, IconButton } from '@material-ui/core';
+import { AddToPhotos, FileCopy, Launch, MoreHoriz, Send } from '@material-ui/icons';
 import TextOverflow from '../TextOverflow/TextOverflow';
-import SendIcon from '@material-ui/icons/Send';
 import APIURL from '../../assets/URL';
 import OptionsPopup from '../OptionsPopup/OptionsPopup';
 import FeedbackPopup from '../FeedbackPopup/FeedbackPopup';
@@ -189,6 +187,10 @@ function ProductItem({ item, isOwned, updateProducts }) {
         setShowPopup(false);
     };
 
+    const handleOpenLink = () => {
+        window.open(item.url, '_blank');
+    };
+
     const productId = `product-${item.id}`;
 
     return (
@@ -209,15 +211,15 @@ function ProductItem({ item, isOwned, updateProducts }) {
                     container
                 >
                     <Grid xs={8} direction="column" container item>
-            <span
-                style={{
-                    fontWeight: "bold",
-                    textAlign: "left",
-                    fontSize: "15px",
-                }}
-            >
-              {brand}
-            </span>
+                        <span
+                            style={{
+                                fontWeight: "bold",
+                                textAlign: "left",
+                                fontSize: "15px",
+                            }}
+                        >
+                          {brand}
+                        </span>
                         <TextOverflow
                             style={{
                                 color: "rgb(114, 114, 114)",
@@ -255,9 +257,17 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <div id="top">
-                                <IconButton onClick={handleShowFeedbackPopup} id="info">
-                                    <SendIcon
+                            <div style={{ position: 'absolute', top: 5, right: 5 }}>
+                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleShowFeedbackPopup}>
+                                    <Send
+                                        fontSize="large"
+                                        style={{ color: "14c4b2", width: "30px", height: "30px" }}
+                                    />
+                                </IconButton>
+                            </div>
+                            <div style={{ position: 'absolute', bottom: 65, right: 5 }}>
+                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleOpenLink}>
+                                    <Launch
                                         fontSize="large"
                                         style={{ color: "14c4b2", width: "30px", height: "30px" }}
                                     />
