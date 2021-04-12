@@ -42,11 +42,11 @@ function ViewFeedback({ notification, image, setPage }: IViewFeedbackProps): JSX
                 </span>
             </Grid>
             <Grid style={{ width: "100%", height: 175, marginTop: 15 }} justify="center" container item>
-                <div style={{ height: "95%", width: '50%', margin: 'auto', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', height: "95%", width: '50%', justifyContent: 'center' }}>
                     <img
                         src={image}
                         alt="product img"
-                        style={{ height: 'auto', width: '100%', display: 'flex', margin: 'auto 0px' }}
+                        style={{ maxHeight: '100%', maxWidth: '100%' }}
                     />
                 </div>
                 <Grid
