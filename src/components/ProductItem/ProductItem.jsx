@@ -62,12 +62,21 @@ function ProductItem({ item, isOwned, updateProducts }) {
         setShowPopup(false);
     };
 
-    const handleSendRequest = (id) => {
+    const handleSendRequest = (id, isUser) => {
         const rexUID = localStorage.getItem("rexUID");
+
         const payload = {
-            user_requesting_id: id,
+            user_requesting_id: null,
+            contact_id: null,
             product_id: item.id,
         };
+
+        if (isUser) {
+            payload.user_requesting_id = id;
+        } else {
+            payload.contact_id = id;
+        }
+
         fetch(`${APIURL}/api/send_rex?uid=${rexUID}`, {
             method: "POST",
             headers: {
