@@ -129,6 +129,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                             InputProps={{
                                 /* @ts-ignore */
                                 startAdornment: (
+                                    /* @ts-ignore */
                                     <InputAdornment style={{ marginRight: 5 }}>
                                         {invite ? <PersonAdd /> : <Search />}
                                     </InputAdornment>
@@ -174,6 +175,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                             InputProps={{
                                 /* @ts-ignore */
                                 startAdornment: (
+                                    /* @ts-ignore */
                                     <InputAdornment style={{ marginRight: 5 }}>
                                         {<Dialpad />}
                                     </InputAdornment>
