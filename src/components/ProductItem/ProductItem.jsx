@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Grid } from "@material-ui/core";
-import { AddToPhotos, FileCopy, MoreHoriz, Send } from "@material-ui/icons";
-import IconButton from "@material-ui/core/IconButton";
-import TextOverflow from "../TextOverflow/TextOverflow";
-import SendIcon from "@material-ui/icons/Send";
-import APIURL from "../../assets/URL";
-import OptionsPopup from "../OptionsPopup/OptionsPopup";
-import FeedbackPopup from "../FeedbackPopup/FeedbackPopup";
-import { copyFallback } from "../../util";
-import { showAlert } from "../Alerts/Alerts";
-import AddToClosetPopup from "../AddToClosetPopup/AddToClosetPopup";
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Grid, IconButton } from '@material-ui/core';
+import { AddToPhotos, FileCopy, Launch, MoreHoriz, Send } from '@material-ui/icons';
+import TextOverflow from '../TextOverflow/TextOverflow';
+import APIURL from '../../assets/URL';
+import OptionsPopup from '../OptionsPopup/OptionsPopup';
+import FeedbackPopup from '../FeedbackPopup/FeedbackPopup';
+import { copyFallback } from '../../util';
+import { showAlert } from '../Alerts/Alerts';
+import AddToClosetPopup from '../AddToClosetPopup/AddToClosetPopup';
 
 function ProductItem({ item, isOwned, updateProducts }) {
     const [hover, hoverSet] = useState(false);
@@ -191,6 +189,10 @@ function ProductItem({ item, isOwned, updateProducts }) {
         setShowPopup(false);
     };
 
+    const handleOpenLink = () => {
+        window.open(item.url, '_blank');
+    };
+
     const productId = `product-${item.id}`;
 
     return (
@@ -217,9 +219,8 @@ function ProductItem({ item, isOwned, updateProducts }) {
                                 textAlign: "left",
                                 fontSize: "15px",
                             }}
-                            id="brand"
                         >
-                            {brand}
+                          {brand}
                         </span>
                         <TextOverflow
                             style={{
@@ -260,12 +261,17 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <div id="top">
-                                <IconButton
-                                    onClick={handleShowFeedbackPopup}
-                                    id="info"
-                                >
-                                    <SendIcon
+                            <div style={{ position: 'absolute', top: 5, right: 5 }}>
+                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleShowFeedbackPopup}>
+                                    <Send
+                                        fontSize="large"
+                                        style={{ color: "14c4b2", width: "30px", height: "30px" }}
+                                    />
+                                </IconButton>
+                            </div>
+                            <div style={{ position: 'absolute', bottom: 65, right: 5 }}>
+                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleOpenLink}>
+                                    <Launch
                                         fontSize="large"
                                         style={{
                                             color: "14c4b2",
