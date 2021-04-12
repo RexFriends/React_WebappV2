@@ -159,6 +159,7 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
                 <Button
                     className="round-button"
                     style={{
+                        marginTop: 10,
                         width: "70%",
                         backgroundColor: "#14c4b2",
                         fontWeight: "bold",
