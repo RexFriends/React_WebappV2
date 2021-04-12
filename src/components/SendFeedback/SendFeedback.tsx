@@ -85,25 +85,33 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                 container
                 item
             >
-                <div style={{ margin: "10px auto 0 auto" }}>
+                <div style={{ margin: "10px 0 0 0px", width: 'calc(100%-60px)' }}>
                     {
                         notification.did_reply ? (
                             notification.thumbs_up ? (
-                                <IconButton
-                                    className="highlight1"
-                                    style={{ color: "#37DB69", width: "70px", height: "70px" }}
-                                    disabled
-                                >
-                                    <AiOutlineSmile style={{ width: "100%", height: "100%" }} />
-                                </IconButton>
-                            ) : (
-                                <IconButton
-                                    className="highlight2"
-                                    style={{ color: "#FD6C73", width: "70px", height: "70px" }}
-                                    disabled
-                                >
-                                    <AiOutlineFrown style={{ width: "100%", height: "100%" }} />
-                                </IconButton>
+                                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+                                    <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
+                                    <IconButton
+                                        className="highlight1"
+                                        style={{ color: "#37DB69", width: "70px", height: "70px" }}
+                                        disabled
+                                    >
+                                        <AiOutlineSmile style={{ width: "60px", height: "60px" }} />
+                                    </IconButton>
+                                </div>
+                            )
+
+                            : (
+                                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+                                    <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
+                                    <IconButton
+                                        className="highlight2"
+                                        style={{ color: "#FD6C73", width: "70px", height: "70px", margin: 'auto' }}
+                                        disabled
+                                    >
+                                        <AiOutlineFrown style={{ width: "60px", height: "60px" }} />
+                                    </IconButton>
+                                </div>
                             )
                         ) : (
                             <>
