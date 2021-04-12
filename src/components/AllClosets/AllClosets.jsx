@@ -43,7 +43,7 @@ function AllClosets() {
             const requestOptions = {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ closet_name: closetName })
+                body: JSON.stringify({ closet_name: closetName, is_public: isPublic })
             };
             try {
                 const res = await fetch(`${APIURL}/api/closet?uid=${rexUID}`, requestOptions);
@@ -77,7 +77,9 @@ function AllClosets() {
     }
 
     const handlePublicChange = () => {
-        setIsPublic(!isPublic);
+            setIsPublic(!isPublic);
+        
+        
     }
 
     return (
@@ -131,10 +133,18 @@ function AllClosets() {
                                     }}
                                     ></TextField>
                                     </StylesProvider>
-                                    {/* <FormControlLabel
-                                        control={<Checkbox checked={setIsPublic(true)} onChange={handlePublicChange()} name="checkedA" />}
-                                        label="Secondary"
-                                    /> */}
+                                    <FormControlLabel
+                                        control={
+                                        <Checkbox 
+                                        checked={isPublic} 
+                                        onChange={() => {handlePublicChange()}} 
+                                        name="checkedA"
+                                        color="primary"
+                                        />
+                                    }
+                                        label="Public"
+                                        styles={{color: 'white'}}
+                                    />
                                     <Button
                                         variant="contained"
                                         color="primary"

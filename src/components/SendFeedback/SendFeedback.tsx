@@ -13,14 +13,12 @@ export interface ISendFeedbackProps {
 }
 
 function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISendFeedbackProps): JSX.Element {
-    const [thumbs, setThumbs] = useState<boolean | undefined>(notification.did_reply ? notification.thumbs_up  : undefined);
+    const [thumbs, setThumbs] = useState<boolean | undefined>(undefined);
     const [additionalFeedback, setAdditionalFeedback] = useState<string>('');
 
     const goBack = () => {
-        if (!notification.did_reply) {
-            setThumbs(undefined);
-            setAdditionalFeedback('');
-        }
+        setThumbs(undefined);
+        setAdditionalFeedback('');
         setPage('notifications');
     };
 
@@ -87,25 +85,33 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                 container
                 item
             >
-                <div style={{ margin: "10px auto 0 auto" }}>
+                <div style={{ margin: "10px 0 0 0px", width: 'calc(100%-60px)' }}>
                     {
                         notification.did_reply ? (
-                            thumbs ? (
-                                <IconButton
-                                    className="highlight1"
-                                    style={{ color: "#37DB69", width: "70px", height: "70px" }}
-                                    disabled
-                                >
-                                    <AiOutlineSmile style={{ width: "100%", height: "100%" }} />
-                                </IconButton>
-                            ) : (
-                                <IconButton
-                                    className="highlight2"
-                                    style={{ color: "#FD6C73", width: "70px", height: "70px" }}
-                                    disabled
-                                >
-                                    <AiOutlineFrown style={{ width: "100%", height: "100%" }} />
-                                </IconButton>
+                            notification.thumbs_up ? (
+                                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+                                    <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
+                                    <IconButton
+                                        className="highlight1"
+                                        style={{ color: "#37DB69", width: "70px", height: "70px", margin: 'auto' }}
+                                        disabled
+                                    >
+                                        <AiOutlineSmile style={{ width: "60px", height: "60px" }} />
+                                    </IconButton>
+                                </div>
+                            )
+
+                            : (
+                                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+                                    <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
+                                    <IconButton
+                                        className="highlight2"
+                                        style={{ color: "#FD6C73", width: "70px", height: "70px", margin: 'auto' }}
+                                        disabled
+                                    >
+                                        <AiOutlineFrown style={{ width: "60px", height: "60px" }} />
+                                    </IconButton>
+                                </div>
                             )
                         ) : (
                             <>
@@ -134,22 +140,6 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                 <span style={{ fontWeight: 'bold' }}>Feedback</span>
                                 &nbsp;(optional)
                             </span>
-                            <Button
-                                onClick={() => handleSendFeedback(thumbs, additionalFeedback)}
-                                id="submit"
-                                style={{
-                                    width: "80px",
-                                    height: "40px",
-                                    margin: "10px auto auto auto",
-                                    backgroundColor: "#14c4b2",
-                                    color: "white",
-                                    borderRadius: "100px",
-                                    fontWeight: 700,
-                                    fontSize: "16px",
-                                }}
-                            >
-                                Send
-                            </Button>
                             <TextField
                                 InputProps={{
                                     style: {
@@ -166,6 +156,22 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                 onChange={(e) => setAdditionalFeedback(e.target.value)}
                                 multiline
                             />
+                            <Button
+                                onClick={() => handleSendFeedback(thumbs, additionalFeedback)}
+                                id="submit"
+                                style={{
+                                    width: "80px",
+                                    height: "40px",
+                                    margin: "10px auto auto auto",
+                                    backgroundColor: "#14c4b2",
+                                    color: "white",
+                                    borderRadius: "100px",
+                                    fontWeight: 700,
+                                    fontSize: "16px",
+                                }}
+                            >
+                                Send
+                            </Button>
                         </>
                     )
                 }
