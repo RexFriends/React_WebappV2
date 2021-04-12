@@ -204,6 +204,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "tween", delay: 0.3 }}
+                style={{userSelect: 'none'}}
             >
                 <img src={image} alt="product" id="image" />
                 <Grid
@@ -264,15 +265,15 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             <div style={{ position: 'absolute', top: 5, right: 5 }}>
                                 <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleShowFeedbackPopup}>
                                     <Send
-                                        fontSize="large"
-                                        style={{ color: "14c4b2", width: "30px", height: "30px" }}
+                                        fontSize="small"
+                                        style={{ color: "14c4b2"}}
                                     />
                                 </IconButton>
                             </div>
                             <div style={{ position: 'absolute', bottom: 65, right: 5 }}>
                                 <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleOpenLink}>
                                     <Launch
-                                        fontSize="large"
+                                        fontSize="small"
                                         style={{
                                             color: "14c4b2",
                                         }}
