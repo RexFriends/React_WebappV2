@@ -87,7 +87,12 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
             anchorReference="anchorPosition"
             anchorPosition={position}
             transformOrigin={origin}
-            PaperProps={{ style: { padding: 15, borderRadius: 15 } }}
+            PaperProps={{
+                style: {
+                    padding: 15,
+                    borderRadius: 15,
+                },
+            }}
             open={open}
             onClose={handleClose}
         >
