@@ -34,10 +34,10 @@
                 height: 220px;
                 #text {
                     &.label.Mui-focused {
-                        color: 'green'
+                        color: "green";
                     }
                     &.MuiInput-underline:after {
-                        border-bottom-color: 'green'
+                        border-bottom-color: "green";
                     }
                 }
             }
@@ -70,15 +70,20 @@
                 border-radius: 10px;
                 display: flex;
                 flex-direction: column;
+                position: relative;
                 #name {
                     color: white;
-                    margin: 0px auto auto 10px;
+                    text-align: left;
                     font-weight: 700;
                     font-size: 35px;
+                    // border: solid red 2px;
+                    padding: 0px 10px;
                 }
                 .options-button {
-                    margin: 0 15px 10px auto;
-                    padding: unset;
+                    position: absolute;
+                    top: 160px;
+                    left: 160px;
+                    // border: solid red 2px;
                 }
                 // background-color: rosybrown;
             }
