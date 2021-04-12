@@ -255,7 +255,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                         <Grid item>
                             <IconButton
                                 id={productId}
-                                style={{ zIndex: 200, padding: "unset" }}
+                                style={{ zIndex: 200, padding: "5px" }}
                                 onClick={() => setShowPopup(true)}
                             >
                                 <MoreHoriz />
@@ -270,9 +270,10 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
+                            style={{userSelect: 'none'}}
                         >
                             <div style={{ position: 'absolute', top: 5, right: 5 }}>
-                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleShowFeedbackPopup}>
+                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleShowFeedbackPopup}>
                                     <Send
                                         fontSize="small"
                                         style={{ color: "14c4b2"}}
@@ -280,7 +281,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                                 </IconButton>
                             </div>
                             <div style={{ position: 'absolute', bottom: 65, right: 5 }}>
-                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)' }} onClick={handleOpenLink}>
+                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleOpenLink}>
                                     <Launch
                                         fontSize="small"
                                         style={{
