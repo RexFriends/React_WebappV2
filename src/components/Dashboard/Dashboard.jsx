@@ -37,7 +37,7 @@ function Dashboard({ children }) {
     let history = useHistory();
 
     const [scrolled, scrolledSet] = useState(false);
-    const [searchbar, searchbarSet] = useState("");
+
     const [showSidebar, showSidebarSet] = useState(true);
     const [showClosets, showClosetsSet] = useState(false);
     const [currentCloset, currentClosetSet] = useState(undefined);
@@ -77,7 +77,7 @@ function Dashboard({ children }) {
             userAuthSet(false);
             history.push("/login");
         }
-    }, []);
+    }, [history]);
 
     useEffect(() => {
         const currentPage = location.pathname.split("/");
@@ -327,7 +327,10 @@ function Dashboard({ children }) {
                                                 `${userData.first_name} ${userData.last_name}`}
                                         </div>
                                         {userData && (
-                                            <img src={userData.profile_image} />
+                                            <img
+                                                src={userData.profile_image}
+                                                alt="pro-img"
+                                            />
                                         )}
                                         {/* <div id="temp-propic">
                       {userData &&
