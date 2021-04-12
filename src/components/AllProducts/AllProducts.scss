@@ -1,71 +1,74 @@
-    #allProducts {
+#allProducts {
+    // border: solid red 2px;
+    width: 95%;
+    margin: 0px auto;
+    #title {
+        text-align: left;
+        width: 100%;
         // border: solid red 2px;
-        width: 95%;
-        margin: 0px auto;
-        #title {
-            text-align: left;
-            width: 100%;
+        color: rgb(114, 114, 114);
+        padding-left: 25px;
+        margin: 0 auto;
+        font-size: calc(16px + 1.2vw);
+        font-weight: 700;
+    }
+    #container {
+        padding: 10px;
+        // border: solid red 2px;
+        margin: 0px 10px;
+        overflow: hidden;
+        grid-gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+        .product {
             // border: solid red 2px;
-            color: rgb(114, 114, 114);
-            padding-left: 25px;
-            margin: 0 auto;
-            font-size: calc(16px + 1.2vw);
-            font-weight: 700;
-        }
-        #container {
-            padding: 10px;
-            // border: solid red 2px;
-            margin: 0px 10px;
-            overflow: hidden;
-            grid-gap: 16px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
-            .product {
+            // padding:
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            position: relative;
+            width: 210px;
+            height: 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            #image {
                 // border: solid red 2px;
-                // padding:
+                margin-top: 0;
+                height: 170px;
+                object-fit: contain;
                 background-color: white;
+                border-radius: 10px 10px;
+                padding: 5px;
+            }
+            #overlay {
+                border: solid rgba(0, 0, 0, 0.05) 1px;
+                position: absolute;
+                background-color: rgba(0, 0, 0, 0.05);
+                bottom: 0;
+                right: 0;
+                height: 238px;
+                width: 208px;
+                padding: 0px;
                 border-radius: 10px;
-                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-                cursor: pointer;
-                position: relative;
-                width: 210px;
-                height: 240px;
                 display: flex;
                 flex-direction: column;
-                justify-content: flex-start;
-                #image {
-                    // border: solid red 2px;
-                    margin-top: 0;
-                    height: 170px;
-                    object-fit: contain;
-                    background-color: white;
-                    border-radius: 10px 10px;
-                    padding: 5px;
+                justify-content: space-between;
+                #info {
+                    margin-left: 145px;
+                    margin-top: 5px;
+                    background-color: rgba(196, 196, 196, 0.397);
                 }
-                #overlay {
-                    border: solid rgba(0, 0, 0, 0.05) 1px;
-                    position: absolute;
-                    background-color: rgba(0, 0, 0, 0.05);
-                    bottom: 0;
-                    right: 0;
-                    height: 238px;
-                    width: 208px;
-                    padding: 0px;
-                    border-radius: 10px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    #top {
-                        // border: solid red 2px;
-                        width: 180px;
-                        margin: 5px auto 0px auto;
-                        #info {
-                            // border: solid red 2px;
-                            margin-left: 130px;
-                            background-color: rgba(196, 196, 196, 0.397);
-                        }
-                    }
+            }
+            #grid {
+                #brand {
+                    white-space: nowrap;
+                    width: 130px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
         }
     }
+}
