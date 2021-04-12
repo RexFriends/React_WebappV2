@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import './Closet.scss';
-import { useHistory, useParams } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import { FiEdit2 } from 'react-icons/fi';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import APIURL from '../../assets/URL';
-import ProductItem from '../ProductItem/ProductItem';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import './Closet.scss';
+import React, { useEffect, useState } from "react";
+import "./Closet.scss";
+import { useHistory, useParams } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import { FiEdit2 } from "react-icons/fi";
+import Checkbox from "@material-ui/core/Checkbox";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import APIURL from "../../assets/URL";
+import ProductItem from "../ProductItem/ProductItem";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import "./Closet.scss";
 
 function Closet() {
     const history = useHistory();
@@ -27,9 +27,9 @@ function Closet() {
     const { id } = useParams();
 
     const fetchCloset = () => {
-        const rexUID = localStorage.getItem('rexUID');
+        const rexUID = localStorage.getItem("rexUID");
 
-        let idParams = '';
+        let idParams = "";
         if (rexUID !== null) idParams = `?uid=${rexUID}&id=${id}`;
         const url = `${APIURL}/api/closet${idParams}`;
 
@@ -38,7 +38,7 @@ function Closet() {
             .then((json) => {
                 closetDataSet(json);
                 setHeaderColor(json.background_color);
-                console.log('is owned? ', isOwned);
+
                 if (json.isOwned === true) {
                     setIsOwned(true);
                     imageUploadSet(json.closet_image_uri);
@@ -47,7 +47,7 @@ function Closet() {
                 }
             })
             .catch((err) => console.log(err));
-    }
+    };
 
     useEffect(() => {
         const { state } = history.location;
@@ -65,28 +65,29 @@ function Closet() {
     };
 
     const handleUpdateCloset = () => {
-        const rexUID = localStorage.getItem('rexUID');
+        const rexUID = localStorage.getItem("rexUID");
         const payload = {
             id: id,
             closet_name: closetName,
             is_public: publicValue,
             closet_image_uri: fileUpload ?? null,
-            background_color: headerColor
+            background_color: headerColor,
         };
 
         fetch(`${APIURL}/api/update-closet?uid=${rexUID}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
         })
-            .then(res => res.json())
+            .then((res) => res.json())
             .then(() => {
                 fetchCloset();
-            }).then(() => {
-            handleGoBack();
-        });
+            })
+            .then(() => {
+                handleGoBack();
+            });
     };
 
     const handleUpload = (e) => {
@@ -99,7 +100,7 @@ function Closet() {
                 fileUploadSet(reader.result);
             };
             reader.onerror = function (error) {
-                console.log('Error: ', error);
+                console.log("Error: ", error);
             };
         }
 
@@ -118,7 +119,7 @@ function Closet() {
         if (showClosetForm) {
             handleGoBack();
         } else {
-            history.push('/closets');
+            history.push("/closets");
         }
     };
 
@@ -133,138 +134,144 @@ function Closet() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
         >
-            {
-                closetData ? (
-                    closetData.isOwned ? (
-                        <motion.div
-                            id="closet-header"
-                            style={{ backgroundColor: `#${headerColor}` }}
-                            initial={{ x: 200, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                        >
+            {closetData ? (
+                closetData.isOwned ? (
+                    <motion.div
+                        id="closet-header"
+                        style={{ backgroundColor: `#${headerColor}` }}
+                        initial={{ x: 200, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <IconButton id="back-button" onClick={handleBackButton}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <div id="text">
+                            <div id="name">{closetData.name}</div>
+                        </div>
+                        {!showClosetForm && (
                             <IconButton
-                                id="back-button"
-                                onClick={handleBackButton}
+                                onClick={showEditForm}
+                                id="edit-form-button"
                             >
-                                <ArrowBackIcon />
+                                <FiEdit2 />
                             </IconButton>
-                            <div id="text">
-                                <div id="name">{closetData.name}</div>
-                            </div>
-                            {
-                                !showClosetForm && (
-                                    <IconButton onClick={showEditForm} id="edit-form-button">
-                                        <FiEdit2 />
-                                    </IconButton>
-                                )
-                            }
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            id="closet-header"
-                            style={{ backgroundColor: `#${headerColor}` }}
-                            initial={{ x: 200, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ duration: 0.3 }}
+                        )}
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        id="closet-header"
+                        style={{ backgroundColor: `#${headerColor}` }}
+                        initial={{ x: 200, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <IconButton
+                            id="back-button"
+                            onClick={handleBackButtonSocial}
                         >
-                            <IconButton
-                                id="back-button"
-                                onClick={handleBackButtonSocial}
-                            >
-                                <ArrowBackIcon />
-                            </IconButton>
-                            <div id="text">
-                                <div id="closet-name">{`${closetData.user.first_name} ${closetData.user.last_name}'s`}</div>
-                                <div id="name">{closetData.name}</div>
-                            </div>
-                        </motion.div>
-                    )
-                ) : null
-            }
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <div id="text">
+                            <div id="closet-name">{`${closetData.user.first_name} ${closetData.user.last_name}'s`}</div>
+                            <div id="name">{closetData.name}</div>
+                        </div>
+                    </motion.div>
+                )
+            ) : null}
             <AnimatePresence>
-                {
-                    showClosetForm ? (
-                        <motion.div
-                            id="editForm"
-                            initial={{ y: 100, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.3, delay: 0.1 }}
-                        >
-                            <div id="row">
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            color="primary"
-                                            checked={publicValue ?? false}
-                                            onChange={() => publicValueSet(!publicValue)}
-                                        />
-                                    }
-                                    label="Public :"
-                                    labelPlacement="start"
+                {showClosetForm ? (
+                    <motion.div
+                        id="editForm"
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                        <div id="row">
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        color="primary"
+                                        checked={publicValue ?? false}
+                                        onChange={() =>
+                                            publicValueSet(!publicValue)
+                                        }
+                                    />
+                                }
+                                label="Public :"
+                                labelPlacement="start"
+                            />
+                        </div>
+                        <div id="row">
+                            <div id="label">Closet Name :</div>
+                            <div id="field">
+                                <TextField
+                                    value={closetName}
+                                    onChange={(e) => {
+                                        closetNameSet(e.target.value);
+                                    }}
                                 />
                             </div>
-                            <div id="row">
-                                <div id="label">Closet Name :</div>
-                                <div id="field">
-                                    <TextField
-                                        value={closetName}
-                                        onChange={(e) => {
-                                            closetNameSet(e.target.value);
-                                        }}
+                        </div>
+                        <div id="currentImage">
+                            {imageUpload ? (
+                                <div id="image">
+                                    <img
+                                        id="closet-img"
+                                        alt="closet"
+                                        src={imageUpload}
                                     />
                                 </div>
-                            </div>
-                            <div id="currentImage">
-                                {
-                                    imageUpload ? (
-                                        <div id="image">
-                                            <img id="closet-img" alt="closet" src={imageUpload} />
-                                        </div>
-                                    ) : (
-                                        <div id="image">
-                                            <img
-                                                id="closet-img"
-                                                alt="closet"
-                                                src="https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
-                                            />
-                                        </div>
-                                    )
-                                }
-                                <div id="upload">
-                                    <input
-                                        style={{ display: 'none' }}
-                                        id="raised-button-file"
-                                        multiple
-                                        type="file"
-                                        accept="image/jpeg"
-                                        onChange={handleUpload}
+                            ) : (
+                                <div id="image">
+                                    <img
+                                        id="closet-img"
+                                        alt="closet"
+                                        src="https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
                                     />
-                                    <label htmlFor="raised-button-file">
-                                        <Button component="span" id="upload-button" />
-                                    </label>
                                 </div>
+                            )}
+                            <div id="upload">
+                                <input
+                                    style={{ display: "none" }}
+                                    id="raised-button-file"
+                                    multiple
+                                    type="file"
+                                    accept="image/jpeg"
+                                    onChange={handleUpload}
+                                />
+                                <label htmlFor="raised-button-file">
+                                    <Button
+                                        component="span"
+                                        id="upload-button"
+                                    />
+                                </label>
                             </div>
-                            <Button id="save-button" onClick={handleUpdateCloset}>
-                                Save
-                            </Button>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            id="item-container"
-                            initial={{ y: 100, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.3, delay: 0.1 }}
-                        >
-                            <>
-                                {
-                                    closetData &&
-                                    closetData.listings.map((product, i) => (<ProductItem item={product} isOwned={isOwned} updateProducts={fetchCloset} key={i} />))
-                                }
-                            </>
-                        </motion.div>
-                    )
-                }
+                        </div>
+                        <Button id="save-button" onClick={handleUpdateCloset}>
+                            Save
+                        </Button>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        id="item-container"
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                        <>
+                            {closetData &&
+                                closetData.listings.map((product, i) => (
+                                    <ProductItem
+                                        item={product}
+                                        isOwned={isOwned}
+                                        updateProducts={fetchCloset}
+                                        key={i}
+                                    />
+                                ))}
+                        </>
+                    </motion.div>
+                )}
             </AnimatePresence>
         </motion.div>
     );

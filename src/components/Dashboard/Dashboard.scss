@@ -62,25 +62,20 @@
                 padding: 5px 10px 5px 5px;
                 #closet {
                     font-size: calc(12px + 0.5vw);
-                    // border: solid red 2px;
+
                     color: rgba(80, 80, 80, 0.856);
                     cursor: pointer;
                     text-align: left;
                     margin-left: 30%;
-                    transition: color 0.01s, padding 0.5s;
-                    &:hover {
-                        color: black;
-                        font-size: calc(12.3px + 0.5vw);
-                    }
+                    transition: color 0.01s, padding 0.5s, font-weight 0.5s;
                 }
                 #closet.highlight {
-                    // border: solid red 2px;
-                    font-weight: 600;
-                    border-top-left-radius: 5px;
+                    -webkit-text-stroke-width: 1px;
+                    -webkit-text-stroke-color: black;
+
                     color: black;
                     padding-left: 10px;
                     overflow-y: hidden;
-                    border-bottom-left-radius: 5px;
                 }
             }
         }
