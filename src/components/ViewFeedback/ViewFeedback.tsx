@@ -81,7 +81,7 @@ function ViewFeedback({ notification, image, setPage }: IViewFeedbackProps): JSX
                         {
                             f.thumbs_up ? (
                                 <IconButton
-                                    className="highlight1"
+                                    className=""
                                     style={{ color: "#37DB69", width: "70px", height: "70px" }}
                                     disabled
                                 >
@@ -89,7 +89,7 @@ function ViewFeedback({ notification, image, setPage }: IViewFeedbackProps): JSX
                                 </IconButton>
                             ) : (
                                 <IconButton
-                                    className="highlight2"
+                                    className=""
                                     style={{ color: "#FD6C73", width: "70px", height: "70px" }}
                                     disabled
                                 >
