@@ -24,10 +24,10 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
 
     return (
         <Grid direction="column" container>
-            <IconButton onClick={goBack} style={{ position: 'absolute', height: 45, width: 45 }}>
+            <IconButton onClick={goBack} style={{ position: 'absolute', height: 45, width: 45, top: 15, left: 15 }}>
                 <ArrowBackIos style={{ marginLeft: 10 }} />
             </IconButton>
-            <Grid style={{ height: 45 }} justify="center" alignItems="center" container item>
+            <Grid style={{ height: 45, marginTop: 15 }} justify="center" alignItems="center" container item>
                 <span style={{ fontWeight: 700 }}>
                     Send Feedback
                 </span>
@@ -85,7 +85,7 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                 container
                 item
             >
-                <div style={{ margin: "10px 0 0 0px", width: 'calc(100%-60px)' }}>
+                <div style={{ margin: "10px auto 0 auto", width: 'calc(100%-60px)' }}>
                     {
                         notification.did_reply ? (
                             notification.thumbs_up ? (

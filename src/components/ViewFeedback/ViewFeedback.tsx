@@ -33,10 +33,10 @@ function ViewFeedback({ notification, image, setPage }: IViewFeedbackProps): JSX
 
     return (
         <Grid direction="column" container>
-            <IconButton onClick={goBack} style={{ position: 'absolute', height: 45, width: 45 }}>
+            <IconButton onClick={goBack} style={{ position: 'absolute', height: 45, width: 45, top: 15, left: 15 }}>
                 <ArrowBackIos style={{ marginLeft: 10 }} />
             </IconButton>
-            <Grid style={{ height: 45 }} justify="center" alignItems="center" container item>
+            <Grid style={{ height: 45, marginTop: 15 }} justify="center" alignItems="center" container item>
                 <span style={{ fontWeight: 700 }}>
                     View Feedback
                 </span>
