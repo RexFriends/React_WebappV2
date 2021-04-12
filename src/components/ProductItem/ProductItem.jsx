@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Grid, IconButton } from '@material-ui/core';
-import { AddToPhotos, FileCopy, Launch, MoreHoriz, Send } from '@material-ui/icons';
-import TextOverflow from '../TextOverflow/TextOverflow';
-import APIURL from '../../assets/URL';
-import OptionsPopup from '../OptionsPopup/OptionsPopup';
-import FeedbackPopup from '../FeedbackPopup/FeedbackPopup';
-import { copyFallback } from '../../util';
-import { showAlert } from '../Alerts/Alerts';
-import AddToClosetPopup from '../AddToClosetPopup/AddToClosetPopup';
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Grid, IconButton } from "@material-ui/core";
+import {
+    AddToPhotos,
+    FileCopy,
+    Launch,
+    MoreHoriz,
+    Send,
+} from "@material-ui/icons";
+import TextOverflow from "../TextOverflow/TextOverflow";
+import APIURL from "../../assets/URL";
+import OptionsPopup from "../OptionsPopup/OptionsPopup";
+import FeedbackPopup from "../FeedbackPopup/FeedbackPopup";
+import { copyFallback } from "../../util";
+import { showAlert } from "../Alerts/Alerts";
+import AddToClosetPopup from "../AddToClosetPopup/AddToClosetPopup";
 
 function ProductItem({ item, isOwned, updateProducts }) {
     const [hover, hoverSet] = useState(false);
@@ -199,7 +205,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
     };
 
     const handleOpenLink = () => {
-        window.open(item.url, '_blank');
+        window.open(item.url, "_blank");
     };
 
     const productId = `product-${item.id}`;
@@ -213,7 +219,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "tween", delay: 0.3 }}
-                style={{userSelect: 'none'}}
+                style={{ userSelect: "none" }}
             >
                 <img src={image} alt="product" id="image" />
                 <Grid
@@ -230,7 +236,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                                 fontSize: "15px",
                             }}
                         >
-                          {brand}
+                            {brand}
                         </span>
                         <TextOverflow
                             style={{
@@ -255,7 +261,12 @@ function ProductItem({ item, isOwned, updateProducts }) {
                         <Grid item>
                             <IconButton
                                 id={productId}
-                                style={{ zIndex: 200, padding: "5px" }}
+                                style={{
+                                    zIndex: 200,
+                                    padding: "5px",
+                                    marginRight: -20,
+                                    marginTop: -3,
+                                }}
                                 onClick={() => setShowPopup(true)}
                             >
                                 <MoreHoriz />
@@ -270,18 +281,44 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            style={{userSelect: 'none'}}
+                            style={{ userSelect: "none" }}
                         >
-                            <div style={{ position: 'absolute', top: 5, right: 5 }}>
-                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleShowFeedbackPopup}>
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    top: 5,
+                                    right: 5,
+                                }}
+                            >
+                                <IconButton
+                                    style={{
+                                        backgroundColor:
+                                            "rgba(196, 196, 196, 0.397)",
+                                        padding: "7px",
+                                    }}
+                                    onClick={handleShowFeedbackPopup}
+                                >
                                     <Send
                                         fontSize="small"
-                                        style={{ color: "14c4b2"}}
+                                        style={{ color: "14c4b2" }}
                                     />
                                 </IconButton>
                             </div>
-                            <div style={{ position: 'absolute', bottom: 65, right: 5 }}>
-                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleOpenLink}>
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    bottom: 65,
+                                    right: 5,
+                                }}
+                            >
+                                <IconButton
+                                    style={{
+                                        backgroundColor:
+                                            "rgba(196, 196, 196, 0.397)",
+                                        padding: "7px",
+                                    }}
+                                    onClick={handleOpenLink}
+                                >
                                     <Launch
                                         fontSize="small"
                                         style={{
