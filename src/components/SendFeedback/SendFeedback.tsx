@@ -96,7 +96,7 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                     <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
                                 <IconButton
                                     className="highlight1"
-                                    style={{ color: "#37DB69", width: "70px", height: "70px" }}
+                                    style={{ color: "#37DB69", width: "70px", height: "70px", margin: 'auto' }}
                                     disabled
                                 >
                                     <AiOutlineSmile style={{ width: "60px", height: "60px" }} />
