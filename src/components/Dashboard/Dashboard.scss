@@ -68,7 +68,11 @@
                     text-align: left;
                     margin-left: 30%;
                     transition: color 0.01s, padding 0.5s, font-weight 0.5s;
+                    &:hover {
+                        padding-left: 10px;
+                    }
                 }
+
                 #closet.highlight {
                     -webkit-text-stroke-width: 1px;
                     -webkit-text-stroke-color: black;
