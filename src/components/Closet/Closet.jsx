@@ -261,12 +261,12 @@ function Closet() {
                     >
                         <>
                             {closetData &&
-                                closetData.listings.map((product, i) => (
+                                closetData.listings.map(p => (
                                     <ProductItem
-                                        item={product}
+                                        item={p}
                                         isOwned={isOwned}
                                         updateProducts={fetchCloset}
-                                        key={i}
+                                        key={p.id}
                                     />
                                 ))}
                         </>

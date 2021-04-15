@@ -197,8 +197,8 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                         style={{ height: "100%", marginTop: "5px" }}
                         autoHide
                     >
-                        {friends.map((f, i) => (
-                            <Grid key={i} style={{ width: "100%" }} item>
+                        {friends.map(f => (
+                            <Grid key={f.id} style={{ width: "100%" }} item>
                                 <Button className="contact-button">
                                     <Grid
                                         justify="space-between"

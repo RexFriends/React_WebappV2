@@ -204,10 +204,10 @@ function Dashboard({ children }) {
                                     >
                                         <Scrollbars autoHide>
                                             {closetData &&
-                                                closetData.map((closet, i) => (
+                                                closetData.map(closet => (
                                                     <div
                                                         id="closet"
-                                                        key={i}
+                                                        key={closet.id}
                                                         className={
                                                             currentCloset ===
                                                             closet.id
