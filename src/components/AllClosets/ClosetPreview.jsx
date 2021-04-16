@@ -19,7 +19,9 @@ function ClosetPreview({ closet, updateClosets }) {
         history.push({ pathname: `/closets/${closet.id}`, state: { edit } });
     };
 
-    const handleGetCopyLink = () => {
+    const handleGetCopyLink = e => {
+        e.stopPropagation();
+
         const link = `${APIURL}/closets/${closet.id}`;
 
         if (navigator.clipboard) {
@@ -57,12 +59,16 @@ function ClosetPreview({ closet, updateClosets }) {
             });
     };
 
-    const updatePublic = () => {
+    const updatePublic = e => {
+        e.stopPropagation();
+
+        const pub = !isPublic;
+        isPublicSet(pub);
         const rexUID = localStorage.getItem('rexUID');
         const payload = {
             id: closet.id,
             closet_name: closet.closet_name,
-            is_public: isPublic,
+            is_public: pub,
             closet_image_uri: closet.closet_icon ?? null,
             background_color: closet.color
         };
@@ -78,14 +84,9 @@ function ClosetPreview({ closet, updateClosets }) {
             .then(res => res.json())
             .then(() => {
                 showAlert('Updated public status!', 'success');
-                // updateClosets();
+                updateClosets();
             })
     };
-
-    const updatePublicStatus = () => {
-        isPublicSet(!isPublic);
-        updatePublic();
-    }
 
     const closetId = `closet-${closet.id}`;
 
@@ -125,23 +126,23 @@ function ClosetPreview({ closet, updateClosets }) {
                                     fontSize="large" style={{ color: 'white', width: '30px', height: '30px' }}
                                 />
                             </IconButton>
-                           
+
                         </div>
                 }
                          { hover &&
-                            <Button className="share-buton" onClick={(e) => {handleGetCopyLink(); e.stopPropagation();}} style={{backgroundColor: '#14c4b2', color: 'white', width: '60px', height: 'auto', borderRadius: '100px', margin: '10px 5px auto 135px', fontWeight: 600, position: 'absolute'}}>
+                            <Button className="share-buton" onClick={handleGetCopyLink} style={{backgroundColor: '#14c4b2', color: 'white', width: '60px', height: 'auto', borderRadius: '100px', margin: '10px 5px auto 135px', fontWeight: 600, position: 'absolute'}}>
                                 Share
                             </Button>
                         }
-                        <Button onClick={(e) => {updatePublicStatus(); e.stopPropagation();}}style={{color: 'white', position: 'absolute', minWidth: '50px', width: '50px', height: '50px', bottom: 0, left: 0, margin: 'auto auto 7px 4px', borderRadius: '100px'}}>
-                        {    
+                        <Button onClick={updatePublic} style={{color: 'white', position: 'absolute', minWidth: '50px', width: '50px', height: '50px', bottom: 0, left: 0, margin: 'auto auto 7px 4px', borderRadius: '100px'}}>
+                        {
                             !isPublic ?
                             <LockIcon style={{color: 'white', width: '30px', height: '30px'}}/>
                         :
                             <LockOpenIcon style={{color: 'white', width: '30px', height: '30px'}}/>
                         }
                         </Button>
-                
+
             </motion.div>
             <OptionsPopup
                 anchorElementId={closetId}
