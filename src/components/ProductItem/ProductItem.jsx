@@ -230,15 +230,17 @@ function ProductItem({ item, isOwned, updateProducts }) {
                     id="grid"
                 >
                     <Grid xs={8} direction="column" container item>
-                        <span
+                        <TextOverflow
                             style={{
+                                fontSize: "15pt",
                                 fontWeight: "bold",
                                 textAlign: "left",
-                                fontSize: "15px",
+                                zIndex: "150",
                             }}
-                        >
-                            {brand}
-                        </span>
+                            text={brand}
+                            overflowLength={15}
+                        />
+
                         <TextOverflow
                             style={{
                                 color: "rgb(114, 114, 114)",
@@ -284,12 +286,34 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             exit={{ opacity: 0 }}
                             style={{ userSelect: "none" }}
                         >
-                            <div style={{ position: 'absolute', top: 5, right: 5 }}>
-                                <Button style={{ backgroundColor: '#14c4b2', padding: '7px', margin: '5px 5px auto auto', color: 'white', height: '30px', fontWeight: 600, borderRadius: '100px', textTransform: 'none' }} onClick={handleShowFeedbackPopup}>
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    top: 5,
+                                    right: 5,
+                                }}
+                            >
+                                <Button
+                                    style={{
+                                        backgroundColor: "#14c4b2",
+                                        padding: "7px",
+                                        margin: "5px 5px auto auto",
+                                        color: "white",
+                                        height: "30px",
+                                        fontWeight: 600,
+                                        borderRadius: "100px",
+                                        textTransform: "none",
+                                    }}
+                                    onClick={handleShowFeedbackPopup}
+                                >
                                     Send
-                                    <Send fontSize="small"
-                                            style={{ color: "white", marginLeft: '5px'}}
-                                            />
+                                    <Send
+                                        fontSize="small"
+                                        style={{
+                                            color: "white",
+                                            marginLeft: "5px",
+                                        }}
+                                    />
                                 </Button>
                                 {/* <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleShowFeedbackPopup}>
                                     Send
@@ -299,8 +323,21 @@ function ProductItem({ item, isOwned, updateProducts }) {
                                     />
                                 </IconButton> */}
                             </div>
-                            <div style={{ position: 'absolute', bottom: 65, right: 5 }}>
-                                <IconButton style={{ backgroundColor: '#14c4b2', padding: '7px', marginRight: '5px' }} onClick={handleOpenLink}>
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    bottom: 65,
+                                    right: 5,
+                                }}
+                            >
+                                <IconButton
+                                    style={{
+                                        backgroundColor: "#14c4b2",
+                                        padding: "7px",
+                                        marginRight: "5px",
+                                    }}
+                                    onClick={handleOpenLink}
+                                >
                                     <Launch
                                         fontSize="small"
                                         style={{
