@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Grid, IconButton } from '@material-ui/core';
+import { Button, Grid, IconButton } from '@material-ui/core';
 import { AddToPhotos, FileCopy, Launch, MoreHoriz, Send } from '@material-ui/icons';
 import TextOverflow from '../TextOverflow/TextOverflow';
 import APIURL from '../../assets/URL';
@@ -273,19 +273,26 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             style={{userSelect: 'none'}}
                         >
                             <div style={{ position: 'absolute', top: 5, right: 5 }}>
-                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleShowFeedbackPopup}>
+                                <Button style={{ backgroundColor: '#14c4b2', padding: '7px', margin: '5px 5px auto auto', color: 'white', height: '30px', fontWeight: 600, borderRadius: '100px', textTransform: 'none' }} onClick={handleShowFeedbackPopup}>
+                                    Send
+                                    <Send fontSize="small"
+                                            style={{ color: "white", marginLeft: '5px'}}
+                                            />
+                                </Button>
+                                {/* <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleShowFeedbackPopup}>
+                                    Send
                                     <Send
                                         fontSize="small"
                                         style={{ color: "14c4b2"}}
                                     />
-                                </IconButton>
+                                </IconButton> */}
                             </div>
                             <div style={{ position: 'absolute', bottom: 65, right: 5 }}>
-                                <IconButton style={{ backgroundColor: 'rgba(196, 196, 196, 0.397)', padding: '7px' }} onClick={handleOpenLink}>
+                                <IconButton style={{ backgroundColor: '#14c4b2', padding: '7px', marginRight: '5px' }} onClick={handleOpenLink}>
                                     <Launch
                                         fontSize="small"
                                         style={{
-                                            color: "14c4b2",
+                                            color: "white",
                                         }}
                                     />
                                 </IconButton>

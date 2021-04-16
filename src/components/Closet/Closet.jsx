@@ -38,7 +38,6 @@ function Closet() {
             .then((json) => {
                 closetDataSet(json);
                 setHeaderColor(json.background_color);
-                console.log('is owned? ', isOwned);
                 if (json.isOwned === true) {
                     setIsOwned(true);
                     imageUploadSet(json.closet_image_uri);
@@ -73,6 +72,7 @@ function Closet() {
             closet_image_uri: fileUpload ?? null,
             background_color: headerColor
         };
+        console.log('update payload ', payload);
 
         fetch(`${APIURL}/api/update-closet?uid=${rexUID}`, {
             method: 'PATCH',

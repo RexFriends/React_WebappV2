@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { IconButton } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import {  Edit, FileCopy, MoreHoriz } from '@material-ui/icons';
 import OptionsPopup from '../OptionsPopup/OptionsPopup';
 import APIURL from '../../assets/URL';
 import { copyFallback } from '../../util';
 import { showAlert } from '../Alerts/Alerts';
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 function ClosetPreview({ closet, updateClosets }) {
     const history = useHistory();
     const [showPopup, setShowPopup] = useState(false);
-
+    const [hover, hoverSet] = useState(false);
+    const [isPublic, isPublicSet] = useState(closet.is_public);
     const handleClosetView = edit => {
         history.push({ pathname: `/closets/${closet.id}`, state: { edit } });
     };
@@ -22,7 +25,7 @@ function ClosetPreview({ closet, updateClosets }) {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(link)
                 .then(() => {
-                    showAlert('Copied link!', 'success');
+                    showAlert('Link copied to clipboard!', 'success');
                 })
                 .catch(err => {
                     console.error(err);
@@ -54,6 +57,36 @@ function ClosetPreview({ closet, updateClosets }) {
             });
     };
 
+    const updatePublic = () => {
+        const rexUID = localStorage.getItem('rexUID');
+        const payload = {
+            id: closet.id,
+            closet_name: closet.closet_name,
+            is_public: isPublic,
+            closet_image_uri: closet.closet_icon ?? null,
+            background_color: closet.color
+        };
+        console.log('updated payload ', payload);
+
+        fetch(`${APIURL}/api/update-closet?uid=${rexUID}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(res => res.json())
+            .then(() => {
+                showAlert('Updated public status!', 'success');
+                updateClosets();
+            })
+    };
+
+    const updatePublicStatus = () => {
+        isPublicSet(!isPublic);
+        updatePublic();
+    }
+
     const closetId = `closet-${closet.id}`;
 
     return (
@@ -62,6 +95,8 @@ function ClosetPreview({ closet, updateClosets }) {
                 className="closet"
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
+                onMouseEnter={() => hoverSet(true)}
+                onMouseLeave={() => hoverSet(false)}
                 transition={{
                     type: 'tween',
                     delay: 0.3
@@ -90,8 +125,23 @@ function ClosetPreview({ closet, updateClosets }) {
                                     fontSize="large" style={{ color: 'white', width: '30px', height: '30px' }}
                                 />
                             </IconButton>
+                           
                         </div>
                 }
+                         { hover &&
+                            <Button className="share-buton" onClick={(e) => {handleGetCopyLink(); e.stopPropagation();}} style={{backgroundColor: '#14c4b2', color: 'white', width: '60px', height: 'auto', borderRadius: '100px', margin: '10px 5px auto 135px', fontWeight: 600, position: 'absolute'}}>
+                                Share
+                            </Button>
+                        }
+                        <Button onClick={(e) => {updatePublicStatus(); e.stopPropagation();}}style={{color: 'white', position: 'absolute', minWidth: '50px', width: '50px', height: '50px', bottom: 0, left: 0, margin: 'auto auto 7px 4px', borderRadius: '100px'}}>
+                        {    
+                            !isPublic ?
+                            <LockIcon style={{color: 'white', width: '30px', height: '30px'}}/>
+                        :
+                            <LockOpenIcon style={{color: 'white', width: '30px', height: '30px'}}/>
+                        }
+                        </Button>
+                
             </motion.div>
             <OptionsPopup
                 anchorElementId={closetId}

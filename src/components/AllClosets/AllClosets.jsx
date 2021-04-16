@@ -26,6 +26,7 @@ function AllClosets() {
         fetch(`${APIURL}/api/closet_preview?uid=${rexUID}`)
             .then(res => res.json())
             .then(json => {
+                console.log('closet preview ', json);
                     const updatedData = json.closet_preview.filter(c => c.closet_name !== 'Saved Products');
                     closetDataSet(updatedData);
                 }
