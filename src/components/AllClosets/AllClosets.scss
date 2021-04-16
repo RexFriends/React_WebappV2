@@ -3,15 +3,31 @@
     // height: 100%;
     width: 95%;
     margin: 0px auto;
-    #title {
-        text-align: left;
-        width: 100%;
+    #top {
         // border: solid red 2px;
-        color: rgb(114, 114, 114);
-        padding-left: 25px;
-        margin: 0 auto;
-        font-size: calc(16px + 1.2vw);
-        font-weight: 700;
+        display: flex;
+        padding-right: 20px;
+        align-items: center;
+        #title {
+            text-align: left;
+            width: 100%;
+            // border: solid red 2px;
+            color: rgb(114, 114, 114);
+            padding-left: 25px;
+            margin: 0 auto;
+            font-size: calc(16px + 1.2vw);
+            font-weight: 700;
+        }
+        #filters {
+            // border: solid red 2px;
+
+            select optgroup {
+                background: rgb(255, 255, 255);
+                color: rgb(10, 10, 10);
+                font-style: normal;
+                font-weight: normal;
+            }
+        }
     }
     #closet-container {
         padding: 10px;

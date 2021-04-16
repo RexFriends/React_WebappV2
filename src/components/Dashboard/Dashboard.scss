@@ -110,10 +110,6 @@
             transition: z-index 0.01s, background-color 0.2s, box-shadow 0.2s;
             &.shadow {
                 background-color: #ffffff;
-                // background-color: #f6f8f8;
-                // margin-left: 0px;
-                // padding-left: 0px;
-                // z-index: 500;
                 box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.05);
             }
             #current-user {

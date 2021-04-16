@@ -235,7 +235,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                                 fontSize: "15pt",
                                 fontWeight: "bold",
                                 textAlign: "left",
-                                zIndex: "150",
+                                zIndex: 200,
                             }}
                             text={brand}
                             overflowLength={15}
