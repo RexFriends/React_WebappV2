@@ -120,10 +120,10 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                             Notifications
                         </h3>
                         <Grid style={{ padding: '15px 10px' }} direction="column" container>
-                            {notifications.map((notif, i) => (
+                            {notifications.map(n => (
                                 <Notification
-                                    key={i}
-                                    notification={notif}
+                                    key={n.id}
+                                    notification={n}
                                     updater={performUpdateCall}
                                     setPage={setPage}
                                     openNotification={handleOpenNotification}

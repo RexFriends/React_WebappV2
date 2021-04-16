@@ -14,7 +14,9 @@ export interface IAddToClosetPopupProps {
     updateProducts: () => void;
 }
 
-let originalClosetsChecked: Array<boolean> = [];
+interface CheckedMap {
+    [id: number]: boolean
+}
 
 function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
     const { anchorElementId, open, onClose, item, updateProducts } = props;
@@ -27,7 +29,7 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
         horizontal: "right",
     });
     const [closets, setClosets] = useState<Array<ICloset>>([]);
-    const [closetsChecked, setClosetsChecked] = useState<Array<boolean>>([]);
+    const [closetsChecked, setClosetsChecked] = useState<CheckedMap>({});
 
     const anchorElement = document.getElementById(anchorElementId);
     useEffect(() => {
@@ -39,13 +41,13 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
         fetch(`${APIURL}/api/closet_preview?uid=${rexUID}`)
             .then((res) => res.json())
             .then((json) => {
-                setClosets(json.closet_preview);
-                const checked = json.closet_preview.map((c: ICloset) =>
-                    c.items.some((i) => i.product_id === item.id)
-                );
-                if (!originalClosetsChecked.length)
-                    originalClosetsChecked = checked;
-                setClosetsChecked(Array.from(checked));
+                const closets: Array<ICloset> = json.closet_preview.filter((c: ICloset) => c.closet_name !== 'Saved Products');
+                setClosets(closets);
+                const checked = closets.reduce((acc: CheckedMap, c: ICloset) => {
+                    acc[c.id] = c.items.some(i => i.product_id === item.id);
+                    return acc;
+                }, {});
+                setClosetsChecked(checked);
             });
     };
 
@@ -54,32 +56,35 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
     }, []);
 
     const handleChange = (event: { target: HTMLInputElement }) => {
-        const checked = Array.from(closetsChecked);
+        const checked = Object.assign({}, closetsChecked);
         checked[Number.parseInt(event.target.name)] = event.target.checked;
         setClosetsChecked(checked);
     };
 
     const handleAdd = () => {
-        const promises: Array<Promise<object>> = [];
-        originalClosetsChecked.forEach((oc, i) => {
-            const c = closetsChecked[i];
-            if (oc !== c) {
-                const rexUID = localStorage.getItem("rexUID");
-                promises.push(
-                    fetch(`${APIURL}/api/item_closet_change?uid=${rexUID}`, {
+        const promises = Object.entries(closetsChecked)
+            .reduce((acc: Array<Promise<Response>>, [keyStr, c]) => {
+                const key = Number.parseInt(keyStr);
+                const closetContainsItem = closets.filter(c => c.id === key)[0].items
+                    .some(i => i.product_id === item.id);
+
+                if ((c && !closetContainsItem) || (!c && closetContainsItem)) {
+                    const rexUID = localStorage.getItem("rexUID");
+                    acc.push(fetch(`${APIURL}/api/item_closet_change?uid=${rexUID}`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            closet_id: closets[i].id,
+                            closet_id: key,
                             product_id: item.id,
                             new_state: c,
-                        }),
-                    })
-                );
-            }
-        });
+                        })
+                    }));
+                }
+
+                return acc;
+            }, []);
 
         Promise.all(promises)
             .then(() => {
@@ -91,7 +96,6 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
                 showAlert("Updating closets failed!", "error");
             })
             .finally(() => {
-                originalClosetsChecked = [];
                 fetchClosets();
                 updateProducts();
             });
@@ -134,19 +138,17 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
                     <Divider />
                 </Grid>
                 <div style={{ height: 100, overflowY: "auto" }}>
-                    {" "}
-                    {closets
-                        .filter((c) => c.closet_name !== "Saved Products")
-                        .map((c, i) => (
-                            <Grid key={i} alignItems="center" container item>
+                    {
+                        closets.map(c => (
+                            <Grid key={c.id} alignItems="center" container item>
                                 <Grid item>
                                     <Checkbox
                                         style={{
                                             margin: "0 12px 0 0",
                                             padding: 0,
                                         }}
-                                        name={i.toString()}
-                                        checked={closetsChecked[i]}
+                                        name={c.id.toString()}
+                                        checked={closetsChecked[c.id]}
                                         onChange={handleChange}
                                     />
                                 </Grid>
@@ -154,7 +156,8 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
                                     <span>{c.closet_name}</span>
                                 </Grid>
                             </Grid>
-                        ))}
+                        ))
+                    }
                 </div>
                 <Button
                     className="round-button"

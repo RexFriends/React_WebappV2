@@ -163,9 +163,9 @@ function Feedback() {
                             <div id="sub-carousel">
                                 <Carousel arrows dots>
                                     {images &&
-                                        images.map((imgURL, i) => (
+                                        images.map(imgURL => (
                                             <img
-                                                key={i}
+                                                key={imgURL}
                                                 src={imgURL}
                                                 id="img"
                                                 alt="screenshot"

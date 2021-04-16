@@ -67,8 +67,8 @@ function ViewFeedback({ notification, image, setPage }: IViewFeedbackProps): JSX
                 <Divider />
             </Grid>
             {
-                feedbacks.map((f, i) => (
-                    <Grid style={{ padding: 15 }} key={i} alignItems="center" justify="space-between" container item>
+                feedbacks.map(f => (
+                    <Grid style={{ padding: 15 }} key={f.id} alignItems="center" justify="space-between" container item>
                         <Grid style={{ width: 'unset' }} alignItems="flex-start" justify="center" direction="column" container item>
                             <Grid style={{ width: 'unset' }} alignItems="center" container item>
                                 <img alt="Profile" src={f.profile_image} style={{ width: 45, height: 45 }} />

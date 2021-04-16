@@ -123,11 +123,11 @@ function Profile() {
             )}
             {closetData && (
                 <div id="user-closets">
-                    {closetData.map((closet, i) => (
+                    {closetData.map(c => (
                         <ClosetPreview
-                            closet={closet}
+                            closet={c}
                             updateClosets={fetchClosets}
-                            key={i}
+                            key={c.id}
                         />
                     ))}
                 </div>

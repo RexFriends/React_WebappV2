@@ -79,8 +79,8 @@ function AllClosets() {
 
     const handlePublicChange = () => {
             setIsPublic(!isPublic);
-        
-        
+
+
     }
 
     return (
@@ -105,17 +105,17 @@ function AllClosets() {
                     >
                         <div id="new-closet">
                             {
-                                
+
                                 creatingCloset ?
-                                
+
                                 <motion.div id='new-form'
                                     initial={{ y: 100, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ type: "tween", delay: 0.2 }}
                                 >
-                                    
-                                    <Button 
-                                        onClick={(e) => {handleEditCloset(false); e.stopPropagation();}} 
+
+                                    <Button
+                                        onClick={(e) => {handleEditCloset(false); e.stopPropagation();}}
                                         style={{width: '30px', height: '30px', borderRadius: '100px', margin: '5px 0px 5px auto'}}>
                                         <CloseIcon style={{color: 'white', width: '30x', height: '30px'}}/>
                                     </Button>
@@ -136,9 +136,9 @@ function AllClosets() {
                                     </StylesProvider>
                                     <FormControlLabel
                                         control={
-                                        <Checkbox 
-                                        checked={isPublic} 
-                                        onChange={() => {handlePublicChange()}} 
+                                        <Checkbox
+                                        checked={isPublic}
+                                        onChange={() => {handlePublicChange()}}
                                         name="checkedA"
                                         color="primary"
                                         />
@@ -173,7 +173,7 @@ function AllClosets() {
                             }
                         </div>
                     </motion.div>
-                    {closetData.map((closet, i) => <ClosetPreview closet={closet} updateClosets={fetchClosets} key={i}/>)}
+                    {closetData.map(c => <ClosetPreview closet={c} updateClosets={fetchClosets} key={c.id} />)}
                 </div>
             }
         </motion.div>

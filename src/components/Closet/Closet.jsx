@@ -244,26 +244,30 @@ function Closet() {
                                     </label>
                                 </div>
                             </div>
-                            <Button id="save-button" onClick={handleUpdateCloset}>
-                                Save
-                            </Button>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            id="item-container"
-                            initial={{ y: 100, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.3, delay: 0.1 }}
-                        >
-                            <>
-                                {
-                                    closetData &&
-                                    closetData.listings.map((product, i) => (<ProductItem item={product} isOwned={isOwned} updateProducts={fetchCloset} key={i} />))
-                                }
-                            </>
-                        </motion.div>
-                    )
-                }
+                        <Button id="save-button" onClick={handleUpdateCloset}>
+                            Save
+                        </Button>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        id="item-container"
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                        <>
+                            {closetData &&
+                                closetData.listings.map(p => (
+                                    <ProductItem
+                                        item={p}
+                                        isOwned={isOwned}
+                                        updateProducts={fetchCloset}
+                                        key={p.id}
+                                    />
+                                ))}
+                        </>
+                    </motion.div>
+                )}
             </AnimatePresence>
         </motion.div>
     );
