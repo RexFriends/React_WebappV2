@@ -54,8 +54,6 @@ function ClosetPreview({ closet, updateClosets }) {
             });
     };
 
-    const closetId = `closet-${closet.id}`;
-
     return (
         <>
             <motion.div

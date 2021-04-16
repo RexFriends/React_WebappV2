@@ -78,7 +78,7 @@ function ClosetPreview({ closet, updateClosets }) {
             .then(res => res.json())
             .then(() => {
                 showAlert('Updated public status!', 'success');
-                updateClosets();
+                // updateClosets();
             })
     };
 

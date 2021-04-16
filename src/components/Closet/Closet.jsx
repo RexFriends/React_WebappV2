@@ -72,7 +72,6 @@ function Closet() {
             closet_image_uri: fileUpload ?? null,
             background_color: headerColor
         };
-        console.log('update payload ', payload);
 
         fetch(`${APIURL}/api/update-closet?uid=${rexUID}`, {
             method: 'PATCH',

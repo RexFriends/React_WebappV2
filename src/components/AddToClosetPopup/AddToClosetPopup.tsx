@@ -135,26 +135,31 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
                 </Grid>
                 <div style={{ height: 100, overflowY: "auto" }}>
                     {" "}
-                    {/* TODO: center */}
-                    {closets.map((c, i) => (
-                        <Grid key={i} alignItems="center" container item>
-                            <Grid item>
-                                <Checkbox
-                                    style={{ margin: "0 12px 0 0", padding: 0 }}
-                                    name={i.toString()}
-                                    checked={closetsChecked[i]}
-                                    onChange={handleChange}
-                                />
+                    {closets
+                        .filter((c) => c.closet_name !== "Saved Products")
+                        .map((c, i) => (
+                            <Grid key={i} alignItems="center" container item>
+                                <Grid item>
+                                    <Checkbox
+                                        style={{
+                                            margin: "0 12px 0 0",
+                                            padding: 0,
+                                        }}
+                                        name={i.toString()}
+                                        checked={closetsChecked[i]}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item style={{ minWidth: 150 }}>
+                                    <span>{c.closet_name}</span>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <span>{c.closet_name}</span>
-                            </Grid>
-                        </Grid>
-                    ))}
+                        ))}
                 </div>
                 <Button
                     className="round-button"
                     style={{
+                        marginTop: 10,
                         width: "70%",
                         backgroundColor: "#14c4b2",
                         fontWeight: "bold",
