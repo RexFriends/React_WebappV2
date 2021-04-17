@@ -27,10 +27,10 @@ function AllClosets() {
             .then(res => res.json())
             .then(json => {
                 console.log('closet preview ', json);
-                    const updatedData = json.closet_preview.filter(c => c.closet_name !== 'Saved Products');
-                    closetDataSet(updatedData);
-                }
-            );
+                const updatedData = json.closet_preview.filter(c => c.closet_name !== 'Saved Products');
+                closetDataSet(updatedData);
+            }
+        );
     };
 
     useEffect(() => {
@@ -59,11 +59,9 @@ function AllClosets() {
                     return new Error(json.reason);
                 }
             } catch (err) {
-                //idk why successfull requests go here
-                showAlert('Closet Created!', 'success');
-                creatingClosetSet(false);
-                fetchClosets();
-                closetNameSet("");
+                console.error(err);
+                showAlert('Creating closet failed!', 'error');
+                throw err;
             }
         }
     }

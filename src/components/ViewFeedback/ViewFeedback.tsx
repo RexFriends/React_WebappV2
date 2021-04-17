@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Divider, Grid, IconButton } from '@material-ui/core';
 import { ArrowBackIos } from '@material-ui/icons';
 import APIURL from '../../assets/URL';
 import { AiOutlineFrown, AiOutlineSmile } from 'react-icons/ai';
+import AppContext from '../AppContext/AppContext';
 
 export interface IViewFeedbackProps {
-    notification: INotification,
+    notificationId: number,
     image: string,
     setPage: React.Dispatch<React.SetStateAction<string>>
 }
 
-function ViewFeedback({ notification, image, setPage }: IViewFeedbackProps): JSX.Element {
+function ViewFeedback({ notificationId, image, setPage }: IViewFeedbackProps): JSX.Element {
     const [feedbacks, setFeedbacks] = useState<Array<IFeedback>>([]);
+    const appContext = useContext<IAppContext>(AppContext);
+    const notification = appContext.notifications.find(n => n.id === notificationId)!;
 
     const fetchProduct = () => {
         const rexUID = localStorage.getItem('rexUID');

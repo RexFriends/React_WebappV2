@@ -67,3 +67,9 @@ type NotificationUpdate = {
     notified_user: boolean,
     type: 'request' | 'completed'
 };
+
+interface IAppContext {
+    notifications: Array<INotification>,
+    notificationUnreadCount: number,
+    updateNotifications: () => void
+}

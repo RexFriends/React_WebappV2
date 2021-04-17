@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Grid, Popover } from '@material-ui/core';
 import Notification from '../Notification/Notification';
 import Scrollbars from 'react-custom-scrollbars';
@@ -6,18 +6,19 @@ import APIURL from '../../assets/URL';
 import { showAlert } from '../Alerts/Alerts';
 import SendFeedback from '../SendFeedback/SendFeedback';
 import ViewFeedback from '../ViewFeedback/ViewFeedback';
+import AppContext from '../AppContext/AppContext';
 
 export interface INotificationPopupProps {
     open: boolean,
-    onClose: () => void,
-    notifCountSetter: React.Dispatch<React.SetStateAction<number>>
+    onClose: () => void
 }
 
-function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPopupProps) {
-    const [notifications, setNotifications] = useState<Array<INotification>>([]);
+function NotificationPopup({ open, onClose }: INotificationPopupProps) {
     const [page, setPage] = useState<string>('notifications');
-    const [notification, setNotification] = useState<INotification>();
+    const [notificationId, setNotificationId] = useState<number>();
     const [image, setImage] = useState<string>('');
+    const appContext = useContext<IAppContext>(AppContext);
+    const { notifications } = appContext;
 
     const performUpdateCall = (toUpdate: Array<NotificationUpdate>) => {
         const rexUID = localStorage.getItem('rexUID');
@@ -32,24 +33,16 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
         })
             .then((res) => res.json())
             .then(() => {
-                getNotifications();
+                appContext.updateNotifications();
             })
             .catch(console.error);
     };
 
-    const getNotifications = () => {
-        const rexUID = localStorage.getItem('rexUID');
-        fetch(`${APIURL}/api/get_notif?uid=${rexUID}`)
-            .then((res) => res.json())
-            .then((json) => {
-                notifCountSetter(json.notifications.amount);
-                setNotifications(json.notifications.notifications);
-            });
-    };
+    useEffect(() => {
+        appContext.updateNotifications();
+    }, [open]);
 
-    useEffect(() => getNotifications(), [open]);
-
-    const handleSendFeedback = (thumbs: boolean | undefined, additionalFeedback: string) => {
+    const handleSendFeedback = (notification: INotification, thumbs: boolean | undefined, additionalFeedback: string) => {
         if (thumbs === undefined) {
             showAlert('Add Response!', 'error');
         } else {
@@ -70,7 +63,10 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
             )
                 .then((res) => res.json())
                 .then((json) => {
-                    if (json.success === true) showAlert('Sent feedback!', 'success');
+                    if (json.success === true) {
+                        showAlert('Sent feedback!', 'success');
+                        appContext.updateNotifications();
+                    }
                     else showAlert('Sending feedback failed!', 'error');
                 })
                 .catch((err) => {
@@ -92,7 +88,7 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
             type: notification.notif_type === 'Request' ? 'request' : 'completed'
         }]);
 
-        setNotification(notification);
+        setNotificationId(notification.id);
         setPage(notification.notif_type === 'Request' ? 'request' : 'feedback');
         setImage(image);
     };
@@ -125,7 +121,6 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                                     key={n.id}
                                     notification={n}
                                     updater={performUpdateCall}
-                                    setPage={setPage}
                                     openNotification={handleOpenNotification}
                                 />
                             ))}
@@ -133,10 +128,10 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
                     </Scrollbars>
                 </Grid>
             ) : page === 'feedback' ? (
-                <ViewFeedback notification={notification!} image={image} setPage={setPage} />
+                <ViewFeedback notificationId={notificationId!} image={image} setPage={setPage} />
             ) : page === 'request' ? (
                 <SendFeedback
-                    notification={notification!}
+                    notificationId={notificationId!}
                     image={image}
                     setPage={setPage}
                     handleSendFeedback={handleSendFeedback}
