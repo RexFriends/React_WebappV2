@@ -23,7 +23,7 @@ function ClosetPreview({ closet, updateClosets }) {
     const handleGetCopyLink = (e) => {
         e.stopPropagation();
 
-        const link = `${APIURL}/closets/${closet.id}`;
+        const link = `https://app.rexfriends.com/closets/${closet.id}`;
 
         if (navigator.clipboard) {
             navigator.clipboard
@@ -157,11 +157,12 @@ function ClosetPreview({ closet, updateClosets }) {
                             backgroundColor: "#14c4b2",
                             color: "white",
                             width: "60px",
-                            height: "auto",
+                            height: "30px",
                             borderRadius: "100px",
                             margin: "10px 5px auto 135px",
                             fontWeight: 600,
                             position: "absolute",
+                            textTransform: "none"
                         }}
                     >
                         Share
