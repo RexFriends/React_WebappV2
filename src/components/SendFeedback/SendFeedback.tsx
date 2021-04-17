@@ -9,7 +9,7 @@ export interface ISendFeedbackProps {
     notification: INotification,
     image: string,
     setPage: React.Dispatch<React.SetStateAction<string>>,
-    handleSendFeedback: (thumbs: boolean | undefined, additionalFeedback: string) => void,
+    handleSendFeedback: (thumbs: boolean | undefined, additionalFeedback: string) => void
 }
 
 function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISendFeedbackProps): JSX.Element {
@@ -85,12 +85,12 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                 container
                 item
             >
-                <div style={{ margin: "10px auto 0 auto", width: 'calc(100%-60px)' }}>
+                <div style={{ margin: "10px 0", width: 'calc(100%-60px)', display: 'flex', flexDirection: 'column' }}>
                     {
                         notification.did_reply ? (
-                            notification.thumbs_up ? (
-                                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+                                <>
                                     <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
+                                    { notification.thumbs_up ?
                                     <IconButton
                                         className="highlight1"
                                         style={{ color: "#37DB69", width: "70px", height: "70px", margin: 'auto' }}
@@ -98,12 +98,7 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                     >
                                         <AiOutlineSmile style={{ width: "60px", height: "60px" }} />
                                     </IconButton>
-                                </div>
-                            )
-
-                            : (
-                                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
-                                    <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
+                                    :
                                     <IconButton
                                         className="highlight2"
                                         style={{ color: "#FD6C73", width: "70px", height: "70px", margin: 'auto' }}
@@ -111,8 +106,9 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                     >
                                         <AiOutlineFrown style={{ width: "60px", height: "60px" }} />
                                     </IconButton>
-                                </div>
-                            )
+                                    }
+                                    <span>{notification.additional_info}</span>
+                                </>                      
                         ) : (
                             <>
                                 <IconButton
@@ -147,7 +143,8 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                         minHeight: 100,
                                         margin: "10px auto auto auto",
                                         borderRadius: 5,
-                                        border: '1px solid rgba(255, 255, 255, 0.4)'
+                                        border: '1px solid rgba(255, 255, 255, 0.4)',
+                                        textAlign: "right"
                                     }
                                 }}
                                 variant="outlined"
@@ -157,7 +154,7 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                 multiline
                             />
                             <Button
-                                onClick={() => handleSendFeedback(thumbs, additionalFeedback)}
+                                onClick={() => {handleSendFeedback(thumbs, additionalFeedback); goBack();}}
                                 id="submit"
                                 style={{
                                     width: "80px",

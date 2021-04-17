@@ -70,7 +70,10 @@ function NotificationPopup({ open, onClose, notifCountSetter }: INotificationPop
             )
                 .then((res) => res.json())
                 .then((json) => {
-                    if (json.success === true) showAlert('Sent feedback!', 'success');
+                    if (json.success === true) {
+                        getNotifications();
+                        showAlert('Sent feedback!', 'success');
+                    }
                     else showAlert('Sending feedback failed!', 'error');
                 })
                 .catch((err) => {
