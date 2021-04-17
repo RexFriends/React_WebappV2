@@ -89,7 +89,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
             transformOrigin={origin}
             PaperProps={{
                 style: {
-                    padding: 15,
+                    padding: "15px 15px 3px 15px",
                     borderRadius: 15,
                 },
             }}
@@ -194,7 +194,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                 )}
                 <Grid style={{ height: "30vh", maxHeight: 450 }} item>
                     <Scrollbars
-                        style={{ height: "100%", marginTop: "5px" }}
+                        style={{ height: "98%", marginTop: "5px" }}
                         autoHide
                     >
                         {friends.map(f => (
@@ -270,11 +270,13 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                 endIcon={<Send>Send</Send>}
                                                 style={{
                                                     width: "80px",
+                                                    height: "30px",
                                                     backgroundColor: "#14c4b2",
                                                     borderRadius: 50,
+                                                    fontWeight: 600,
                                                     color: "white",
                                                     textTransform: "none",
-                                                    marginRight: "15px",
+                                                    marginRight: "0",
                                                 }}
                                                 onClick={() =>
                                                     handleSendRequest(

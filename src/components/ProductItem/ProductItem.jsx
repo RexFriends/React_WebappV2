@@ -210,6 +210,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
     };
 
     const productId = `product-${item.id}`;
+    const sendButtonId = `send-${item.id}`;
 
     return (
         <>
@@ -278,7 +279,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                     </Grid>
                 </Grid>
                 <AnimatePresence>
-                    {hover && (
+                    {(hover || showFeedbackPopup) && (
                         <motion.div
                             id="overlay"
                             initial={{ opacity: 0 }}
@@ -294,6 +295,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                                 }}
                             >
                                 <Button
+                                    id={sendButtonId}
                                     style={{
                                         backgroundColor: "#14c4b2",
                                         padding: "7px",
@@ -405,7 +407,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                 />
             )}
             <FeedbackPopup
-                anchorElementId={productId}
+                anchorElementId={sendButtonId}
                 open={showFeedbackPopup}
                 onClose={handleCloseFeedbackPopup}
                 handleGetCopyLink={handleGetCopyLink}
