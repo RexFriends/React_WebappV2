@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { Grid, IconButton, TextField } from '@material-ui/core';
 import { ArrowBackIos } from '@material-ui/icons';
 import { AiOutlineFrown, AiOutlineSmile } from 'react-icons/ai';
 import './SendFeedback.scss';
+import AppContext from '../AppContext/AppContext';
 
 export interface ISendFeedbackProps {
-    notification: INotification,
+    notificationId: number,
     image: string,
     setPage: React.Dispatch<React.SetStateAction<string>>,
-    handleSendFeedback: (thumbs: boolean | undefined, additionalFeedback: string) => void
+    handleSendFeedback: (notification: INotification, thumbs: boolean | undefined, additionalFeedback: string) => void
 }
 
-function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISendFeedbackProps): JSX.Element {
+function SendFeedback({ notificationId, image, setPage, handleSendFeedback }: ISendFeedbackProps): JSX.Element {
     const [thumbs, setThumbs] = useState<boolean | undefined>(undefined);
     const [additionalFeedback, setAdditionalFeedback] = useState<string>('');
+    const appContext = useContext<IAppContext>(AppContext);
+    const notification = appContext.notifications.find(n => n.id === notificationId)!;
+    console.log(notification);
 
     const goBack = () => {
         setThumbs(undefined);
@@ -108,7 +112,7 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                     </IconButton>
                                     }
                                     <span>{notification.additional_info}</span>
-                                </>                      
+                                </>
                         ) : (
                             <>
                                 <IconButton
@@ -154,7 +158,7 @@ function SendFeedback({ notification, image, setPage, handleSendFeedback }: ISen
                                 multiline
                             />
                             <Button
-                                onClick={() => {handleSendFeedback(thumbs, additionalFeedback); goBack();}}
+                                onClick={() => handleSendFeedback(notification, thumbs, additionalFeedback)}
                                 id="submit"
                                 style={{
                                     width: "80px",

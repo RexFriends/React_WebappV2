@@ -1,8 +1,7 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-
-// Componenets
+import { AppContextComponent } from './components/AppContext/AppContext';
 import Closet from './components/Closet/Closet';
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
@@ -12,17 +11,12 @@ import AllProducts from './components/AllProducts/AllProducts';
 import Setting from './components/Setting/Setting';
 import Feedback from './components/Feedback/Feedback';
 import AllClosets from './components/AllClosets/AllClosets';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { AnimatePresence } from 'framer-motion';
 import Alerts from './components/Alerts/Alerts';
 
-
-const queryClient = new QueryClient();
-
 function App() {
     return (
-        <QueryClientProvider client={queryClient}>
+        <AppContextComponent>
             <div className="App">
                 <Router>
                     <Switch>
@@ -59,8 +53,7 @@ function App() {
                 </Router>
                 <Alerts />
             </div>
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        </AppContextComponent>
     );
 }
 

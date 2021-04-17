@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Dashboard.scss";
 import { useHistory, useLocation } from "react-router-dom";
 import { IoMail } from "react-icons/io5";
@@ -15,6 +15,7 @@ import APIURL from "../../assets/URL";
 import Scrollbars from "react-custom-scrollbars";
 import { AnimatePresence, motion } from "framer-motion";
 import "../../assets/base.scss";
+import AppContext from '../AppContext/AppContext';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -33,11 +34,10 @@ const spring = {
 };
 
 function Dashboard({ children }) {
-    let location = useLocation();
-    let history = useHistory();
-
+    const location = useLocation();
+    const history = useHistory();
+    const globalState = useContext(AppContext);
     const [scrolled, scrolledSet] = useState(false);
-
     const [showSidebar, showSidebarSet] = useState(true);
     const [showClosets, showClosetsSet] = useState(false);
     const [currentCloset, currentClosetSet] = useState(undefined);
@@ -45,7 +45,6 @@ function Dashboard({ children }) {
     const [userAuth, userAuthSet] = useState(undefined);
     const [userData, userDataSet] = useState(undefined);
     const [closetData, closetDataSet] = useState(undefined);
-    const [NotifCount, NotifCountSet] = useState(undefined);
 
     useEffect(() => {
         const rexUID = localStorage.getItem("rexUID");
@@ -66,7 +65,6 @@ function Dashboard({ children }) {
                             (c) => c.name !== "Saved Products"
                         );
                         closetDataSet(updatedData);
-                        NotifCountSet(json.notif_count);
                     } else {
                         userAuthSet(false);
                         localStorage.removeItem("rexUID");
@@ -288,7 +286,7 @@ function Dashboard({ children }) {
                                             }
                                         >
                                             <StyledBadge
-                                                badgeContent={NotifCount}
+                                                badgeContent={globalState.notificationUnreadCount}
                                                 color="secondary"
                                                 max={99}
                                             >
@@ -304,7 +302,6 @@ function Dashboard({ children }) {
                                                     !showNotification
                                                 )
                                             }
-                                            notifCountSetter={NotifCountSet}
                                         />
                                     </div>
                                 )}

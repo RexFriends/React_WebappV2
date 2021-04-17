@@ -6,11 +6,10 @@ import TextOverflow from '../TextOverflow/TextOverflow';
 export interface INotificationProps {
     notification: INotification,
     updater: (toUpdate: Array<NotificationUpdate>) => void,
-    setPage: React.Dispatch<React.SetStateAction<string>>,
     openNotification: (notification: INotification, image: string) => void
 }
 
-function Notification({ notification, updater, setPage, openNotification }: INotificationProps): JSX.Element {
+function Notification({ notification, updater, openNotification }: INotificationProps): JSX.Element {
     const [name, setName] = useState<string>('');
     const [image, setImage] = useState<string>('');
 
