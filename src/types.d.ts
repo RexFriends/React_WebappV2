@@ -16,6 +16,7 @@ interface INotification {
     username: string,
     notif_type: 'Request' | 'Completed',
     did_reply: boolean,
+    additional_info: string,
     feedback_form_link?: string,
     product_info: IProduct,
     products?: number,
