@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
-import { IconButton } from "@material-ui/core";
-import { Edit, FileCopy, MoreHoriz } from "@material-ui/icons";
+import { Button } from "@material-ui/core";
 import APIURL from "../../assets/URL";
 import { copyFallback } from "../../util";
 import { showAlert } from "../Alerts/Alerts";
 
-function ClosetPreview({ closet, updateClosets }) {
+function ClosetPreview({ closet }) {
     const history = useHistory();
-    const [showPopup, setShowPopup] = useState(false);
+    const [hover, hoverSet] = useState(false);
 
     const handleClosetView = (edit) => {
         history.push({ pathname: `/closets/${closet.id}`, state: { edit } });
     };
 
-    const handleGetCopyLink = () => {
-        const link = `${APIURL}/closets/${closet.id}`;
+    const handleGetCopyLink = (e) => {
+        e.stopPropagation();
+        const link = `https://app.rexfriends.com/closets/${closet.id}`;
 
         if (navigator.clipboard) {
             navigator.clipboard
@@ -31,29 +31,6 @@ function ClosetPreview({ closet, updateClosets }) {
         } else copyFallback(link);
     };
 
-    const handleDelete = () => {
-        const rexUID = localStorage.getItem("rexUID");
-        fetch(`${APIURL}/api/closet?uid=${rexUID}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                closet_id: closet.id,
-            }),
-        })
-            .then((res) => res.json())
-            .then(() => {
-                showAlert("Removed closet!", "success");
-                updateClosets();
-                setShowPopup(false);
-            })
-            .catch((err) => {
-                console.error(err);
-                showAlert("Removing closet failed!", "error");
-            });
-    };
-
     return (
         <>
             <motion.div
@@ -61,6 +38,8 @@ function ClosetPreview({ closet, updateClosets }) {
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 style={{ textAlign: "left" }}
+                onMouseEnter={() => hoverSet(true)}
+                onMouseLeave={() => hoverSet(false)}
                 transition={{
                     type: "tween",
                     delay: 0.3,
@@ -88,6 +67,26 @@ function ClosetPreview({ closet, updateClosets }) {
                     >
                         <span id="name">{closet.closet_name}</span>
                     </div>
+                )}
+
+                {hover && (
+                    <Button
+                        className="share-buton"
+                        onClick={handleGetCopyLink}
+                        style={{
+                            backgroundColor: "#14c4b2",
+                            color: "white",
+                            width: "60px",
+                            height: "30px",
+                            borderRadius: "100px",
+                            margin: "10px 5px auto 135px",
+                            fontWeight: 600,
+                            position: "absolute",
+                            textTransform: "none"
+                        }}
+                    >
+                        Share
+                    </Button>
                 )}
             </motion.div>
         </>
