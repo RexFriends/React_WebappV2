@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Grid } from '@material-ui/core';
 import './AllProducts.scss';
 import { AnimatePresence, motion } from 'framer-motion';
 import APIURL from '../../assets/URL';
@@ -21,20 +22,21 @@ function AllProducts() {
     }, []);
 
     return (
-
         <motion.div id="allProducts"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
         >
             <div id="title">All Saved</div>
-            <div id="container">
+            <Grid id="container" spacing={2} container>
                 <AnimatePresence>
-                    <>
-                        {productData.map(p => <ProductItem item={p} isOwned={true} updateProducts={fetchProducts} key={p.id}/>)}
-                    </>
+                    {productData.map(p => (
+                        <Grid key={p.id} item>
+                            <ProductItem item={p} isOwned={true} updateProducts={fetchProducts} />
+                        </Grid>
+                    ))}
                 </AnimatePresence>
-            </div>
+            </Grid>
 
         </motion.div>
     );

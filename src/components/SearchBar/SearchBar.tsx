@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import SearchBarComp from "material-ui-search-bar";
 import "./SearchBar.scss";
-import Scrollbars from "react-custom-scrollbars";
 import { AnimatePresence, motion } from "framer-motion";
 import URL from "../../assets/URL";
 import { useHistory } from "react-router-dom";
@@ -86,7 +85,7 @@ export const SearchBar = ({ scrolled }: SearchBarProps) => {
                         exit={{ height: 0, opacity: 0 }}
                     >
                         <div id="results">
-                            <Scrollbars autoHide>
+                            <div style={{ overflowY: 'auto' }}>
                                 {searchResults
                                     .filter((u) => u.is_user)
                                     .map((u) => (
@@ -117,7 +116,7 @@ export const SearchBar = ({ scrolled }: SearchBarProps) => {
                                             )}
                                         </div>
                                     ))}
-                            </Scrollbars>
+                            </div>
                         </div>
                     </motion.div>
                 )}

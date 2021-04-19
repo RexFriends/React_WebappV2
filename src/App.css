@@ -5,3 +5,7 @@
   background-color: #F7F8F8;
   font-family: "Baloo 2";
 }
+
+html, body {
+  overflow: hidden;
+}

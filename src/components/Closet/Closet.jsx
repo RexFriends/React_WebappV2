@@ -2,15 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './Closet.scss';
 import { useHistory, useParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
+import { Button, Checkbox, FormControlLabel, Grid, IconButton, TextField } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 import { FiEdit2 } from 'react-icons/fi';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import APIURL from '../../assets/URL';
 import ProductItem from '../ProductItem/ProductItem';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import './Closet.scss';
 
 function Closet() {
@@ -146,7 +142,7 @@ function Closet() {
                                 id="back-button"
                                 onClick={handleBackButton}
                             >
-                                <ArrowBackIcon />
+                                <ArrowBack />
                             </IconButton>
                             <div id="text">
                                 <div id="name">{closetData.name}</div>
@@ -171,7 +167,7 @@ function Closet() {
                                 id="back-button"
                                 onClick={handleBackButtonSocial}
                             >
-                                <ArrowBackIcon />
+                                <ArrowBack />
                             </IconButton>
                             <div id="text">
                                 <div id="closet-name">{`${closetData.user.first_name} ${closetData.user.last_name}'s`}</div>
@@ -250,22 +246,17 @@ function Closet() {
                     </motion.div>
                 ) : (
                     <motion.div
-                        id="item-container"
                         initial={{ y: 100, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
                     >
-                        <>
-                            {closetData &&
-                                closetData.listings.map(p => (
-                                    <ProductItem
-                                        item={p}
-                                        isOwned={isOwned}
-                                        updateProducts={fetchCloset}
-                                        key={p.id}
-                                    />
-                                ))}
-                        </>
+                        <Grid id="item-container" spacing={2} container>
+                            {closetData && closetData.listings.map(p => (
+                                <Grid key={p.id} item>
+                                    <ProductItem item={p} isOwned={isOwned} updateProducts={fetchCloset} />
+                                </Grid>
+                            ))}
+                        </Grid>
                     </motion.div>
                 )}
             </AnimatePresence>

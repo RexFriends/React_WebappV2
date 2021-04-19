@@ -1,11 +1,10 @@
 #allProducts {
-    // border: solid red 2px;
     width: 95%;
     margin: 0px auto;
+
     #title {
         text-align: left;
         width: 100%;
-        // border: solid red 2px;
         color: rgb(114, 114, 114);
         padding-left: 25px;
         margin: 0 auto;
@@ -14,12 +13,8 @@
     }
     #container {
         padding: 10px;
-        // border: solid red 2px;
-        margin: 0px 10px;
-        overflow: hidden;
-        grid-gap: 16px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+        margin: 0 10px;
+
         .product {
             background-color: white;
             border-radius: 10px;
@@ -32,7 +27,6 @@
             flex-direction: column;
             justify-content: flex-start;
             #image {
-                // border: solid red 2px;
                 margin-top: 0;
                 height: 170px;
                 object-fit: contain;

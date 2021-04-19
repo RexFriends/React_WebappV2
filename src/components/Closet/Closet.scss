@@ -65,12 +65,8 @@
     }
     #item-container {
         padding: 10px;
-        // border: solid red 2px;
         margin: 10px;
-        overflow: hidden;
-        grid-gap: 16px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+        overflow: hidden auto;
         .product {
             background-color: white;
             border-radius: 10px;

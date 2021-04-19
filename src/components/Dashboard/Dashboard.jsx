@@ -4,15 +4,11 @@ import { useHistory, useLocation } from "react-router-dom";
 import { IoMail } from "react-icons/io5";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { RiSettings3Line } from "react-icons/ri";
-import IconButton from "@material-ui/core/IconButton";
+import { Badge, Button, IconButton, withStyles } from '@material-ui/core';
 import SearchBar from "../SearchBar/SearchBar";
-import Badge from "@material-ui/core/Badge";
-import { withStyles } from "@material-ui/core/styles";
 import logo from "../../assets/img/Asset 1.png";
-import Button from "@material-ui/core/Button";
 import NotificationPopup from "../NotificationPopup/NotificationPopup";
 import APIURL from "../../assets/URL";
-import Scrollbars from "react-custom-scrollbars";
 import { AnimatePresence, motion } from "framer-motion";
 import "../../assets/base.scss";
 import AppContext from '../AppContext/AppContext';
@@ -200,7 +196,7 @@ function Dashboard({ children }) {
                                         }}
                                         exit={{ y: 0, height: 0, opacity: 0 }}
                                     >
-                                        <Scrollbars autoHide>
+                                        <div style={{ height: '100%', overflowY: 'auto' }}>
                                             {closetData &&
                                                 closetData.map(closet => (
                                                     <div
@@ -221,7 +217,7 @@ function Dashboard({ children }) {
                                                         {closet.name}
                                                     </div>
                                                 ))}
-                                        </Scrollbars>
+                                        </div>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -329,20 +325,14 @@ function Dashboard({ children }) {
                                                 alt="pro-img"
                                             />
                                         )}
-                                        {/* <div id="temp-propic">
-                      {userData &&
-                        `${userData.first_name.charAt(
-                          0
-                        )}${userData.last_name.charAt(0)}`}
-                    </div> */}
                                     </div>
                                 )}
                             </div>
                         </div>
-                        <div id="responsive-insert" style={{ width: `100%` }}>
-                            <Scrollbars onScroll={handleScroll}>
+                        <div id="responsive-insert" style={{ height: 'calc(100vh - 110px)', width: `100%` }}>
+                            <div style={{ height: '100%', overflow: 'hidden auto' }} onScroll={handleScroll}>
                                 {children}
-                            </Scrollbars>
+                            </div>
                         </div>
                     </motion.div>
                 )}

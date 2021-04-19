@@ -1,8 +1,7 @@
 #AllClosetsPage {
-    // border: solid red 2px;
-    // height: 100%;
     width: 95%;
     margin: 0px auto;
+
     #title {
         text-align: left;
         width: 100%;
@@ -15,12 +14,8 @@
     }
     #closet-container {
         padding: 10px;
-        // border: solid red 2px;
-        margin: 0px 10px;
-        overflow: hidden;
-        grid-gap: 16px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+        margin: 0 10px;
+
         #new-closet {
             width: 220px;
             height: 220px;

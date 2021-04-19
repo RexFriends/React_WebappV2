@@ -3,16 +3,10 @@ import APIURL from '../../assets/URL';
 import './AllClosets.scss';
 import ClosetPreview from './ClosetPreview';
 import { motion } from 'framer-motion';
-import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
-import TextField from '@material-ui/core/TextField';
-import { Button} from '@material-ui/core';
+import { Button, Checkbox, FormControlLabel, Grid, TextField, StylesProvider } from '@material-ui/core';
+import { Close, LibraryAdd } from '@material-ui/icons';
 import { showAlert } from '../Alerts/Alerts';
-import CloseIcon from '@material-ui/icons/Close';
-import { StylesProvider } from "@material-ui/core/styles";
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import "./styles.css";
-import Checkbox from '@material-ui/core/Checkbox';
-import { SquareFoot } from '@material-ui/icons';
+import NewClosetTile from '../NewClosetTile/NewClosetTile';
 
 function AllClosets() {
     const rexUID = localStorage.getItem('rexUID');
@@ -76,9 +70,7 @@ function AllClosets() {
     }
 
     const handlePublicChange = () => {
-            setIsPublic(!isPublic);
-
-
+        setIsPublic(!isPublic);
     }
 
     return (
@@ -90,89 +82,24 @@ function AllClosets() {
             <div id="title">All Closets</div>
             {
                 closetData &&
-                <div id="closet-container">
-                    <motion.div
-                        className="closet"
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                            type: 'tween',
-                            delay: 0.3
-                        }}
-                        onClick={() => handleEditCloset(true)}
-                    >
-                        <div id="new-closet">
-                            {
-
-                                creatingCloset ?
-
-                                <motion.div id='new-form'
-                                    initial={{ y: 100, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ type: "tween", delay: 0.2 }}
-                                >
-
-                                    <Button
-                                        onClick={(e) => {handleEditCloset(false); e.stopPropagation();}}
-                                        style={{width: '30px', height: '30px', borderRadius: '100px', margin: '5px 0px 5px auto'}}>
-                                        <CloseIcon style={{color: 'white', width: '30x', height: '30px'}}/>
-                                    </Button>
-                                    <StylesProvider injectFirst>
-                                    <TextField
-                                    id="text"
-                                    style={{margin: 'auto auto 0px auto', color: '#fff'}}
-                                    label='Closet Name'
-                                    InputProps={{
-                                        /* @ts-ignore */
-                                        style: { color: '#fff', borderRadius: 50, borderBottomColor: '#fff', borderColor: '#fff' }
-                                    }}
-                                    value={closetName}
-                                    onChange={(e) => {
-                                        closetNameSet(e.target.value);
-                                    }}
-                                    ></TextField>
-                                    </StylesProvider>
-                                    <FormControlLabel
-                                        control={
-                                        <Checkbox
-                                        checked={isPublic}
-                                        onChange={() => {handlePublicChange()}}
-                                        name="checkedA"
-                                        color="primary"
-                                        />
-                                    }
-                                        label="Public"
-                                        styles={{color: 'white'}}
-                                    />
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        className="send-button"
-                                        style={{margin: '20px auto auto auto', height: '30px', width: '65px', backgroundColor: 'white', color: '#207c9d', borderRadius: 50, fontWeight: 600}}
-                                        onClick={() => handleNewCloset()}
-                                        >
-                                        Done
-                                    </Button>
-                                </motion.div>
-
-                            :
-                            // <motion.div id='content'
-                            //         initial={{ y: -100, opacity: 0 }}
-                            //         animate={{ y: 0, opacity: 1 }}
-                            //         transition={{ type: "tween", delay: 0.0 }}
-                            //     >
-                            //     <LibraryAddIcon style={{color: "white", fontSize: 70, margin: "auto auto 0px auto"}}/>
-                            //     <span style={{margin: '5px auto auto auto', color: 'white', fontWeight: '700', fontSize: '24px'}}>New</span>
-                            // </motion.div>
-                            <div id="content">
-                                <LibraryAddIcon style={{color: "white", fontSize: 70, margin: "auto auto 0px auto"}}/>
-                                <span style={{margin: '5px auto auto auto', color: 'white', fontWeight: '700', fontSize: '24px'}}>New</span>
-                                </div>
-                            }
-                        </div>
-                    </motion.div>
-                    {closetData.map(c => <ClosetPreview closet={c} updateClosets={fetchClosets} key={c.id} />)}
-                </div>
+                <Grid id="closet-container" spacing={2} container>
+                    <Grid item>
+                        <NewClosetTile
+                            closetName={closetName}
+                            closetNameSet={closetNameSet}
+                            creatingCloset={creatingCloset}
+                            handleEditCloset={handleEditCloset}
+                            isPublic={isPublic}
+                            handlePublicChange={handlePublicChange}
+                            handleNewCloset={handleNewCloset}
+                        />
+                    </Grid>
+                    {closetData.map(c => (
+                        <Grid key={c.id} item>
+                            <ClosetPreview closet={c} updateClosets={fetchClosets} />
+                        </Grid>
+                    ))}
+                </Grid>
             }
         </motion.div>
     );

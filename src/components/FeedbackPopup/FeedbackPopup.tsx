@@ -19,7 +19,6 @@ import {
     Send,
 } from "@material-ui/icons";
 import TextOverflow from "../TextOverflow/TextOverflow";
-import Scrollbars from "react-custom-scrollbars";
 import { positionPopup } from "../../util";
 
 export interface IFeedbackPopupProps {
@@ -193,10 +192,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                     </Grid>
                 )}
                 <Grid style={{ height: "30vh", maxHeight: 450 }} item>
-                    <Scrollbars
-                        style={{ height: "98%", marginTop: "5px" }}
-                        autoHide
-                    >
+                    <div style={{ height: "98%", marginTop: "5px", overflowY: 'auto' }}>
                         {friends.map(f => (
                             <Grid key={f.id} style={{ width: "100%" }} item>
                                 <Button className="contact-button">
@@ -262,12 +258,8 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                             </Grid>
                                         </Grid>
                                         <Grid item>
-                                            {/* <Send /> */}
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
+                                            <Grid
                                                 className="send-button"
-                                                endIcon={<Send>Send</Send>}
                                                 style={{
                                                     width: "80px",
                                                     height: "30px",
@@ -277,6 +269,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                     color: "white",
                                                     textTransform: "none",
                                                     marginRight: "0",
+                                                    boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)'
                                                 }}
                                                 onClick={() =>
                                                     handleSendRequest(
@@ -284,15 +277,20 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                                                         f.is_user
                                                     )
                                                 }
+                                                justify="center"
+                                                alignItems="center"
+                                                container
+                                                item
                                             >
                                                 Send
-                                            </Button>
+                                                <Send style={{ marginLeft: 8, marginRight: -4, height: 20, width: 20 }}>Send</Send>
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Button>
                             </Grid>
                         ))}
-                    </Scrollbars>
+                    </div>
                 </Grid>
             </Grid>
         </Popover>
