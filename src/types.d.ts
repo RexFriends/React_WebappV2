@@ -71,6 +71,8 @@ type NotificationUpdate = {
 
 interface IAppContext {
     notifications: Array<INotification>,
+    notificationTotal: number,
     notificationUnreadCount: number,
+    loadNextNotifications: () => Promise<void>,
     updateNotifications: () => void
 }

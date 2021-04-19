@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Grid, Popover } from '@material-ui/core';
+import { CircularProgress, Grid, Popover } from '@material-ui/core';
 import Notification from '../Notification/Notification';
-import Scrollbars from 'react-custom-scrollbars';
 import APIURL from '../../assets/URL';
 import { showAlert } from '../Alerts/Alerts';
 import SendFeedback from '../SendFeedback/SendFeedback';
@@ -17,8 +16,9 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
     const [page, setPage] = useState<string>('notifications');
     const [notificationId, setNotificationId] = useState<number>();
     const [image, setImage] = useState<string>('');
+    const [loadMore, setLoadMore] = useState<boolean>(false);
     const appContext = useContext<IAppContext>(AppContext);
-    const { notifications } = appContext;
+    const { notifications, notificationTotal, loadNextNotifications, updateNotifications } = appContext;
 
     const performUpdateCall = (toUpdate: Array<NotificationUpdate>) => {
         const rexUID = localStorage.getItem('rexUID');
@@ -33,13 +33,13 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
         })
             .then((res) => res.json())
             .then(() => {
-                appContext.updateNotifications();
+                updateNotifications();
             })
             .catch(console.error);
     };
 
     useEffect(() => {
-        appContext.updateNotifications();
+        if (open) updateNotifications();
     }, [open]);
 
     const handleSendFeedback = (notification: INotification, thumbs: boolean | undefined, additionalFeedback: string) => {
@@ -65,7 +65,7 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
                 .then((json) => {
                     if (json.success === true) {
                         showAlert('Sent feedback!', 'success');
-                        appContext.updateNotifications();
+                        updateNotifications();
                     }
                     else showAlert('Sending feedback failed!', 'error');
                 })
@@ -93,6 +93,17 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
         setImage(image);
     };
 
+    const handleScroll: React.UIEventHandler<HTMLDivElement> = e => {
+        const element = e.target as HTMLDivElement;
+        if (element.scrollHeight - element.scrollTop === element.clientHeight && !loadMore) {
+            setLoadMore(true);
+            loadNextNotifications()
+                .then(() => {
+                    setLoadMore(false);
+                });
+        }
+    };
+
     return (
         <Popover
             PaperProps={{
@@ -109,13 +120,12 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         >
             {page === 'notifications' ? (
-                //  <NotificationList notifications={notifications} updated={performUpdateCall}/>
                 <Grid style={{ height: '100%' }} container>
-                    <Scrollbars style={{ height: '100%', margin: '0px auto' }} autoHide>
+                    <div style={{ height: '100%', margin: '0px auto', overflow: 'auto' }} onScroll={handleScroll}>
                         <h3 style={{ margin: '15px auto 0px 30px', color: '#525252', fontSize: '25px' }}>
                             Notifications
                         </h3>
-                        <Grid style={{ padding: '15px 10px' }} direction="column" container>
+                        <Grid style={{ padding: '15px 10px' }} direction="column" alignItems="center" container>
                             {notifications.map(n => (
                                 <Notification
                                     key={n.id}
@@ -124,8 +134,11 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
                                     openNotification={handleOpenNotification}
                                 />
                             ))}
+                            {
+                                notificationTotal > 10 && loadMore && <CircularProgress variant="indeterminate" />
+                            }
                         </Grid>
-                    </Scrollbars>
+                    </div>
                 </Grid>
             ) : page === 'feedback' ? (
                 <ViewFeedback notificationId={notificationId!} image={image} setPage={setPage} />
@@ -136,9 +149,7 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
                     setPage={setPage}
                     handleSendFeedback={handleSendFeedback}
                 />
-            ) : (
-                <div>Some Page</div>
-            )}
+            ) : null}
         </Popover>
     );
 }
