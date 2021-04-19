@@ -159,7 +159,10 @@ function ClosetPreview({ closet, updateClosets }) {
                             width: "60px",
                             height: "30px",
                             borderRadius: "100px",
-                            margin: "10px 5px auto 135px",
+                            top: 0,
+                            right: 0,
+                            marginTop: 10,
+                            marginRight: 10,
                             fontWeight: 600,
                             position: "absolute",
                             textTransform: "none"

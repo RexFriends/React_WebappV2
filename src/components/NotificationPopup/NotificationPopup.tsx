@@ -128,7 +128,7 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
         >
             {page === 'notifications' ? (
                 <Grid style={{ height: '100%' }} container>
-                    <div id="notif-scroll" style={{ height: '100%', margin: '0px auto', overflow: 'auto' }} onScroll={handleScroll}>
+                    <div id="notif-scroll" style={{ height: '100%', margin: '0px', width: '100%', overflow: 'auto' }} onScroll={handleScroll}>
                         <h3 style={{ margin: '15px auto 0px 30px', color: '#525252', fontSize: '25px' }}>
                             Notifications
                         </h3>

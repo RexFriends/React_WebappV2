@@ -44,7 +44,7 @@ function Notification({ notification, updater, openNotification }: INotification
                 backgroundColor: '#ffffff',
                 borderRadius: 8,
                 margin: '5px 0',
-                padding: 10,
+                padding: '5px 10px',
                 cursor: 'pointer'
             }}
             onClick={() => openNotification(notification, image)}
@@ -106,7 +106,7 @@ function Notification({ notification, updater, openNotification }: INotification
                 }
 
             </Grid>
-            <Grid style={{ marginLeft: 15, marginRight: 0 }} item>
+            <Grid style={{ marginLeft: 10, marginRight: 0 }} item>
                 {
                     image === 'None' || !image ?
                         <Photo style={{ height: 80, width: 80, borderRadius: 8 }} />
@@ -118,7 +118,7 @@ function Notification({ notification, updater, openNotification }: INotification
                 notification.seen ?
                 <div> </div>
                 :
-                <div style={{width: '10px', height: '10px', backgroundColor: '#14c4b2', margin: 'auto auto auto 15px', borderRadius: '100px'}}/>
+                <div style={{width: '10px', height: '10px', backgroundColor: '#14c4b2', margin: 'auto auto auto 10px', borderRadius: '100px'}}/>
             }
 
 
