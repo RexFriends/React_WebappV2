@@ -17,8 +17,14 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
     const [notificationId, setNotificationId] = useState<number>();
     const [image, setImage] = useState<string>('');
     const [loadMore, setLoadMore] = useState<boolean>(false);
+    const [previousScrollTop, setPreviousScrollTop] = useState<number>(0);
     const appContext = useContext<IAppContext>(AppContext);
     const { notifications, notificationTotal, loadNextNotifications, updateNotifications } = appContext;
+
+    useEffect(() => {
+        const scrollElement = document.getElementById('notif-scroll');
+        if (page === 'notifications' && scrollElement) scrollElement.scrollTop = previousScrollTop;
+    }, [page]);
 
     const performUpdateCall = (toUpdate: Array<NotificationUpdate>) => {
         const rexUID = localStorage.getItem('rexUID');
@@ -89,6 +95,7 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
         }]);
 
         setNotificationId(notification.id);
+        setPreviousScrollTop(document.getElementById('notif-scroll')!.scrollTop);
         setPage(notification.notif_type === 'Request' ? 'request' : 'feedback');
         setImage(image);
     };
@@ -121,7 +128,7 @@ function NotificationPopup({ open, onClose }: INotificationPopupProps) {
         >
             {page === 'notifications' ? (
                 <Grid style={{ height: '100%' }} container>
-                    <div style={{ height: '100%', margin: '0px auto', overflow: 'auto' }} onScroll={handleScroll}>
+                    <div id="notif-scroll" style={{ height: '100%', margin: '0px auto', overflow: 'auto' }} onScroll={handleScroll}>
                         <h3 style={{ margin: '15px auto 0px 30px', color: '#525252', fontSize: '25px' }}>
                             Notifications
                         </h3>

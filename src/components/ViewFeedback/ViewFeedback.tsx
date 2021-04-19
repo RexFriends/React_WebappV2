@@ -44,16 +44,16 @@ function ViewFeedback({ notificationId, image, setPage }: IViewFeedbackProps): J
                     View Feedback
                 </span>
             </Grid>
-            <Grid style={{ width: "100%", height: 175, marginTop: 15 }} justify="center" container item>
-                <div style={{ display: 'flex', height: "95%", width: '50%', justifyContent: 'center' }}>
+            <Grid style={{ width: "100%", height: 'auto', marginTop: 15 }} justify="center" alignItems="center" container item>
+                <div style={{ display: 'flex', width: '50%', justifyContent: 'center' }}>
                     <img
                         src={image}
                         alt="product img"
-                        style={{ maxHeight: '100%', maxWidth: '100%' }}
+                        style={{ maxHeight: 200, maxWidth: '100%' }}
                     />
                 </div>
                 <Grid
-                    style={{ width: "40%" }}
+                    style={{ width: "40%", marginLeft: '5%' }}
                     justify="space-evenly"
                     direction="column"
                     container
@@ -63,7 +63,7 @@ function ViewFeedback({ notificationId, image, setPage }: IViewFeedbackProps): J
                         <span style={{ fontWeight: 'bold', marginBottom: 5 }}>{notification.product_info.brand}</span>
                         <span>{notification.product_info.name}</span>
                     </Grid>
-                    <span>{notification.product_info.price}</span>
+                    <span style={{ marginTop: 15 }}>{notification.product_info.price}</span>
                 </Grid>
             </Grid>
             <Grid style={{ margin: '10px 0 10px -15px', width: 'calc(100% + 30px)' }} item>

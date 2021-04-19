@@ -89,50 +89,48 @@ function SendFeedback({ notificationId, image, setPage, handleSendFeedback }: IS
                 container
                 item
             >
-                <div style={{ margin: "10px 0", width: 'calc(100%-60px)', display: 'flex', flexDirection: 'column' }}>
-                    {
-                        notification.did_reply ? (
-                                <>
-                                    <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
-                                    { notification.thumbs_up ?
-                                    <IconButton
-                                        className="highlight1"
-                                        style={{ color: "#37DB69", width: "70px", height: "70px", margin: 'auto' }}
-                                        disabled
-                                    >
-                                        <AiOutlineSmile style={{ width: "60px", height: "60px" }} />
-                                    </IconButton>
-                                    :
-                                    <IconButton
-                                        className="highlight2"
-                                        style={{ color: "#FD6C73", width: "70px", height: "70px", margin: 'auto' }}
-                                        disabled
-                                    >
-                                        <AiOutlineFrown style={{ width: "60px", height: "60px" }} />
-                                    </IconButton>
-                                    }
-                                    <span>{notification.additional_info}</span>
-                                </>
-                        ) : (
-                            <>
-                                <IconButton
-                                    className={thumbs === false ? "highlight2" : ""}
-                                    style={{ color: "#FD6C73", width: "70px", height: "70px" }}
-                                    onClick={() => setThumbs(false)}
-                                >
-                                    <AiOutlineFrown style={{ width: "100%", height: "100%" }} />
-                                </IconButton>
-                                <IconButton
-                                    className={thumbs === true ? "highlight1" : ""}
-                                    style={{ color: "#37DB69", width: "70px", height: "70px" }}
-                                    onClick={() => setThumbs(true)}
-                                >
-                                    <AiOutlineSmile style={{ width: "100%", height: "100%" }} />
-                                </IconButton>
-                            </>
-                        )
-                    }
-                </div>
+                {
+                    notification.did_reply ? (
+                        <div style={{ margin: "10px 0", width: 'calc(100%-60px)', display: 'flex', flexDirection: 'column' }}>
+                            <span style={{marginBottom: '10px', marginLeft: '55px', fontWeight: 'bold'}}>Feedback Sent!</span>
+                            { notification.thumbs_up ?
+                            <IconButton
+                                className="highlight1"
+                                style={{ color: "#37DB69", width: "70px", height: "70px", margin: 'auto' }}
+                                disabled
+                            >
+                                <AiOutlineSmile style={{ width: "60px", height: "60px" }} />
+                            </IconButton>
+                            :
+                            <IconButton
+                                className="highlight2"
+                                style={{ color: "#FD6C73", width: "70px", height: "70px", margin: 'auto' }}
+                                disabled
+                            >
+                                <AiOutlineFrown style={{ width: "60px", height: "60px" }} />
+                            </IconButton>
+                            }
+                            <span>{notification.additional_info}</span>
+                        </div>
+                    ) : (
+                        <Grid justify="center" container item>
+                            <IconButton
+                                className={thumbs === false ? "highlight2" : ""}
+                                style={{ color: "#FD6C73", width: "70px", height: "70px" }}
+                                onClick={() => setThumbs(false)}
+                            >
+                                <AiOutlineFrown style={{ width: "100%", height: "100%" }} />
+                            </IconButton>
+                            <IconButton
+                                className={thumbs === true ? "highlight1" : ""}
+                                style={{ color: "#37DB69", width: "70px", height: "70px" }}
+                                onClick={() => setThumbs(true)}
+                            >
+                                <AiOutlineSmile style={{ width: "100%", height: "100%" }} />
+                            </IconButton>
+                        </Grid>
+                    )
+                }
                 {
                     !notification.did_reply && (
                         <>
