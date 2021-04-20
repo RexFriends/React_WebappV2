@@ -29,6 +29,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
     const [showAddToClosetPopup, setShowAddToClosetPopup] = useState(false);
     const [friends, friendsSet] = useState([]);
     const [text, setText] = useState("");
+    const [confirmDeleteShow, confirmDeleteShowSet] = useState(false);
 
     useEffect(() => {
         if (item.images !== null) {
@@ -177,6 +178,10 @@ function ProductItem({ item, isOwned, updateProducts }) {
         }
     };
 
+    const confirmDelete = () => {
+        confirmDeleteShowSet(true);
+    };
+
     const handleDelete = () => {
         const rexUID = localStorage.getItem("rexUID");
         fetch(`${APIURL}/api/deletelisting?uid=${rexUID}`, {
@@ -193,6 +198,7 @@ function ProductItem({ item, isOwned, updateProducts }) {
                 showAlert("Removed product!", "success");
                 updateProducts();
                 setShowPopup(false);
+                confirmDeleteShowSet(false);
             })
             .catch((err) => {
                 console.error(err);
@@ -356,7 +362,10 @@ function ProductItem({ item, isOwned, updateProducts }) {
                 <OptionsPopup
                     anchorElementId={productId}
                     open={showPopup}
-                    onClose={() => setShowPopup(false)}
+                    onClose={() => {
+                        setShowPopup(false);
+                        confirmDeleteShowSet(false);
+                    }}
                     title="Options"
                     buttons={[
                         {
@@ -375,8 +384,12 @@ function ProductItem({ item, isOwned, updateProducts }) {
                             icon: <FileCopy />,
                         },
                         {
-                            text: "Remove Product",
-                            onClick: handleDelete,
+                            text: confirmDeleteShow
+                                ? "Confirm"
+                                : "Remove Product",
+                            onClick: confirmDeleteShow
+                                ? handleDelete
+                                : confirmDelete,
                             isDelete: true,
                         },
                     ]}
