@@ -233,13 +233,13 @@ function ProductItem({ item, isOwned, updateProducts }) {
                     <Grid xs={8} direction="column" container item>
                         <TextOverflow
                             style={{
-                                fontSize: "15pt",
+                                fontSize: "12pt",
                                 fontWeight: "bold",
                                 textAlign: "left",
                                 zIndex: "150",
                             }}
                             text={brand}
-                            overflowLength={15}
+                            overflowLength={12}
                         />
 
                         <TextOverflow
