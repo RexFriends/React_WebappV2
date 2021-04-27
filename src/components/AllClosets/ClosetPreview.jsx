@@ -165,7 +165,7 @@ function ClosetPreview({ closet, updateClosets }) {
                             marginRight: 10,
                             fontWeight: 600,
                             position: "absolute",
-                            textTransform: "none"
+                            textTransform: "none",
                         }}
                     >
                         Share

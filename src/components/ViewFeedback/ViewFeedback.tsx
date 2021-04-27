@@ -60,7 +60,7 @@ function ViewFeedback({ notificationId, image, setPage }: IViewFeedbackProps): J
                     item
                 >
                     <Grid direction="column" container item>
-                        <span style={{ fontWeight: 'bold', marginBottom: 5 }}>{notification.product_info.brand}</span>
+                        <span style={{ fontWeight: 'bold', marginBottom: 5, fontFamily: 'Baloo 2' }}>{notification.product_info.brand}</span>
                         <span>{notification.product_info.name}</span>
                     </Grid>
                     <span style={{ marginTop: 15 }}>{notification.product_info.price}</span>

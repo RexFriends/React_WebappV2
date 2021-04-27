@@ -149,9 +149,17 @@ function Closet() {
                             </div>
                             {
                                 !showClosetForm && (
-                                    <IconButton onClick={showEditForm} id="edit-form-button">
-                                        <FiEdit2 />
-                                    </IconButton>
+                                    // <IconButton onClick={showEditForm} id="edit-form-button">
+                                     //   <FiEdit2 /> 
+                                    // </IconButton> 
+                                    <Button 
+                                        onClick={showEditForm} 
+                                        id="edit-form-button" 
+                                        style={{
+                                            color: `#${headerColor}`
+                                        }}>
+                                        Edit
+                                    </Button>
                                 )
                             }
                         </motion.div>

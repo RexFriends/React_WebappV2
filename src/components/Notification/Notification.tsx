@@ -69,13 +69,13 @@ function Notification({ notification, updater, openNotification }: INotification
                     {
                         notification.seen ?
                         <span>
-                            <span style={{ fontWeight: 'bold', color: '#737373'}}>{name}</span>
+                            <span style={{ fontWeight: 'bold', color: '#737373', fontFamily: 'Baloo 2'}}>{name}</span>
                             <span style={{color: '#737373'}}>
                             &nbsp;{notification.notif_type === 'Request' ? 'wants your feedback on' : 'sent you feedback on'}
                             &nbsp;
                             </span>
 
-                            <span style={{ fontWeight: 'bold', color: '#737373' }}>
+                            <span style={{ fontWeight: 'bold', color: '#737373', fontFamily: 'Baloo 2' }}>
                                 <TextOverflow
                                     text={notification.product_info.name ? notification.product_info.name.split(',')[0] : 'Something'}
                                     overflowLength={30}
@@ -84,7 +84,7 @@ function Notification({ notification, updater, openNotification }: INotification
                         </span>
                         :
                         <span>
-                            <span style={{ fontWeight: 'bold' }}>{name}</span>
+                            <span style={{ fontWeight: 'bold', fontFamily: 'Baloo 2' }}>{name}</span>
                         &nbsp;{notification.notif_type === 'Request' ? 'wants your feedback on' : 'sent you feedback on'}
                         &nbsp;
                         <span style={{ fontWeight: 'bold' }}>
