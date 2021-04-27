@@ -8,6 +8,7 @@ import { FiEdit2 } from 'react-icons/fi';
 import APIURL from '../../assets/URL';
 import ProductItem from '../ProductItem/ProductItem';
 import './Closet.scss';
+import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
 
 function Closet() {
     const history = useHistory();
@@ -138,49 +139,70 @@ function Closet() {
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <IconButton
-                                id="back-button"
-                                onClick={handleBackButton}
-                            >
-                                <ArrowBack />
-                            </IconButton>
-                            <div id="text">
-                                <div id="name">{closetData.name}</div>
-                            </div>
-                            
-                            {
-                                
-                                !showClosetForm ? (
-                                    // <IconButton onClick={showEditForm} id="edit-form-button">
-                                     //   <FiEdit2 /> 
-                                    // </IconButton> 
-                                    <Button 
-                                        onClick={()=>{showEditForm()}} 
-                                        id="edit-form-button" 
-                                        style={{
-                                            color: `#${headerColor}`
-                                        }}>
-                                        Edit
+                            <div style={{display: 'flex', flexDirection: 'column', margin: '0', width: '100%'}}>
+                                <div style={{margin: '0 0 auto 0', width: '100%', display: 'flex', flexDirection: 'row'}}>
+                                    <IconButton
+                                        id="back-button"
+                                        onClick={handleBackButton}
+                                    >
+                                        <ArrowBack />
+                                    </IconButton>
+                                    <div id="text">
+                                        <div id="name">{closetData.name}</div>
+                                    </div>
+                                    
+                                    {
+                                        
+                                        !showClosetForm ? (
+                                            // <IconButton onClick={showEditForm} id="edit-form-button">
+                                            //   <FiEdit2 /> 
+                                            // </IconButton> 
+                                            <Button 
+                                                onClick={()=>{showEditForm()}} 
+                                                id="edit-form-button" 
+                                                style={{
+                                                    color: `#${headerColor}`
+                                                }}>
+                                                Edit
+                                            </Button>
+                                        ) : (
+                                        <Button 
+                                            onClick={()=>{handleUpdateCloset()}} 
+                                            id="edit-form-button" 
+                                            style={{
+                                                color: `#${headerColor}`
+                                            }}>
+                                            Save
+                                        </Button>
+
+                                        )
+                                    }
+                                </div>
+                                {
+                                    
+                                    showClosetForm && 
+                                    <Button component="label" style={{display: 'flex', flexDirection: 'row', fontFamily: 'baloo 2', fontSize: '20px', margin: '20px 20px auto auto', textTransform: 'none', color: 'white'}}>
+                                        <PublishRoundedIcon style={{color: 'white', width: '30px', height: '30px', margin: 'auto 5px auto auto'}}>
+
+                                        </PublishRoundedIcon>
+                                        Upload thumbnail
+
+                                        <div id="upload" style={{position: 'absolute', width: '100%', height: '100%'}}>
+                                            <input
+                                                style={{ display: 'none' }}
+                                                id="raised-button-file"
+                                                multiple
+                                                type="file"
+                                                accept="image/jpeg"
+                                                onChange={handleUpload}
+                                            />
+                                            <label htmlFor="raised-button-file">
+                                                <Button component="span" id="upload-button" />
+                                            </label>
+                                        </div>
                                     </Button>
-                                ) : (
-                                <>
-                                <Button 
-                                    onClick={()=>{handleUpdateCloset()}} 
-                                    id="edit-form-button" 
-                                    style={{
-                                        color: `#${headerColor}`
-                                    }}>
-                                    Save
-                                </Button>
-                                
-                                
-                                <br></br>
-                                <span>Upload Thumbnail</span>
-                                </>
-                                )
-                            }
-                            
-                            
+                                }
+                            </div>
                         
                         </motion.div>
                     ) : (
@@ -208,6 +230,7 @@ function Closet() {
             <AnimatePresence>
                 {
                     showClosetForm ? (
+                    
                         <motion.div
                             id="editForm"
                             initial={{ y: 100, opacity: 0 }}
@@ -238,52 +261,33 @@ function Closet() {
                                     style={{margin: '0px 30px auto auto'}}
                                 />
                             </div>
-                            <div id="currentImage">
-                                {
-                                    imageUpload ? (
-                                        <div id="image">
-                                            <img id="closet-img" alt="closet" src={imageUpload} />
-                                        </div>
-                                    ) : (
-                                        <div id="image">
-                                            <img
-                                                id="closet-img"
-                                                alt="closet"
-                                                src="https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
-                                            />
-                                        </div>
-                                    )
-                                }
-                                <div id="upload">
-                                    <input
-                                        style={{ display: 'none' }}
-                                        id="raised-button-file"
-                                        multiple
-                                        type="file"
-                                        accept="image/jpeg"
-                                        onChange={handleUpload}
-                                    />
-                                    <label htmlFor="raised-button-file">
-                                        <Button component="span" id="upload-button" />
-                                    </label>
-                                </div>
-                            </div>
+
+                            <Grid id="item-container" style={{minHeight: '500px'}}spacing={2} container>
+                                {closetData && closetData.listings.map(p => (
+                                    <Grid key={p.id} item>
+                                        <ProductItem item={p} isOwned={isOwned} updateProducts={fetchCloset} isEditing={true}/>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            
                     </motion.div>
-                ) : (
-                    <motion.div
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.3, delay: 0.1 }}
-                    >
-                        <Grid id="item-container" spacing={2} container>
-                            {closetData && closetData.listings.map(p => (
-                                <Grid key={p.id} item>
-                                    <ProductItem item={p} isOwned={isOwned} updateProducts={fetchCloset} />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </motion.div>
-                )}
+                
+                    ):(
+                <motion.div
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                >
+                    <Grid id="item-container" style={{minHeight: '500px'}}spacing={2} container>
+                        {closetData && closetData.listings.map(p => (
+                            <Grid key={p.id} item>
+                                <ProductItem item={p} isOwned={isOwned} updateProducts={fetchCloset} isEditing={false} />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </motion.div>
+                    )}
+            
             </AnimatePresence>
         </motion.div>
     );
