@@ -17,7 +17,7 @@ import { showAlert } from "../Alerts/Alerts";
 import AddToClosetPopup from "../AddToClosetPopup/AddToClosetPopup";
 import Button from "@material-ui/core/Button";
 
-function ProductItem({ item, isOwned, updateProducts }) {
+function ProductItem({ item, isOwned, updateProducts, isEditing }) {
     const [hover, hoverSet] = useState(false);
     const [image, imageSet] = useState(undefined);
     const [brand, brandSet] = useState("Brand");
@@ -285,7 +285,16 @@ function ProductItem({ item, isOwned, updateProducts }) {
                     </Grid>
                 </Grid>
                 <AnimatePresence>
-                    {(hover || showFeedbackPopup) && (
+                    {
+                        isEditing &&
+                        <Button
+                        style={{position: 'absolute', top: -8, right: -8, minWidth: '23px', minHeight: '23px', backgroundColor: 'red', borderRadius: '100px', zIndex: 5000}}>
+
+                        </Button> 
+                    }
+                
+                    {
+                    (hover && !isEditing || showFeedbackPopup && !isEditing) && (
                         <motion.div
                             id="overlay"
                             initial={{ opacity: 0 }}
