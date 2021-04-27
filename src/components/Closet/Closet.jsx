@@ -13,7 +13,7 @@ function Closet() {
     const history = useHistory();
 
     const [closetData, closetDataSet] = useState(undefined);
-    const [showClosetForm, showClosetFormSet] = useState(false);
+    const [showClosetForm, showClosetFormSet] = useState(true);
     const [publicValue, publicValueSet] = useState(true);
     const [closetName, closetNameSet] = useState(undefined);
     const [imageUpload, imageUploadSet] = useState(undefined);
@@ -147,21 +147,41 @@ function Closet() {
                             <div id="text">
                                 <div id="name">{closetData.name}</div>
                             </div>
+                            
                             {
-                                !showClosetForm && (
+                                
+                                !showClosetForm ? (
                                     // <IconButton onClick={showEditForm} id="edit-form-button">
                                      //   <FiEdit2 /> 
                                     // </IconButton> 
                                     <Button 
-                                        onClick={showEditForm} 
+                                        onClick={()=>{showEditForm()}} 
                                         id="edit-form-button" 
                                         style={{
                                             color: `#${headerColor}`
                                         }}>
                                         Edit
                                     </Button>
+                                ) : (
+                                <>
+                                <Button 
+                                    onClick={()=>{handleUpdateCloset()}} 
+                                    id="edit-form-button" 
+                                    style={{
+                                        color: `#${headerColor}`
+                                    }}>
+                                    Save
+                                </Button>
+                                
+                                
+                                <br></br>
+                                <span>Upload Thumbnail</span>
+                                </>
                                 )
                             }
+                            
+                            
+                        
                         </motion.div>
                     ) : (
                         <motion.div
@@ -173,7 +193,7 @@ function Closet() {
                         >
                             <IconButton
                                 id="back-button"
-                                onClick={handleBackButtonSocial}
+                                onClick={()=>{handleBackButtonSocial()}}
                             >
                                 <ArrowBack />
                             </IconButton>
@@ -194,19 +214,7 @@ function Closet() {
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.3, delay: 0.1 }}
                         >
-                            <div id="row">
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            color="primary"
-                                            checked={publicValue ?? false}
-                                            onChange={() => publicValueSet(!publicValue)}
-                                        />
-                                    }
-                                    label="Public :"
-                                    labelPlacement="start"
-                                />
-                            </div>
+                           
                             <div id="row">
                                 <div id="label">Closet Name :</div>
                                 <div id="field">
@@ -217,6 +225,18 @@ function Closet() {
                                         }}
                                     />
                                 </div>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            color="primary"
+                                            checked={publicValue ?? false}
+                                            onChange={() => publicValueSet(!publicValue)}
+                                        />
+                                    }
+                                    label="Public :"
+                                    labelPlacement="start"
+                                    style={{margin: '0px 30px auto auto'}}
+                                />
                             </div>
                             <div id="currentImage">
                                 {
@@ -248,9 +268,6 @@ function Closet() {
                                     </label>
                                 </div>
                             </div>
-                        <Button id="save-button" onClick={handleUpdateCloset}>
-                            Save
-                        </Button>
                     </motion.div>
                 ) : (
                     <motion.div

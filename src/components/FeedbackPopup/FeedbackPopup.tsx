@@ -88,7 +88,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
             transformOrigin={origin}
             PaperProps={{
                 style: {
-                    padding: "15px 15px 3px 15px",
+                    padding: "15px 0px 3px 15px",
                     borderRadius: 15,
                 },
             }}
@@ -191,7 +191,7 @@ function FeedbackPopup(props: IFeedbackPopupProps): JSX.Element {
                         />
                     </Grid>
                 )}
-                <Grid style={{ height: "30vh", maxHeight: 450 }} item>
+                <Grid style={{ height: "30vh", maxHeight: 450, width: 350 }} item>
                     <div style={{ height: "98%", marginTop: "5px", overflowY: 'auto' }}>
                         {friends.map(f => (
                             <Grid key={f.id} style={{ width: "100%" }} item>
