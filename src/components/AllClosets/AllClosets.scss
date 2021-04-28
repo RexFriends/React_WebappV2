@@ -15,6 +15,7 @@
     #closet-container {
         padding: 10px;
         margin: 0 10px;
+        position: relative;
 
         #new-closet {
             width: 220px;
@@ -109,6 +110,15 @@
                 // border: solid red 2px;
             }
         }
+
+        .closet-drop {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 10px;
+            background: #ff0000;
+        }
+
         #overlay {
             border: solid rgba(0, 0, 0, 0.05) 1px;
             position: absolute;

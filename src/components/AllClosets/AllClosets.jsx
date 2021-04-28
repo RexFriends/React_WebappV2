@@ -3,8 +3,7 @@ import APIURL from '../../assets/URL';
 import './AllClosets.scss';
 import ClosetPreview from './ClosetPreview';
 import { motion } from 'framer-motion';
-import { Button, Checkbox, FormControlLabel, Grid, TextField, StylesProvider } from '@material-ui/core';
-import { Close, LibraryAdd } from '@material-ui/icons';
+import { Grid } from '@material-ui/core';
 import { showAlert } from '../Alerts/Alerts';
 import NewClosetTile from '../NewClosetTile/NewClosetTile';
 
@@ -14,7 +13,7 @@ function AllClosets() {
     const [creatingCloset, creatingClosetSet] = useState(false);
     const [closetName, closetNameSet] = useState("");
     const [isPublic, setIsPublic] = useState(false);
-
+    const [dropsInitialized, setDropsInitialized] = useState(false);
 
     const fetchClosets = () => {
         fetch(`${APIURL}/api/closet_preview?uid=${rexUID}`)
@@ -30,6 +29,30 @@ function AllClosets() {
     useEffect(() => {
         fetchClosets();
     }, [rexUID]);
+
+    useEffect(() => {
+        if (!closetData || !closetData.length) return;
+        const container = document.getElementById('closet-container');
+        const containerClientRect = container.getBoundingClientRect();
+
+        if (dropsInitialized) {
+            const drops = document.getElementsByClassName('closet-drop');
+            Array.prototype.forEach.call(drops, d => {
+                container.removeChild(d);
+            });
+        } else setDropsInitialized(true);
+
+        closetData.forEach(c => {
+            const drop = document.createElement('div');
+            const anchor = document.getElementById(c.id.toString());
+            const tile = anchor.firstChild;
+            const tileClientRect = tile.getBoundingClientRect();
+            drop.className = 'closet-drop';
+            drop.style.top = `${tileClientRect.top - containerClientRect.top - 100}px`;
+            drop.style.left = `${tileClientRect.left - containerClientRect.left}px`;
+            container.insertBefore(drop, anchor);
+        });
+    }, [closetData]);
 
     async function handleNewCloset() {
         if (closetName.length === 0) {
@@ -95,7 +118,7 @@ function AllClosets() {
                         />
                     </Grid>
                     {closetData.map(c => (
-                        <Grid key={c.id} item>
+                        <Grid key={c.id} id={c.id.toString()} item>
                             <ClosetPreview closet={c} updateClosets={fetchClosets} />
                         </Grid>
                     ))}
