@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button, Checkbox, FormControlLabel, StylesProvider, TextField } from '@material-ui/core';
 import { Close, LibraryAdd } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
 export interface INewClosetTileProps {
     closetName: string,
@@ -12,6 +13,41 @@ export interface INewClosetTileProps {
     handlePublicChange: () => void,
     handleNewCloset: () => Promise<any>
 }
+
+const CssTextField = withStyles({
+    root: {
+        '& label.Mui': {
+            color: 'red !important',
+            },
+        '& label.Mui-focused': {
+            color: 'white',
+        },
+        '& .MuiInput-underline:before': {
+            borderBottomColor: 'white',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'white',
+        },
+        "& .MuiInput-underline:hover:before": {
+            borderBottomColor: "white !important"
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+            borderColor: 'white',
+            },
+            '&:hover fieldset': {
+            borderColor: 'white',
+            },
+        },
+    }
+  })(TextField);
+
+
+const CssCheckbox = withStyles({
+    root: {
+        color: 'white !important'
+    }
+  })(Checkbox);
 
 function NewClosetTile(props: INewClosetTileProps): JSX.Element {
     const { closetName, closetNameSet, creatingCloset, handleEditCloset, isPublic, handlePublicChange, handleNewCloset } = props;
@@ -39,13 +75,16 @@ function NewClosetTile(props: INewClosetTileProps): JSX.Element {
                                 <Close style={{color: 'white', width: '30x', height: '30px'}} />
                             </Button>
                             <StylesProvider injectFirst>
-                                <TextField
+                                <CssTextField
                                     id="text"
                                     style={{margin: 'auto auto 0px auto', color: '#fff'}}
                                     label='Closet Name'
                                     InputProps={{
                                         /* @ts-ignore */
-                                        style: { color: '#fff', borderRadius: 50, borderBottomColor: '#fff', borderColor: '#fff' }
+                                        style: { color: 'white', borderRadius: 50, borderBottomColor: '#fff', borderColor: '#fff' }
+                                    }}
+                                    InputLabelProps={{
+                                        style: {color: 'white'}
                                     }}
                                     value={closetName}
                                     onChange={(e) => {
@@ -55,15 +94,14 @@ function NewClosetTile(props: INewClosetTileProps): JSX.Element {
                             </StylesProvider>
                             <FormControlLabel
                                 control={
-                                    <Checkbox
+                                    <CssCheckbox
                                         checked={isPublic}
                                         onChange={() => {handlePublicChange()}}
                                         name="checkedA"
-                                        color="primary"
                                     />
                                 }
                                 label="Public"
-                                style={{ color: 'white' }}
+                                style={{ color: 'white', marginLeft: '15px', fontFamily: 'baloo2'}}
                             />
                             <Button
                                 variant="contained"
