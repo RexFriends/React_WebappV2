@@ -23,6 +23,9 @@
             justify-content: center;
             color: #ffffff;
             mix-blend-mode: luminosity;
+            #closet-name {
+                margin: auto auto auto 0;
+            }
             #user {
                 font-size: calc(8px + 1.5vw);
                 font-weight: 600;
