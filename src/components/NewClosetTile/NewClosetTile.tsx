@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button, Checkbox, FormControlLabel, StylesProvider, TextField } from '@material-ui/core';
+import { Button, Checkbox, FormControlLabel, StylesProvider, TextField, Tooltip,IconButton } from '@material-ui/core';
 import { Close, LibraryAdd } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 export interface INewClosetTileProps {
     closetName: string,
@@ -47,7 +48,16 @@ const CssCheckbox = withStyles({
     root: {
         color: 'white !important'
     }
-  })(Checkbox);
+})(Checkbox);
+
+const LightTooltip = withStyles({
+    tooltip: {
+        backgroundColor: 'white',
+        color: 'rgba(0, 0, 0, 0.87)',
+        boxShadow: '0 rgba(0, 0, 0, .5);',
+        fontSize: 11
+    }
+})(Tooltip);
 
 function NewClosetTile(props: INewClosetTileProps): JSX.Element {
     const { closetName, closetNameSet, creatingCloset, handleEditCloset, isPublic, handlePublicChange, handleNewCloset } = props;
@@ -92,17 +102,27 @@ function NewClosetTile(props: INewClosetTileProps): JSX.Element {
                                     }}
                                 />
                             </StylesProvider>
-                            <FormControlLabel
-                                control={
-                                    <CssCheckbox
-                                        checked={isPublic}
-                                        onChange={() => {handlePublicChange()}}
-                                        name="checkedA"
-                                    />
-                                }
-                                label="Public"
-                                style={{ color: 'white', marginLeft: '15px', fontFamily: 'baloo2'}}
-                            />
+                            {/* <div> */}
+                                <FormControlLabel
+                                    control={
+                                        <CssCheckbox
+                                            checked={isPublic}
+                                            onChange={() => {handlePublicChange()}}
+                                            name="checkedA"
+                                        />
+                                    }
+                                    label="Public"
+                                    style={{ color: 'white', marginLeft: '15px', fontFamily: 'baloo2'}}
+                                />
+                                {/* <LightTooltip title="Add"> */}
+                                    {/* <Button styles={{marginTop: 'auto', marginBottom: 'auto'}}> */}
+                                        {/* <InfoOutlinedIcon styles={{color: 'white'}}/> */}
+                                    {/* </Button> */}
+                                    {/* <Button>s</Button> */}
+                                    
+                                    {/* <Button>asdf</Button> */}
+                                {/* </LightTooltip> */}
+                            {/* </div> */}
                             <Button
                                 variant="contained"
                                 color="primary"
