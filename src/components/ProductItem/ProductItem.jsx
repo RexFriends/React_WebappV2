@@ -16,6 +16,7 @@ import { copyFallback } from "../../util";
 import { showAlert } from "../Alerts/Alerts";
 import AddToClosetPopup from "../AddToClosetPopup/AddToClosetPopup";
 import Button from "@material-ui/core/Button";
+import CancelIcon from '@material-ui/icons/Cancel';
 
 function ProductItem({ item, isOwned, updateProducts, isEditing }) {
     const [hover, hoverSet] = useState(false);
@@ -287,10 +288,12 @@ function ProductItem({ item, isOwned, updateProducts, isEditing }) {
                 <AnimatePresence>
                     {
                         isEditing &&
-                        <Button
-                        style={{position: 'absolute', top: -8, right: -8, minWidth: '23px', minHeight: '23px', backgroundColor: 'red', borderRadius: '100px', zIndex: 5000}}>
-
-                        </Button> 
+                        <IconButton
+                        style={{position: 'absolute', top: -8, right: -8, minWidth: '23px', width: '23px', height: '23px', minHeight: '23px', borderRadius: '100px', zIndex: 5000}}
+                        onClick={()=>{handleDelete()}}
+                        >
+                            <CancelIcon style={{color: "red", width: '23px', height: '23px'}}/>
+                        </IconButton> 
                     }
                 
                     {
