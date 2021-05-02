@@ -65,13 +65,22 @@ function ProductItem({ item, isOwned, updateProducts, isEditing }) {
     }, [text]);
 
     const handleShowFeedbackPopup = () => {
-        setShowFeedbackPopup(true);
-        setShowPopup(false);
+        const rexUID = localStorage.getItem("rexUID");
+        if (rexUID === null)
+        {
+            showAlert("Must be Logged in!", "error");
+        } else {
+            setShowFeedbackPopup(true);
+            setShowPopup(false);
+        }
     };
 
     const handleSendRequest = (id, isUser) => {
         const rexUID = localStorage.getItem("rexUID");
-
+        if (rexUID === null)
+        {
+            showAlert("Must be Logged in!", "error");
+        }
         const payload = {
             user_requesting_id: null,
             contact_id: null,
@@ -208,8 +217,14 @@ function ProductItem({ item, isOwned, updateProducts, isEditing }) {
     };
 
     const handleShowAddToClosetPopup = () => {
-        setShowAddToClosetPopup(true);
-        setShowPopup(false);
+        const rexUID = localStorage.getItem("rexUID");
+        if (rexUID === null)
+        {
+            showAlert("Must be Logged in!", "error");
+        } else {
+            setShowAddToClosetPopup(true);
+            setShowPopup(false);
+        }
     };
 
     const handleOpenLink = () => {

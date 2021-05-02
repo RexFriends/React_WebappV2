@@ -27,7 +27,11 @@ function Closet() {
         const rexUID = localStorage.getItem('rexUID');
 
         let idParams = '';
-        if (rexUID !== null) idParams = `?uid=${rexUID}&id=${id}`;
+        if (rexUID !== null) {
+            idParams = `?uid=${rexUID}&id=${id}`;
+        } else {
+            idParams = `?id=${id}`;
+        }
         const url = `${APIURL}/api/closet${idParams}`;
 
         fetch(url)

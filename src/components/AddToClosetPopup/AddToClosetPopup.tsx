@@ -38,6 +38,7 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
 
     const fetchClosets = () => {
         const rexUID = localStorage.getItem("rexUID");
+        if (rexUID !== null) {
         fetch(`${APIURL}/api/closet_preview?uid=${rexUID}`)
             .then((res) => res.json())
             .then((json) => {
@@ -49,6 +50,7 @@ function AddToClosetPopup(props: IAddToClosetPopupProps): JSX.Element {
                 }, {});
                 setClosetsChecked(checked);
             });
+        }
     };
 
     useEffect(() => {
