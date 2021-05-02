@@ -7,6 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
 import Button from "@material-ui/core/Button";
 import { RiUser3Fill, RiUserHeartFill } from "react-icons/ri";
+import { showAlert } from "../Alerts/Alerts";
 
 import ClosetPreview from "./ClosetPreview";
 
@@ -44,7 +45,10 @@ function Profile() {
 
     const handleFollow = () => {
         // fetch call to change follow state
-
+        if (!currUserInfo.is_rex_user){
+            showAlert("Must be logged in!", "error");
+        }
+        else {
         console.log("Change follow state to:", id);
 
         if (following) {
@@ -70,10 +74,13 @@ function Profile() {
                     followingSet(true);
                 });
         }
+    }
     };
 
     const handleBack = () => {
-        history.push("/closets");
+        if (rexUID !== null){
+            history.push("/closets");
+        }
     };
 
     const handleProfileMenu = () => {
@@ -92,9 +99,12 @@ function Profile() {
                     <div id="name">{`${userData.first_name} ${userData.last_name}`}</div>
                     <div id="username">@{userData.username}</div>
                     <div id="buttons">
-                        <IconButton id="back" onClick={handleBack}>
-                            <BiArrowBack />
-                        </IconButton>
+                        
+                            <IconButton id="back" onClick={handleBack}>
+                                <BiArrowBack />
+                            </IconButton>
+                        
+                       
                         <div id="closetcount">{`${userData.followers} Followers | ${userData.count} Closets`}</div>
                         <div id="profile-options">
                             <Button

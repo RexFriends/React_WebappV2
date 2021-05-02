@@ -63,7 +63,7 @@ function Dashboard({ children }) {
                         closetDataSet(updatedData);
                     } else {
                         userAuthSet(false);
-                        if (history.location.pathname.slice(0, 9) != '/closets/')
+                        if (history.location.pathname.slice(0, 9) != '/closets/' && history.location.pathname.slice(0, 6) != '/user/')
                         {
                             
                             history.push("/login");
@@ -73,7 +73,8 @@ function Dashboard({ children }) {
                 });
         } else {
             userAuthSet(false);
-            if (history.location.pathname.slice(0, 9) != '/closets/')
+            console.log(history.location.pathname.slice(0, 6))
+            if (history.location.pathname.slice(0, 9) != '/closets/' && history.location.pathname.slice(0, 6) != '/user/')
             {
                 history.push("/login");
             }
