@@ -15,45 +15,67 @@ import { AnimatePresence } from 'framer-motion';
 import Alerts from './components/Alerts/Alerts';
 
 function App() {
-    return (
-        <AppContextComponent>
-            <div className="App">
-                <Router>
-                    <Switch>
-                        <Route path="/login" children={<Login />} />
-                        <Route path="/feedback/:id" children={<Feedback />} />
-                        <Dashboard>
-                            <Route
-                                render={({ location }) => (
-                                    <AnimatePresence exitBeforeEnter>
-                                        <Switch location={location} key={location.pathname}>
-                                            <Route path="/saved" children={<AllProducts />} />
-                                            <Route path="/setting" children={<Setting />} />
-                                            <Route
-                                                path="/closets"
-                                                exact={true}
-                                                children={<AllClosets />}
-                                            />
-                                            <Route
-                                                path="/closets/:id"
-                                                exact={true}
-                                                children={<Closet />}
-                                            />
-                                            <Route path="/user/:id" children={<Profile />} />
-                                            <Route path="/nomatch/:id" children={<NoMatch />} />
-                                            <Route path="*">
-                                                <Redirect to="/login" />
-                                            </Route>
-                                        </Switch>
-                                    </AnimatePresence>
-                                )}
-                            />
-                        </Dashboard>
-                    </Switch>
-                </Router>
-                <Alerts />
-            </div>
-        </AppContextComponent>
+    return ( <
+        AppContextComponent >
+        <
+        div className = "App" >
+        <
+        Router >
+        <
+        Switch >
+        <
+        Route path = "/login"
+        children = { < Login / > }
+        /> <
+        Route path = "/feedback/:id"
+        children = { < Feedback / > }
+        /> <
+        Dashboard >
+        <
+        Route render = {
+            ({ location }) => ( <
+                AnimatePresence exitBeforeEnter >
+                <
+                Switch location = { location }
+                key = { location.pathname } >
+                <
+                Route path = "/saved"
+                children = { < AllProducts / > }
+                /> <
+                Route path = "/setting"
+                children = { < Setting / > }
+                /> <
+                Route path = "/closets"
+                exact = { true }
+                children = { < AllClosets / > }
+                /> <
+                Route path = "/closets/:id"
+                exact = { true }
+                children = { < Closet / > }
+                /> <
+                Route path = "/user/:id"
+                children = { < Profile / > }
+                /> <
+                Route path = "/nomatch/:id"
+                children = { < NoMatch / > }
+                /> <
+                Route path = "*" >
+                <
+                Redirect to = "/login" / >
+                <
+                /Route> <
+                /Switch> <
+                /AnimatePresence>
+            )
+        }
+        /> <
+        /Dashboard> <
+        /Switch> <
+        /Router> <
+        Alerts / >
+        <
+        /div> <
+        /AppContextComponent>
     );
 }
 

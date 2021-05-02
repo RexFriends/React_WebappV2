@@ -14,7 +14,7 @@ function Closet() {
     const history = useHistory();
 
     const [closetData, closetDataSet] = useState(undefined);
-    const [showClosetForm, showClosetFormSet] = useState(true);
+    const [showClosetForm, showClosetFormSet] = useState(false);
     const [publicValue, publicValueSet] = useState(true);
     const [closetName, closetNameSet] = useState(undefined);
     const [imageUpload, imageUploadSet] = useState(undefined);

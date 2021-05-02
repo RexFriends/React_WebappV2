@@ -35,6 +35,8 @@ class AppContextComponent extends Component<IAppContextComponentProps, IAppConte
     }
 
     private getNotifications = (index: number, length: number, concat = false): Promise<void> => {
+        const rexUID = localStorage.getItem("rexUID");
+        if (rexUID !== null) {
         const { notifications } = this.state;
 
         this.currentLoadedNotificationIndex = index + length;
@@ -57,6 +59,7 @@ class AppContextComponent extends Component<IAppContextComponentProps, IAppConte
                 } else this.allNotificationsLoaded = false; // in case new notifications come in
             })
             .catch(console.error);
+        }
     };
 
     loadNextNotifications = () => {

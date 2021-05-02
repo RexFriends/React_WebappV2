@@ -63,13 +63,21 @@ function Dashboard({ children }) {
                         closetDataSet(updatedData);
                     } else {
                         userAuthSet(false);
+                        if (history.location.pathname.slice(0, 9) != '/closets/')
+                        {
+                            
+                            history.push("/login");
+                        }
                         localStorage.removeItem("rexUID");
-                        history.push("/login");
                     }
                 });
         } else {
             userAuthSet(false);
-            history.push("/login");
+            if (history.location.pathname.slice(0, 9) != '/closets/')
+            {
+                history.push("/login");
+            }
+            //
         }
     }, [history]);
 
@@ -308,7 +316,7 @@ function Dashboard({ children }) {
                                     <div id="profile">
                                         <Button
                                             id="login-signup"
-                                            onClick={redirectLogin}
+                                            onClick={() => {redirectLogin()}}
                                         >
                                             Login / Signup
                                         </Button>
