@@ -33,7 +33,10 @@ function ProductItem({ item, isOwned, updateProducts, isEditing }) {
     const [confirmDeleteShow, confirmDeleteShowSet] = useState(false);
 
     useEffect(() => {
-        if (item.images !== null) {
+        console.log(item.images);
+        if (!item.images.includes('webscraper')) {
+            imageSet(item.images);
+        } else if (item.images !== null) {
             fetch(item.images)
                 .then((res) => res.json())
                 .then((json) => {
